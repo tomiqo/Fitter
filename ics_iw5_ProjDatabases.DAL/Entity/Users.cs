@@ -6,11 +6,11 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
 {
     class Users : BaseEntity
     {
-        public string Jmeno { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
-        public string Heslo { get; set; }
+        public string Password { get; set; }
         public string Nick { get; set; }
-        public Enums.StavyPrihlaseni Prihlasen { get; set; }
-        public string PosledniAktivita { get; set; }
+        public Enums.Status LoggedIn { get; set; }
+        public string LastActivity { get; set; } // cas posledního Akce ( komentu, příspěvku, ...)
     }
 }

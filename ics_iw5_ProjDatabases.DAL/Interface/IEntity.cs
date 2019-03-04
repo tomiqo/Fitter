@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ics_iw5_ProjDatabases.DAL.Interface
 {
-    class IEntity
+    public interface IEntity
     {
         Guid ID { get; }
     }
