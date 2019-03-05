@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
-{
-    class Attachment : BaseEntity
+{   [Table("Attachment")]
+    class Attachment
     {
-        public object Picture { get; set; }
-        public object Video { get; set; }
-        public object File { get; set; }
+        [Key]
+        [Column]
+        public int AttachmentID { get; set; }
+        [Column]
+        public byte[] File { get; set; }
+        [Column]
+        public int Members { get; set; }
+        [Column]
+        public string Name { get; set; }
+        [Column]
+        public DateTime Time { get; set; }
     }
 }

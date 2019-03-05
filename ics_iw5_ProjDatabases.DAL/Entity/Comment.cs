@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
 {
+    [Table("Comments")]
     class Comment : BaseEntity
     {
-        public Guid Author { get; set; }  
-        public string Text { get; set; }
-        public string Time { get; set; }
+        [Key]
+        [Column]
+        public int CommentID { get; set; }        
     }
 }
