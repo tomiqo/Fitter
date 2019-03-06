@@ -14,5 +14,9 @@ namespace ics_iw5_ProjDatabases.DAL.Enums
         public int PostID { get; set; }
         [Column]
         public string Title { get; set; }
+        /* Druhá možnost zapisu do tabulky
+        [Column]
+        public int TablePostID { get; set; }
+        */
     }
 }

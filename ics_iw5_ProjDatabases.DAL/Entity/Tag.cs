@@ -1,18 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
 {
-    [Table("Comments")] // odstranění jedné tabulky a generování nových
-    class Comment : BaseEntity
+    [Table("Tag")]
+    class Tag
     {
         [Key]
         [Column]
-        public int CommentID { get; set; }    
+        public int TagID { get; set; }
+
         [Column]
         [ForeignKey("PostID")]
-        public int MyPost { get; set; }
+        public int? PostFID { get; set; }
+
+        [Column]
+        [ForeignKey("CommentID")]
+        public int? CommentsFID { get; set; }
     }
 }
