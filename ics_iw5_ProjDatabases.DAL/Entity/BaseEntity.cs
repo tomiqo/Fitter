@@ -6,10 +6,9 @@ using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL
 {
-    public abstract class BaseEntity //: Interface.IEntity
+    public abstract class BaseEntity 
     {
-        //[Key]
-        //public Guid ID { get; set; }
+        
         [Column]
         [ForeignKey("UserID")]
         public int Author { get; set; }
