@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
-{   [Table("Attachment")]
+{   //[Table("Attachment")]
     class Attachment
     {
         [Key]

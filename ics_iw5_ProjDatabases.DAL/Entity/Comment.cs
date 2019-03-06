@@ -5,12 +5,15 @@ using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
 {
-    [Table("Comments")] // odstranění jedné tabulky a generování nových
+    // 1 ...
+    [Table("Comments")] 
+    // 2. odstranění jedné tabulky a generování nových
     class Comment : BaseEntity
     {
         [Key]
         [Column]
         public int CommentID { get; set; }    
+        // 1. možnost
         [Column]
         [ForeignKey("PostID")]
         public int MyPost { get; set; }

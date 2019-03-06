@@ -15,5 +15,9 @@ namespace ics_iw5_ProjDatabases.DAL
         public string Text { get; set; }
         [Column]
         public DateTime Time { get; set; }
+        [Column]
+        public int TableTagID { get; set; }
+        [Column]
+        public int TableAttachmentID { get; set; }
     }
 }

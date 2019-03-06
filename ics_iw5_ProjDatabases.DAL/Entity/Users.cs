@@ -24,6 +24,6 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         [NotMapped]
         public Enums.Status LoggedIn { get; set; }
         [Column]
-        public string LastActivity { get; set; } // cas posledního Akce ( komentu, příspěvku, ...)
+        public DateTime LastActivity { get; set; } // cas posledního Akce ( komentu, příspěvku, ...)
     }
 }
