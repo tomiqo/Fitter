@@ -8,7 +8,7 @@ namespace ics_iw5_ProjDatabases.DAL
 {
     public abstract class BaseEntity 
     {
-        
+        // Zakladni entita pro dědšní post a comment   
         [Column]
         [ForeignKey("UserID")]
         public int Author { get; set; }
