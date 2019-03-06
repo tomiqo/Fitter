@@ -16,8 +16,10 @@ namespace ics_iw5_ProjDatabases.DAL
         [Column]
         public DateTime Time { get; set; }
         [Column]
-        public int TableTagID { get; set; }
+        //Pointer to table of tags
+        public int TableOfTags { get; set; }
         [Column]
-        public int TableAttachmentID { get; set; }
+        //Pointer to table of attachments
+        public int TableOfAttachments { get; set; }
     }
 }

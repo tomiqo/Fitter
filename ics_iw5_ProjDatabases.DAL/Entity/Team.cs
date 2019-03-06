@@ -22,8 +22,11 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         [ForeignKey("UserID")]
         public int Admin { get; set; } // GET zjisti ID od zakladatele tymu
         [Column]
-        [ForeignKey("TeamUsersID")]
-        public int TableMyTeam { get; set; }
+        //Pointer to table of team users
+        public int TableOfUsers { get; set; }
+        [Column]
+        //Pointer to table of posts
+        public int TableOfPosts { get; set; }
     }
         
 }
