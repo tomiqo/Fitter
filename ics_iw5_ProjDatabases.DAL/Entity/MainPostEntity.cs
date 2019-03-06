@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace ics_iw5_ProjDatabases.DAL
 {
-    public abstract class BaseEntity 
+    public abstract class MainPostEntity 
     {
         [Column]
         [ForeignKey("UserID")]

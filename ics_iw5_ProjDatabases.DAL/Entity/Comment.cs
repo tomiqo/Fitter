@@ -8,7 +8,7 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
     // 1 ...
     [Table("Comments")] 
     // 2. odstranění jedné tabulky a generování nových
-    class Comment : BaseEntity
+    class Comment : MainPostEntity
     {
         [Key]
         [Column]

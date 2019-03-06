@@ -9,7 +9,7 @@ namespace ics_iw5_ProjDatabases.DAL.Enums
     // 2.
     [Table("Post")]
     //-----
-    class Post : BaseEntity
+    class Post : MainPostEntity
     {
         [Key]
         [Column]
