@@ -1,0 +1,1 @@
+Výsledná aplikace má sloužit studentům k usnadnění komunikace na týmových projektech. Uživatel (Student) může být součástí více týmů. Členové týmu komunikují pomocí příspěvků a odpovědí na ně. Pro lepší představu si představte zjednodušeně Microsoft Teams nebo Facebook skupinu.
