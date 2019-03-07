@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
 using ics_iw5_ProjDatabases.DAL.Entity.Base;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
