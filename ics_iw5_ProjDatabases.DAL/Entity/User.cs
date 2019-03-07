@@ -4,15 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
+using ics_iw5_ProjDatabases.DAL.Entity.Base;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
 {   
-    [Table("Users")]
-    class Users 
+    [Table("User")]
+    public class User : BaseEntity
     {
-        [Key]
-        [Column]
-        public int UserID { get; set; }
         [Column]
         public string Name { get; set; }
         [Column]
@@ -21,12 +19,9 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         public string Password { get; set; }
         [Column]
         public string Nick { get; set; }
-        [Column] // TODO : Maybe not neccessary
-        public Enums.Status LoggedIn { get; set; }
         [Column]
-        public DateTime LastActivity { get; set; } // cas posledního Akce ( komentu, příspěvku, ...)
+        public DateTime LastActivity { get; set; } // Date and Time of last activity
         [Column]
-        //Pointer to table of teams
-        public int TableOfTeams { get; set; }
+        public ICollection<Team> Teams { get; set; }
     }
 }

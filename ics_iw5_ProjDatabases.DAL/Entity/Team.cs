@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using ics_iw5_ProjDatabases.DAL.Entity.Base;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
 {
     [Table("Team")]
-    class Team 
+    public class Team : BaseEntity 
     {
-        [Key]
-        [Column]
-        public int TeamID { get; set; }
         [Column]
         public int MemberCount { get; set; }
         [Column]
@@ -22,11 +20,8 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         [ForeignKey("UserID")]
         public int Admin { get; set; } // GET zjisti ID od zakladatele tymu
         [Column]
-        //Pointer to table of team users
-        public int TableOfUsers { get; set; }
+        public ICollection<User> Users { get; set; }
         [Column]
-        //Pointer to table of posts
-        public int TableOfPosts { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
-        
 }

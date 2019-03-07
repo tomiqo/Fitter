@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using ics_iw5_ProjDatabases.DAL.Entity.Base;
 
-namespace ics_iw5_ProjDatabases.DAL
+namespace ics_iw5_ProjDatabases.DAL.Entity
 {
-    public abstract class MainPostEntity 
+    public class Comment : BaseEntity
     {
         [Column]
         [ForeignKey("UserID")]
@@ -16,10 +17,8 @@ namespace ics_iw5_ProjDatabases.DAL
         [Column]
         public DateTime Time { get; set; }
         [Column]
-        //Pointer to table of tags
-        public int TableOfTags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
         [Column]
-        //Pointer to table of attachments
-        public int TableOfAttachments { get; set; }
+        public ICollection<Attachment> Attachments { get; set; }
     }
 }
