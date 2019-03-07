@@ -18,5 +18,7 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         public ICollection<Tag> Tags { get; set; }
         [Column]
         public ICollection<Attachment> Attachments { get; set; }
+        [Column]
+        public ICollection<Comment> Replies { get; set; }
     }
 }
