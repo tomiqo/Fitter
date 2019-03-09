@@ -8,7 +8,5 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
     {
         [Column]
         public string Title { get; set; }
-        [Column]
-        public ICollection<Comment> Comments { get; set; }
     }
 }

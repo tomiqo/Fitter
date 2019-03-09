@@ -5,6 +5,7 @@ using ics_iw5_ProjDatabases.DAL.Entity.Base;
 
 namespace ics_iw5_ProjDatabases.DAL.Entity
 {
+    [Table("Comment")]
     public class Comment : BaseEntity
     {
         [Column]
@@ -19,6 +20,6 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         [Column]
         public ICollection<Attachment> Attachments { get; set; }
         [Column]
-        public ICollection<Comment> Replies { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
