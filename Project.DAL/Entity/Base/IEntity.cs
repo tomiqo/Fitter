@@ -1,4 +1,4 @@
-﻿namespace ics_iw5_ProjDatabases.DAL.Entity.Base
+﻿namespace Project.DAL.Entity.Base
 {
     public interface IEntity
     {

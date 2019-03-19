@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ics_iw5_ProjDatabases.DAL.Entity.Base;
+using Project.DAL.Entity.Base;
 
-namespace ics_iw5_ProjDatabases.DAL.Entity
+namespace Project.DAL.Entity
 {
     [Table("Tag")]
     public class Tag : BaseEntity

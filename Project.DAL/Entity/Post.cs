@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ics_iw5_ProjDatabases.DAL.Entity
+namespace Project.DAL.Entity
 {
     [Table("Post")]
     public class Post : Comment

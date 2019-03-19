@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using ics_iw5_ProjDatabases.DAL.Entity.Base;
+using Project.DAL.Entity.Base;
 
-namespace ics_iw5_ProjDatabases.DAL.Entity
+namespace Project.DAL.Entity
 {
     [Table("Attachment")]
     public class Attachment : BaseEntity
@@ -10,12 +10,12 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         [Column]
         public string Name { get; set; }
         [Column]
-        public int FileSize  { get; set; } // KB
+        public int FileSize  { get; set; }
         [Column]
-        public string Type { get; set; } // picture, video, file (.zip , .rar ......)
+        public FileType FileType { get; set; } 
         [Column]
         public byte[] File { get; set; }
         [Column]
-        public DateTime Time { get; set; }
+        public DateTime Created { get; set; }
     }
 }

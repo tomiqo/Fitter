@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using ics_iw5_ProjDatabases.DAL.Entity.Base;
+using Project.DAL.Entity.Base;
 
-namespace ics_iw5_ProjDatabases.DAL.Entity
+namespace Project.DAL.Entity
 {
     [Table("Comment")]
     public class Comment : BaseEntity
@@ -14,12 +14,14 @@ namespace ics_iw5_ProjDatabases.DAL.Entity
         [Column]
         public string Text { get; set; }
         [Column]
-        public DateTime Time { get; set; }
+        public DateTime Created { get; set; }
         [Column]
         public ICollection<Tag> Tags { get; set; }
         [Column]
         public ICollection<Attachment> Attachments { get; set; }
         [Column]
         public ICollection<Comment> Comments { get; set; }
+        [Column]
+        public ICollection<User> Tags { get; set; }
     }
 }
