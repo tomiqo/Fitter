@@ -1,6 +1,4 @@
-﻿using System;
-
-public class FileType
+﻿namespace Project.DAL.Enums
 {
     public enum FileType
     {

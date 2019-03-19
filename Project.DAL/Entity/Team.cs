@@ -16,7 +16,7 @@ namespace Project.DAL.Entity
         public DateTime Created { get; set; } 
         [Column]
         [ForeignKey("UserID")]
-        public int Admin { get; set; } // GET zjisti ID od zakladatele tymu
+        public int Admin { get; set; }
         [Column]
         public ICollection<User> Users { get; set; }
         [Column]

@@ -16,8 +16,6 @@ namespace Project.DAL.Entity
         [Column]
         public DateTime Created { get; set; }
         [Column]
-        public ICollection<Tag> Tags { get; set; }
-        [Column]
         public ICollection<Attachment> Attachments { get; set; }
         [Column]
         public ICollection<Comment> Comments { get; set; }

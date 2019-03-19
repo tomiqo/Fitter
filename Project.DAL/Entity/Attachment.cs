@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Project.DAL.Entity.Base;
+using Project.DAL.Enums;
 
 namespace Project.DAL.Entity
 {
@@ -15,7 +16,5 @@ namespace Project.DAL.Entity
         public FileType FileType { get; set; } 
         [Column]
         public byte[] File { get; set; }
-        [Column]
-        public DateTime Created { get; set; }
     }
 }
