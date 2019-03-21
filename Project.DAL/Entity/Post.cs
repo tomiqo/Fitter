@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project.DAL.Entity
 {
@@ -8,5 +7,7 @@ namespace Project.DAL.Entity
     {
         [Column]
         public string Title { get; set; }
+        [Column]
+        public Team Team { get; set; } //
     }
 }

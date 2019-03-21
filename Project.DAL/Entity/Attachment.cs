@@ -16,5 +16,7 @@ namespace Project.DAL.Entity
         public FileType FileType { get; set; } 
         [Column]
         public byte[] File { get; set; }
+        [Column]
+        public Comment Comment { get; set; } //
     }
 }

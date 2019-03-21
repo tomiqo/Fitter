@@ -21,5 +21,7 @@ namespace Project.DAL.Entity
         public ICollection<Comment> Comments { get; set; }
         [Column]
         public ICollection<User> Tags { get; set; }
+        [Column]
+        public Comment Parent { get; set; } //
     }
 }

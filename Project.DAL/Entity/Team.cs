@@ -18,7 +18,8 @@ namespace Project.DAL.Entity
         [ForeignKey("UserID")]
         public int Admin { get; set; }
         [Column]
-        public ICollection<User> Users { get; set; }
+        //public ICollection<User> Users { get; set; }
+        public ICollection<UsersInTeam> UsersInTeams { get; set; } // kvoli M-to-N
         [Column]
         public ICollection<Post> Posts { get; set; }
     }
