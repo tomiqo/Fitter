@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
+using System.Text;
 using Project.DAL.Entity.Base;
 
 namespace Project.DAL.Entity
@@ -12,11 +14,29 @@ namespace Project.DAL.Entity
         [Column]
         public string Email { get; set; }
         [Column]
-        public string Password { get; set; }
+        public string Password
+        {
+            get { return passwd;}
+            set { passwd = VratHash(value);}
+        }
         [Column]
         public string Nick { get; set; }
         [Column]
-        //public ICollection<Team> Teams { get; set; }
-        public ICollection<UsersInTeam> UsersInTeams { get; set; } // kvoli M-to-N
+        public ICollection<Team> Teams { get; set; }
+
+        private string passwd;
+        private string VratHash(string data)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] ArrayOfsha256 = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+                StringBuilder ReturnString = new StringBuilder();
+                for (int i = 0; i < ArrayOfsha256.Length; i++)
+                    ReturnString.Append(ArrayOfsha256[i].ToString("x2"));
+
+                return ReturnString.ToString();
+            }
+        }
     }
 }
