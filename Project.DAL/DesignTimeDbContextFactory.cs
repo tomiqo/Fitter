@@ -10,7 +10,7 @@ namespace Project.DAL
             var optionsBuilder = new DbContextOptionsBuilder<ProjectDbContext>();
 
             optionsBuilder.UseSqlServer(
-                @"Data Source = (LocalDB)\MSSQLLocalDB;
+                @"Data Source = (localdb)\MSSQLLocalDB;
                         Initial Catalog = ProjectDB;
                         MultipleActiveResultSets = True;
                         Integrated Security = True ");

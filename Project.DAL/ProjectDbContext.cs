@@ -17,7 +17,7 @@ namespace Project.DAL
         {
             //Relacia medzi user a team ???, M to N sa tu neda 
             //Prednaska 25.2 1:07:00
-            base.OnModelCreating(modelBuilder);
+            /*base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Team>()
                 .HasMany(p => p.Posts)
                 .WithOne(p => p.Team);
@@ -36,7 +36,7 @@ namespace Project.DAL
 
             modelBuilder.Entity<Comment>()
                 .HasMany(t => t.Tags);
-                //.WithOne(t => t.???);
+                //.WithOne(t => t.???);*/
         }
 
         public DbSet<Attachment> Attachments { get; set; }
