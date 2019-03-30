@@ -8,6 +8,6 @@ namespace Project.DAL.Entity
         [Column]
         public string Title { get; set; }
         [Column]
-        public Team Team { get; set; } //
+        public Team Team { get; set; } 
     }
 }

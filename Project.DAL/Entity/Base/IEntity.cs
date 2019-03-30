@@ -1,7 +1,9 @@
-﻿namespace Project.DAL.Entity.Base
+﻿using System;
+
+namespace Project.DAL.Entity.Base
 {
     public interface IEntity
     {
-        int Id { get; set; }
+        Guid Id { get; set; }
     }
 }

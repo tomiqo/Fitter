@@ -44,5 +44,6 @@ namespace Project.DAL
         public DbSet<Post> Posts { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UsersInTeam> UsersInTeams { get; set; } // ???
     }
 }
