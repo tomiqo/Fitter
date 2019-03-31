@@ -142,7 +142,7 @@ namespace Project.DAL.Tests
                     .Include(u => u.Comments)
                     .Include(t => t.Tags)
                     .FirstOrDefault(x => x.Id == comment.Id);
-                Assert.NotNull(retrievedComment);
+                Assert.Null(retrievedComment);
             }
         }
     }
