@@ -10,7 +10,7 @@ namespace Project.DAL.Entity
     {
         [Column]
         [ForeignKey("UserID")]
-        public int Author { get; set; }
+        public User Author { get; set; }
         [Column]
         public string Text { get; set; }
         [Column]
@@ -22,6 +22,8 @@ namespace Project.DAL.Entity
         [Column]
         public ICollection<User> Tags { get; set; }
         [Column]
-        public Comment Parent { get; set; } //
+        public Comment Parent { get; set; } 
+        public Post Post { get; set; }
+
     }
 }

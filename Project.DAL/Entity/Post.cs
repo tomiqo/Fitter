@@ -9,5 +9,6 @@ namespace Project.DAL.Entity
         public string Title { get; set; }
         [Column]
         public Team Team { get; set; } 
+
     }
 }
