@@ -36,6 +36,24 @@ namespace Project.DAL.Tests
                             Password = "jankojesuper"
                         }
                     }
+                },
+                Posts = new List<Post>()
+                {
+                    new Post()
+                    {
+                        Text = "Comment in group",
+                        Title = "Comment title",
+                        Tags = new List<User>()
+                        {
+                            new User()
+                            {
+                                Name = "Michal Packa",
+                                Email = "miskojesuper@gmail.com",
+                                Nick = "michalko12",
+                                Password = "asdfg"
+                            }
+                        }
+                    }
                 }
             };
 
@@ -49,9 +67,10 @@ namespace Project.DAL.Tests
             {
                 var retrievedTeam = dbContext.Teams
                     .Include(x => x.UsersInTeams)
-                    .ThenInclude(Name => Name.User)
+                    .Include(p => p.Posts)
                     .First(x => x.Id == team.Id);
                 Assert.NotNull(retrievedTeam);
+                Assert.Equal(1, retrievedTeam.Posts.Count);
             }
         }
 
@@ -63,7 +82,20 @@ namespace Project.DAL.Tests
                 Admin = 1,
                 Created = new DateTime(2018, 7, 7),
                 MemberCount = 10,
-                Name = "ICS"
+                Name = "ICS",
+                UsersInTeams = new List<UsersInTeam>()
+                {
+                    new UsersInTeam()
+                    {
+                        User = new User
+                        {
+                            Name = "Michal Packa",
+                            Email = "miskojesuper@gmail.com",
+                            Nick = "michalko12",
+                            Password = "asdfg"
+                        }
+                    }
+                }
             };
 
             using (var dbContext = dbContextProject.CreateDbContext())
@@ -81,7 +113,10 @@ namespace Project.DAL.Tests
 
             using (var dbContext = dbContextProject.CreateDbContext())
             {
-                var retrievedTeam = dbContext.Teams.First(t => t.Id == team.Id);
+                var retrievedTeam = dbContext.Teams
+                    .Include(x => x.UsersInTeams)
+                    .ThenInclude(Name => Name.User)
+                    .First(x => x.Id == team.Id);
                 Assert.NotNull(retrievedTeam);
                 Assert.Equal(team.Name, retrievedTeam.Name);
             }
@@ -95,7 +130,20 @@ namespace Project.DAL.Tests
                 Admin = 2,
                 Created = new DateTime(2017, 11, 25),
                 MemberCount = 9,
-                Name = "ICS"
+                Name = "ICS",
+                UsersInTeams = new List<UsersInTeam>()
+                {
+                    new UsersInTeam()
+                    {
+                        User = new User()
+                        {
+                            Name = "Fero Mrkvica",
+                            Email = "ferko7@gmail.com",
+                            Nick = "ferinho11",
+                            Password = "ronaldo7"
+                        }
+                    }
+                }
             };
 
             using (var dbContext = dbContextProject.CreateDbContext())
@@ -112,20 +160,36 @@ namespace Project.DAL.Tests
 
             using (var dbContext = dbContextProject.CreateDbContext())
             {
-                var retrievedTeam = dbContext.Teams.FirstOrDefault(t => t.Id == team.Id);
+                var retrievedTeam = dbContext.Teams
+                    .Include(x => x.UsersInTeams)
+                    .ThenInclude(Name => Name.User)
+                    .FirstOrDefault(x => x.Id == team.Id);
                 Assert.Null(retrievedTeam);
             }
         }
 
         [Fact]
-        public void CheckAdminNum()
+        public void CheckAdminNumType()
         {
             var team = new Team
             {
                 Admin = 3,
                 Created = new DateTime(2014, 1, 25),
                 MemberCount = 2,
-                Name = "Group"
+                Name = "Group",
+                UsersInTeams = new List<UsersInTeam>()
+                {
+                    new UsersInTeam()
+                    {
+                        User = new User()
+                        {
+                            Name = "Eva Adamova",
+                            Email = "evicka@seznam.cz",
+                            Nick = "evka98",
+                            Password = "heslo587"
+                        }
+                    }
+                }
             };
 
             using (var dbContext = dbContextProject.CreateDbContext())
@@ -136,7 +200,10 @@ namespace Project.DAL.Tests
 
             using (var dbContext = dbContextProject.CreateDbContext())
             {
-                var retrievedTeam = dbContext.Teams.First(t => t.Id == team.Id);
+                var retrievedTeam = dbContext.Teams
+                    .Include(x => x.UsersInTeams)
+                    .ThenInclude(Name => Name.User)
+                    .First(x => x.Id == team.Id);
                 Assert.IsType<int>(retrievedTeam.Admin);
             }
         }
