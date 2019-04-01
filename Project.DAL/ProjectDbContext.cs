@@ -15,28 +15,26 @@ namespace Project.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Relacia medzi user a team ???, M to N sa tu neda 
-            //Prednaska 25.2 1:07:00
-            /*base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Team>()
-                .HasMany(p => p.Posts)
-                .WithOne(p => p.Team);
-
             modelBuilder.Entity<Post>()
-                .HasMany(c => c.Comments);
-                //.WithOne(c => c.Parent);      NEFUNGUJE ??
-        
+                .HasOne<Team>(t => t.Team)
+                .WithMany(p => p.Posts);
             modelBuilder.Entity<Comment>()
-                .HasMany(c => c.Comments)
-                .WithOne(c => c.Parent);
-
+                .HasOne<User>(u => u.Author)
+                .WithMany(c => c.Comments);
             modelBuilder.Entity<Comment>()
-                .HasMany(a => a.Attachments)
-                .WithOne(a => a.Comment);
-
+                .HasOne<Comment>(c => c.Parent)
+                .WithMany(s => s.Comments);
+            modelBuilder.Entity<Attachment>()
+                .HasOne<Comment>(c => c.Comment)
+                .WithMany(a => a.Attachments);
             modelBuilder.Entity<Comment>()
                 .HasMany(t => t.Tags);
-                //.WithOne(t => t.???);*/
+            modelBuilder.Entity<Post>()
+                .HasMany<Comment>(c => c.Comments)
+                .WithOne(p => p.Post);
+            modelBuilder.Entity<Post>()
+                .HasOne<User>(a => a.Author)
+                .WithMany(p => p.Posts);
         }
 
         public DbSet<Attachment> Attachments { get; set; }
@@ -44,5 +42,6 @@ namespace Project.DAL
         public DbSet<Post> Posts { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UsersInTeam> UsersInTeams { get; set; } // ???
     }
 }

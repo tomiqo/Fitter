@@ -22,9 +22,9 @@ namespace Project.DAL.Entity
         [Column]
         public string Nick { get; set; }
         [Column]
-        //public ICollection<Team> Teams { get; set; }
-        public ICollection<UsersInTeam> UsersInTeams { get; set; } // kvoli M-to-N
-
+        public ICollection<UsersInTeam> TeamOfUsers { get; set; } // kvoli M-to-N
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Post> Posts { get; set; }
 
         private string passwd;
         private string VratHash(string data)
