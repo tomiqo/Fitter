@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Project.DAL;
 
 namespace Project.BL.Factories
 {
-    public class ProjectDbContext : IDbContextProject
+    public class DbContextFactory : IDbContextFactory
     {
         public ProjectDbContext CreateDbContext()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<DAL.ProjectDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<ProjectDbContext>();
 
             optionsBuilder.UseSqlServer(
                 @"Data Source = (LocalDB)\MSSQLLocalDB;
