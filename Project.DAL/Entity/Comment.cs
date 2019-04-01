@@ -23,6 +23,7 @@ namespace Project.DAL.Entity
         public ICollection<User> Tags { get; set; }
         [Column]
         public Comment Parent { get; set; } 
+        [Column]
         public Post Post { get; set; }
 
     }

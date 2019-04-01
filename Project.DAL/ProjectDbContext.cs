@@ -28,7 +28,7 @@ namespace Project.DAL
                 .HasOne<Comment>(c => c.Comment)
                 .WithMany(a => a.Attachments);
             modelBuilder.Entity<Comment>()
-                .HasMany(t => t.Tags);
+                .HasMany(t => t.Tags).WithOne();
             modelBuilder.Entity<Post>()
                 .HasMany<Comment>(c => c.Comments)
                 .WithOne(p => p.Post);
