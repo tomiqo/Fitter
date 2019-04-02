@@ -15,33 +15,46 @@ namespace Project.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Team>()
+                .HasMany<Post>(p => p.Posts)
+                .WithOne(t => t.Team)
+                .HasForeignKey(k => k.CurrentTeamId)
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Post>()
-                .HasOne<Team>(t => t.Team)
-                .WithMany(p => p.Posts)
-                .HasForeignKey(k => k.CurrentTeamId);
-            modelBuilder.Entity<Comment>()
-                .HasOne<Post>(p => p.Post)
-                .WithMany(c => c.Comments)
+                .HasMany<Comment>(c => c.Comments)
+                .WithOne(p => p.Post)
                 .HasForeignKey(k => k.CurrentPostId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>()
+                .HasMany<Post>(p => p.Posts)
+                .WithOne(a => a.Author)
+                .HasForeignKey(k => k.CurrentAuthorId)
+                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<User>()
+                .HasMany<Comment>(c => c.Comments)
+                .WithOne(a => a.Author)
+                .HasForeignKey(k => k.CurrentAuthorId)
+                .OnDelete(DeleteBehavior.SetNull);
             modelBuilder.Entity<Post>()
-                .HasOne<User>(u => u.Author)
-                .WithMany(p => p.Posts)
-                .HasForeignKey(k => k.CurrentAuthorId);
-            modelBuilder.Entity<Comment>()
-                .HasOne<User>(u => u.Author)
-                .WithMany(c => c.Comments)
-                .HasForeignKey(k => k.CurrentAuthorId);
-            modelBuilder.Entity<Attachment>()
-                .HasOne<Post>(p => p.Post)
-                .WithMany(a => a.Attachments)
+                .HasMany<Attachment>(a => a.Attachments)
+                .WithOne(p => p.Post)
                 .HasForeignKey(k => k.CurrentPostId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Post>()
-                .HasMany(t => t.Tags).WithOne();
+                .HasMany(t => t.Tags)
+                .WithOne();
             modelBuilder.Entity<Comment>()
-                .HasMany(t => t.Tags).WithOne();
+                .HasMany(t => t.Tags)
+                .WithOne();
             modelBuilder.Entity<UsersInTeam>().HasKey(ut => new {ut.UserId, ut.TeamId});
+            modelBuilder.Entity<UsersInTeam>()
+                .HasOne(u => u.User)
+                .WithMany(t => t.UsersInTeams)
+                .HasForeignKey(ut => ut.UserId);
+            modelBuilder.Entity<UsersInTeam>()
+                .HasOne(t => t.Team)
+                .WithMany(ut => ut.UsersInTeams)
+                .HasForeignKey(k => k.TeamId);
         }
 
         public DbSet<Attachment> Attachments { get; set; }

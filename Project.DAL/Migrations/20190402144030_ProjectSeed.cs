@@ -14,7 +14,7 @@ namespace Project.DAL.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
-                    Admin = table.Column<Guid>(nullable: false)
+                    Admin = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,7 @@ namespace Project.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CurrentAuthorId = table.Column<Guid>(nullable: false),
+                    CurrentAuthorId = table.Column<Guid>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(nullable: true),
@@ -57,7 +57,7 @@ namespace Project.DAL.Migrations
                         column: x => x.CurrentAuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Posts_Teams_CurrentTeamId",
                         column: x => x.CurrentTeamId,
@@ -109,7 +109,7 @@ namespace Project.DAL.Migrations
                         column: x => x.CurrentPostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +117,7 @@ namespace Project.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CurrentAuthorId = table.Column<Guid>(nullable: false),
+                    CurrentAuthorId = table.Column<Guid>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     CurrentPostId = table.Column<Guid>(nullable: false)
@@ -130,13 +130,13 @@ namespace Project.DAL.Migrations
                         column: x => x.CurrentAuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Comments_Posts_CurrentPostId",
                         column: x => x.CurrentPostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

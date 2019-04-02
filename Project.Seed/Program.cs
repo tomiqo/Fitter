@@ -98,7 +98,9 @@ namespace Project.Seed
                 Created = DateTime.Now,
                 Post = post,
             };
-            dbContext.Comments.Add(comment2);
+            dbContext.SaveChanges();
+            dbContext.Users.Remove(user1);
+            dbContext.Teams.Remove(team);
             dbContext.SaveChanges();
         }
 

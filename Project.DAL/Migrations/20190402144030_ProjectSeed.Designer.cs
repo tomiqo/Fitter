@@ -10,7 +10,7 @@ using Project.DAL;
 namespace Project.DAL.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20190402133045_ProjectSeed")]
+    [Migration("20190402144030_ProjectSeed")]
     partial class ProjectSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace Project.DAL.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<Guid>("CurrentAuthorId");
+                    b.Property<Guid?>("CurrentAuthorId");
 
                     b.Property<Guid>("CurrentPostId");
 
@@ -72,7 +72,7 @@ namespace Project.DAL.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<Guid>("CurrentAuthorId");
+                    b.Property<Guid?>("CurrentAuthorId");
 
                     b.Property<Guid>("CurrentTeamId");
 
@@ -94,7 +94,7 @@ namespace Project.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("Admin");
+                    b.Property<Guid?>("Admin");
 
                     b.Property<DateTime>("Created");
 
@@ -149,7 +149,7 @@ namespace Project.DAL.Migrations
                     b.HasOne("Project.DAL.Entity.Post", "Post")
                         .WithMany("Attachments")
                         .HasForeignKey("CurrentPostId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project.DAL.Entity.Comment", b =>
@@ -157,12 +157,12 @@ namespace Project.DAL.Migrations
                     b.HasOne("Project.DAL.Entity.User", "Author")
                         .WithMany("Comments")
                         .HasForeignKey("CurrentAuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Project.DAL.Entity.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("CurrentPostId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project.DAL.Entity.Post", b =>
@@ -170,7 +170,7 @@ namespace Project.DAL.Migrations
                     b.HasOne("Project.DAL.Entity.User", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("CurrentAuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Project.DAL.Entity.Team", "Team")
                         .WithMany("Posts")
