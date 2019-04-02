@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Project.DAL
+namespace Fitter.DAL
 {
-    public class DefaultDbContextFactory : IDbContextProject
+    public class DefaultDbContextFactory : IFitterDbContext
     {
-        public ProjectDbContext CreateDbContext()
+        public FitterDbContext CreateDbContext()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ProjectDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<FitterDbContext>();
 
             optionsBuilder.UseSqlServer(
                         @"Data Source = (LocalDB)\MSSQLLocalDB;
-                        Initial Catalog = ProjectDB;
+                        Initial Catalog = FitterDB;
                         MultipleActiveResultSets = True;
                         Integrated Security = True ");
 
-            return new ProjectDbContext(optionsBuilder.Options);
+            return new FitterDbContext(optionsBuilder.Options);
         }
     }
 }

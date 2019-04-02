@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
-using Project.DAL.Entity.Base;
+using Fitter.DAL.Entity.Base;
 
-namespace Project.DAL.Entity
+namespace Fitter.DAL.Entity
 {   
     public class User : BaseEntity
     {

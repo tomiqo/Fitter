@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Project.DAL.Entity;
 using Xunit;
 
-namespace Project.DAL.Tests
+namespace Fitter.DAL.Tests
 {
-    public class ProjectDbContextPostTests
+    public class FitterDbContextPostTests
     {
-        private IDbContextProject dbContextProject;
+        private IFitterDbContext FitterDbContext;
 
-        public ProjectDbContextPostTests()
+        public FitterDbContextPostTests()
         {
-            dbContextProject = new InMemoryProjectDbContext();
+            FitterDbContext = new InMemoryFitterDbContext();
         }
 
         [Fact]
@@ -99,13 +96,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Posts.Add(post);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedPost = dbContext.Posts
                     .Include(x => x.Team)

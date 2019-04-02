@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Project.DAL\Project.DAL.csproj" />
+    <Folder Include="Mapper\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapper\" />
-    <Folder Include="Model\" />
+    <ProjectReference Include="..\Project.DAL\Fitter.DAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Project.BL.Repositories
+﻿namespace Fitter.BL.Repositories
 {
     public interface ITeamsRepository
     {

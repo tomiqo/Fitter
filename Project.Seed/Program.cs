@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fitter.DAL;
+using Fitter.DAL.Entity;
+using Fitter.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
-using Project.DAL;
-using Project.DAL.Entity;
-using Project.DAL.Enums;
 
-namespace Project.Seed
+namespace Fitter.Seed
 {
     class Program
     {
@@ -18,7 +18,7 @@ namespace Project.Seed
             }
         }
 
-        private static void SeedData(ProjectDbContext dbContext)
+        private static void SeedData(FitterDbContext dbContext)
         {
             var user1 = new User
             {
@@ -66,7 +66,6 @@ namespace Project.Seed
                     new Attachment()
                     {
                         FileType = FileType.Picture,
-                        FileSize = 42,
                         File = new byte[5],
                         Name = "Kuraptomuj"
                     }
@@ -104,7 +103,7 @@ namespace Project.Seed
             dbContext.SaveChanges();
         }
 
-        private static void ClearDatabase(ProjectDbContext dbContext)
+        private static void ClearDatabase(FitterDbContext dbContext)
         {
             dbContext.RemoveRange(dbContext.Attachments);
             dbContext.RemoveRange(dbContext.Comments);
@@ -115,12 +114,12 @@ namespace Project.Seed
             dbContext.SaveChanges();
         }
 
-        private static ProjectDbContext CreateDbContext()
+        private static FitterDbContext CreateDbContext()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ProjectDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<FitterDbContext>();
             optionsBuilder.UseSqlServer(
-                @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog = ProjectDB;MultipleActiveResultSets = True;Integrated Security = True; ");
-            return new ProjectDbContext(optionsBuilder.Options);
+                @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog = FitterDB;MultipleActiveResultSets = True;Integrated Security = True; ");
+            return new FitterDbContext(optionsBuilder.Options);
         }
     }
 }

@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Project.DAL.Entity;
-using Project.DAL.Enums;
+using System.Net.Mail;
 using Xunit;
 
-namespace Project.DAL.Tests
+namespace Fitter.DAL.Tests
 {
-    public class ProjectDbContextAttachmentTest
+    public class FitterDbContextAttachmentTest
     {
-        private IDbContextProject dbContextProject;
-        public ProjectDbContextAttachmentTest()
+        private IFitterDbContext FitterDbContext;
+        public FitterDbContextAttachmentTest()
         {
-            dbContextProject = new InMemoryProjectDbContext();
+            FitterDbContext = new InMemoryFitterDbContext();
         }
 
         [Fact]
@@ -43,13 +40,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Attachments.Add(attachment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedAttachment = dbContext.Attachments
                     .Include(x => x.Comment)
@@ -87,20 +84,20 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Attachments.Add(attachment);
                 dbContext.SaveChanges();
             }
 
             attachment.FileType = FileType.Video;
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Attachments.Update(attachment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedAttachment = dbContext.Attachments
                     .Include(x => x.Comment)
@@ -138,19 +135,19 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Attachments.Add(attachment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Attachments.Remove(attachment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedAttachment = dbContext.Attachments
                     .Include(x => x.Comment)

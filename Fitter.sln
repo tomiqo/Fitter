@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DAL", "Project.DAL\Project.DAL.csproj", "{EAB1FD51-D37E-4536-8024-0727A794A8DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitter.DAL", "Project.DAL\Fitter.DAL.csproj", "{EAB1FD51-D37E-4536-8024-0727A794A8DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.BL", "Project.BL\Project.BL.csproj", "{71350CAE-F7C4-4252-8812-A60F0B8816CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitter.BL", "Project.BL\Fitter.BL.csproj", "{71350CAE-F7C4-4252-8812-A60F0B8816CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.App", "Project.App\Project.App.csproj", "{01A3586F-8B06-458C-9741-4182301C7ADA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fitter.App", "Project.App\Fitter.App.csproj", "{01A3586F-8B06-458C-9741-4182301C7ADA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DAL.Tests", "Project.DAL.Tests\Project.DAL.Tests.csproj", "{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitter.DAL.Tests", "Project.DAL.Tests\Fitter.DAL.Tests.csproj", "{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Seed", "Project.Seed\Project.Seed.csproj", "{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitter.Seed", "Project.Seed\Fitter.Seed.csproj", "{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EAB1FD51-D37E-4536-8024-0727A794A8DA} = {EAB1FD51-D37E-4536-8024-0727A794A8DA}
 	EndProjectSection

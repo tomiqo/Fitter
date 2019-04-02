@@ -1,15 +1,15 @@
-﻿using Project.DAL.Entity;
+﻿using Fitter.DAL.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Project.DAL
+namespace Fitter.DAL
 {
-    public class ProjectDbContext : DbContext
+    public class FitterDbContext : DbContext
     {
-        public ProjectDbContext()
+        public FitterDbContext()
         {
         }
 
-        public ProjectDbContext(DbContextOptions options) : base(options)
+        public FitterDbContext(DbContextOptions options) : base(options)
         {
         }
 

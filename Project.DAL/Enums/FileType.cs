@@ -1,4 +1,4 @@
-﻿namespace Project.DAL.Enums
+﻿namespace Fitter.DAL.Enums
 {
     public enum FileType
     {

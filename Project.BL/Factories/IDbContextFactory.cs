@@ -1,9 +1,9 @@
-﻿using Project.DAL;
+﻿using Fitter.DAL;
 
-namespace Project.BL.Factories
+namespace Fitter.BL.Factories
 {
     public interface IDbContextFactory
     {
-        ProjectDbContext CreateDbContext();
+        FitterDbContext CreateDbContext();
     }
 }

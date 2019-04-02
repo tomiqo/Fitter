@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Project.DAL.Entity.Base
+namespace Fitter.DAL.Entity.Base
 {
-    public class BasePost:BaseEntity
+    public abstract class BasePost:BaseEntity
     {
         public Guid? CurrentAuthorId { get; set; }
         public User Author { get; set; }

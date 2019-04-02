@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project.DAL.Entity.Base
+namespace Fitter.DAL.Entity.Base
 {
     public interface IEntity
     {

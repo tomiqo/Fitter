@@ -180,9 +180,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project.BL\Project.BL.csproj">
+    <ProjectReference Include="..\Project.BL\Fitter.BL.csproj">
       <Project>{71350cae-f7c4-4252-8812-a60f0b8816ca}</Project>
-      <Name>Project.BL</Name>
+      <Name>Fitter.BL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Project.DAL.Entity;
 using Xunit;
 
-namespace Project.DAL.Tests
+namespace Fitter.DAL.Tests
 {
-    public class ProjectDbContextTeamsTests
+    public class FitterDbContextTeamsTests
     {
-        private IDbContextProject dbContextProject;
-        public ProjectDbContextTeamsTests()
+        private IFitterDbContext FitterDbContext;
+        public FitterDbContextTeamsTests()
         {
-            dbContextProject = new InMemoryProjectDbContext();
+            FitterDbContext = new InMemoryFitterDbContext();
         }
 
         [Fact]
@@ -57,13 +54,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Teams.Add(team);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedTeam = dbContext.Teams
                     .Include(x => x.UsersInTeams)
@@ -98,20 +95,20 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Teams.Add(team);
                 dbContext.SaveChanges();
             }
 
             team.Name = "Fitaci";
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Teams.Update(team);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedTeam = dbContext.Teams
                     .Include(x => x.UsersInTeams)
@@ -146,19 +143,19 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Teams.Add(team);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Teams.Remove(team);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedTeam = dbContext.Teams
                     .Include(x => x.UsersInTeams)
@@ -192,13 +189,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Teams.Add(team);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedTeam = dbContext.Teams
                     .Include(x => x.UsersInTeams)

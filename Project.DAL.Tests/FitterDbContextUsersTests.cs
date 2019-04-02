@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Project.DAL.Entity;
 using Xunit;
 
-namespace Project.DAL.Tests
+namespace Fitter.DAL.Tests
 {
-    public class ProjectDbContextUsersTests
+    public class FitterDbContextUsersTests
     {
-        private IDbContextProject dbContextProject;
+        private IFitterDbContext FitterDbContext;
 
-        public ProjectDbContextUsersTests()
+        public FitterDbContextUsersTests()
         {
-            dbContextProject = new InMemoryProjectDbContext();
+            FitterDbContext = new InMemoryFitterDbContext();
         }
 
         [Fact]
@@ -27,13 +24,13 @@ namespace Project.DAL.Tests
                 Password = "asdfg"
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedUser = dbContext.Users
                     .Include(x => x.UsersInTeams)
@@ -67,13 +64,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedUser = dbContext.Users
                     .Include(x => x.UsersInTeams)
@@ -107,13 +104,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedUser = dbContext.Users
                     .Include(x => x.UsersInTeams)
@@ -147,20 +144,20 @@ namespace Project.DAL.Tests
                 }
             };
       
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }
 
             user.Nick = "evka97";
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Update(user);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedUser = dbContext.Users
                     .Include(x => x.UsersInTeams)
@@ -195,19 +192,19 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Users.Remove(user);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedUser = dbContext.Users
                     .Include(x => x.UsersInTeams)

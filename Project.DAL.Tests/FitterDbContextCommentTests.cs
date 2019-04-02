@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Project.DAL.Entity;
-using Project.DAL.Enums;
 using Xunit;
 
-namespace Project.DAL.Tests
+namespace Fitter.DAL.Tests
 {
-    public class ProjectDbContextCommentTests
+    public class FitterDbContextCommentTests
     {
-        private IDbContextProject dbContextProject;
-        public ProjectDbContextCommentTests()
+        private IFitterDbContext FitterDbContext;
+        public FitterDbContextCommentTests()
         {
-            dbContextProject = new InMemoryProjectDbContext();
+            FitterDbContext = new InMemoryFitterDbContext();
         }
 
         [Fact]
@@ -26,13 +22,13 @@ namespace Project.DAL.Tests
                 Created = new DateTime(2017, 5, 9)
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Comments.Add(comment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedComment = dbContext.Comments
                     .Include(x => x.Attachments)
@@ -74,13 +70,13 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Comments.Add(comment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedComment = dbContext.Comments
                     .Include(x => x.Attachments)
@@ -123,19 +119,19 @@ namespace Project.DAL.Tests
                 }
             };
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Comments.Add(comment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 dbContext.Comments.Remove(comment);
                 dbContext.SaveChanges();
             }
 
-            using (var dbContext = dbContextProject.CreateDbContext())
+            using (var dbContext = FitterDbContext.CreateDbContext())
             {
                 var retrievedComment = dbContext.Comments
                     .Include(x => x.Attachments)

@@ -1,7 +1,6 @@
 ﻿using System;
-using Project.DAL.Entity.Base;
 
-namespace Project.DAL.Entity
+namespace Fitter.DAL.Entity
 {
     public class UsersInTeam
     {
