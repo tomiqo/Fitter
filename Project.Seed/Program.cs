@@ -22,19 +22,19 @@ namespace Fitter.Seed
         {
             var user1 = new User
             {
-                Name = "Albert",
+                FirstName = "Albert",
+                LastName = "Boros",
                 Email = "dartwader128@azet.sk",
                 Password = "pumkli28",
-                Nick = "Albi48"
             };
             dbContext.Users.Add(user1);
 
             var user2 = new User
             {
-                Name = "Daniel",
+                FirstName = "Daniel",
+                LastName = "Danko",
                 Email = "optimus13@pokec.sk",
                 Password = "danulko13",
-                Nick = "Wiesko"
             };
             dbContext.Users.Add(user2);
 
