@@ -6,25 +6,19 @@ using Project.DAL.Entity.Base;
 
 namespace Project.DAL.Entity
 {   
-    [Table("User")]
     public class User : BaseEntity
     {
-        [Column]
         public string Name { get; set; }
-        [Column]
         public string Email { get; set; }
-        [Column]
         public string Password
         {
             get { return passwd;}
             set { passwd = VratHash(value);}
         }
-        [Column]
         public string Nick { get; set; }
-        [Column]
-        public ICollection<UsersInTeam> TeamOfUsers { get; set; } // kvoli M-to-N
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<UsersInTeam> UsersInTeams { get; set; } = new List<UsersInTeam>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         private string passwd;
         private string VratHash(string data)

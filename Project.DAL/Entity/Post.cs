@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Project.DAL.Entity.Base;
 
 namespace Project.DAL.Entity
 {
-    [Table("Post")]
-    public class Post : Comment
+    public class Post : BasePost
     {
-        [Column]
         public string Title { get; set; }
-        [Column]
-        public Team Team { get; set; } 
-
+        public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public Guid CurrentTeamId { get; set; }
+        public Team Team { get; set; }
     }
 }

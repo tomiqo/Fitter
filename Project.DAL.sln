@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.BL", "Project.BL\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.App", "Project.App\Project.App.csproj", "{01A3586F-8B06-458C-9741-4182301C7ADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.DAL.Tests", "Project.DAL.Tests\Project.DAL.Tests.csproj", "{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.DAL.Tests", "Project.DAL.Tests\Project.DAL.Tests.csproj", "{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Seed", "Project.Seed\Project.Seed.csproj", "{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EAB1FD51-D37E-4536-8024-0727A794A8DA} = {EAB1FD51-D37E-4536-8024-0727A794A8DA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +38,10 @@ Global
 		{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12C72F42-6FDC-4AC5-B7AF-E29F0F6ECF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9B699D8-778A-4ACF-8D2A-791E83EDAA2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

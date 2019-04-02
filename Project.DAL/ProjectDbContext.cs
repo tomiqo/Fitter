@@ -17,24 +17,31 @@ namespace Project.DAL
         {
             modelBuilder.Entity<Post>()
                 .HasOne<Team>(t => t.Team)
-                .WithMany(p => p.Posts);
+                .WithMany(p => p.Posts)
+                .HasForeignKey(k => k.CurrentTeamId);
+            modelBuilder.Entity<Comment>()
+                .HasOne<Post>(p => p.Post)
+                .WithMany(c => c.Comments)
+                .HasForeignKey(k => k.CurrentPostId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Post>()
+                .HasOne<User>(u => u.Author)
+                .WithMany(p => p.Posts)
+                .HasForeignKey(k => k.CurrentAuthorId);
             modelBuilder.Entity<Comment>()
                 .HasOne<User>(u => u.Author)
-                .WithMany(c => c.Comments);
-            modelBuilder.Entity<Comment>()
-                .HasOne<Comment>(c => c.Parent)
-                .WithMany(s => s.Comments);
+                .WithMany(c => c.Comments)
+                .HasForeignKey(k => k.CurrentAuthorId);
             modelBuilder.Entity<Attachment>()
-                .HasOne<Comment>(c => c.Comment)
-                .WithMany(a => a.Attachments);
+                .HasOne<Post>(p => p.Post)
+                .WithMany(a => a.Attachments)
+                .HasForeignKey(k => k.CurrentPostId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Post>()
+                .HasMany(t => t.Tags).WithOne();
             modelBuilder.Entity<Comment>()
                 .HasMany(t => t.Tags).WithOne();
-            modelBuilder.Entity<Post>()
-                .HasMany<Comment>(c => c.Comments)
-                .WithOne(p => p.Post);
-            modelBuilder.Entity<Post>()
-                .HasOne<User>(a => a.Author)
-                .WithMany(p => p.Posts);
+            modelBuilder.Entity<UsersInTeam>().HasKey(ut => new {ut.UserId, ut.TeamId});
         }
 
         public DbSet<Attachment> Attachments { get; set; }
@@ -42,6 +49,6 @@ namespace Project.DAL
         public DbSet<Post> Posts { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UsersInTeam> UsersInTeams { get; set; } // ???
+        public DbSet<UsersInTeam> UsersInTeams { get; set; } 
     }
 }

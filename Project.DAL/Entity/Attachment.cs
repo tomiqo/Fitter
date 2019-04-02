@@ -5,18 +5,13 @@ using Project.DAL.Enums;
 
 namespace Project.DAL.Entity
 {
-    [Table("Attachment")]
     public class Attachment : BaseEntity
     {
-        [Column]
         public string Name { get; set; }
-        [Column]
         public int FileSize  { get; set; }
-        [Column]
         public FileType FileType { get; set; } 
-        [Column]
         public byte[] File { get; set; }
-        [Column]
-        public Comment Comment { get; set; } //
+        public Guid CurrentPostId { get; set; }
+        public Post Post { get; set; }
     }
 }
