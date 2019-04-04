@@ -22,7 +22,7 @@ namespace Fitter.Seed
         {
             var user1 = new User
             {
-                FirstName = "i",
+                FirstName = "ikkmlm",
                 LastName = "Boros",
                 Email = "dartwader128@azet.sk",
                 Password = "pumkli28",
@@ -31,7 +31,7 @@ namespace Fitter.Seed
 
             var user2 = new User
             {
-                FirstName = "D",
+                FirstName = "Djkjg",
                 LastName = "Danko",
                 Email = "optimus13@pokec.sk",
                 Password = "danulko13",
