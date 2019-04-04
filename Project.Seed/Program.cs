@@ -22,7 +22,7 @@ namespace Fitter.Seed
         {
             var user1 = new User
             {
-                FirstName = "Albert",
+                FirstName = "i",
                 LastName = "Boros",
                 Email = "dartwader128@azet.sk",
                 Password = "pumkli28",
@@ -31,18 +31,18 @@ namespace Fitter.Seed
 
             var user2 = new User
             {
-                FirstName = "Daniel",
+                FirstName = "D",
                 LastName = "Danko",
                 Email = "optimus13@pokec.sk",
                 Password = "danulko13",
             };
             dbContext.Users.Add(user2);
-
+            dbContext.SaveChanges();
             var team = new Team
             {
                 Name = "Sicaci",
-                Admin = user1.Id,
-                Created = DateTime.Today,
+                Admin = user1,
+                Description = "Team for seeding data",
                 UsersInTeams = 
                 {
                     new UsersInTeam()

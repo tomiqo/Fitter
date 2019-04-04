@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
 using Fitter.DAL.Entity.Base;
@@ -7,10 +8,17 @@ namespace Fitter.DAL.Entity
 {   
     public class User : BaseEntity
     {
+        [Required]
+        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
         public string FirstName { get; set; }
+        [Required]
+        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)] 
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
+
+        [Required(ErrorMessage = "Email is missing.")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Password is missing.")]
         public string Password
         {
             get { return passwd;}
