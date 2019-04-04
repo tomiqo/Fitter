@@ -10,6 +10,6 @@ namespace Fitter.BL.Repositories.Interfaces
         UserDetailModel GetById(Guid id);
         UserDetailModel GetByEmail(string email);
 
-        IEnumerable<UserListModel> GetUsersInTeam();
+        IEnumerable<UserListModel> GetUsersInTeam(Guid id);
     }
 }

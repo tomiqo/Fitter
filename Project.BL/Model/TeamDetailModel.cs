@@ -6,6 +6,6 @@ namespace Fitter.BL.Model
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public UserListModel Admin { get; set; } 
+        public UserDetailModel Admin { get; set; } 
     }
 }

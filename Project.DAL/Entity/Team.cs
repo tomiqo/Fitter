@@ -8,7 +8,7 @@ namespace Fitter.DAL.Entity
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid? Admin { get; set; }
+        public User Admin { get; set; }
         public ICollection<UsersInTeam> UsersInTeams { get; set; } = new List<UsersInTeam>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
     }

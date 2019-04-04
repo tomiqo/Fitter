@@ -2,11 +2,11 @@
 
 namespace Fitter.BL.Model
 {
-    public class CommentModel
+    public class CommentModel : BaseModel
     {
-        public UserListModel Author { get; set; }
+        public UserDetailModel Author { get; set; }
         public DateTime Created { get; set; }
         public string Text { get; set; }
-        //public TagModel Tags { get; set; }        iCollection ??? TagListModel ???
+        public PostDetailModel Post { get; set; }
     }
 }

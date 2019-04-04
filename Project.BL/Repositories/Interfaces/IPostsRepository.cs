@@ -1,4 +1,4 @@
-﻿namespace Fitter.BL.Repositories
+﻿namespace Fitter.BL.Repositories.Interfaces
 {
     public interface IPostsRepository
     {
