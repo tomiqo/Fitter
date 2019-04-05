@@ -71,22 +71,11 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                /* TODO
-                 Příspěvky v týmu jsou zobrazeny i s komentáři a seřazeny dle data vytvoření posledního komentáře, 
-                 ne data zveřejnění příspěvku. Komentáře se řadí chronologicky.
-
-                Příspěvek č. 1
-                    odpověď č. 1 na příspěvek č. 1
-                    odpověď č. N na příspěvek č. 1
-                Příspěvek č. 2
-                    odpověď č. 1 na příspěvek č. 2
-                    odpověď č. N na příspěvek č. 2
-                 */
-
-                /*var selected = (from data in dbContext.Teams
-                                where data.Id == id
-                                orderby data.
-                                select data)*/
+                var selected = (from data in dbContext.Posts
+                    where data.CurrentTeamId == id
+                    join comm in dbContext.Comments on data.Id equals comm.CurrentPostId
+                    orderby comm.Created descending 
+                    select new {data}).Distinct(); 
 
                 return dbContext.Teams
                     .First(p => p.Id == id)
