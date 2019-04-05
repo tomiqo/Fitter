@@ -1,13 +1,18 @@
-﻿namespace Fitter.BL.Repositories.Interfaces
+﻿using System;
+using System.Collections.Generic;
+using Fitter.BL.Model;
+
+namespace Fitter.BL.Repositories.Interfaces
 {
     public interface IPostsRepository
     {
-        //Get all posts for team
+        void Create(PostModel post);
+        void Delete(Guid id);
+        void AddAttachments(List<AttachmentModel> attachments, Guid id);
+        void TagUsers(List<UserDetailModel> users, Guid id);
 
-        //Get all comments for post ??
-
-        //Create post
-
-        //Remove post
+        IEnumerable<PostModel> GetPostsForTeam(Guid id);
+        IEnumerable<AttachmentModel> GetAttachmentsForPost(Guid id);
+        IEnumerable<UserListModel> GetTagsForPost(Guid id);
     }
 }

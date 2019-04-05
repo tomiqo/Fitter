@@ -2,7 +2,7 @@
 
 namespace Fitter.BL.Model
 {
-    public class PostDetailModel : BaseModel
+    public class PostModel : BaseModel
     {
         public UserDetailModel Author { get; set; }
         public DateTime Created { get; set; }

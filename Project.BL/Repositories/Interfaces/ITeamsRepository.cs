@@ -1,21 +1,19 @@
-﻿namespace Fitter.BL.Repositories.Interfaces
+﻿using System;
+using System.Collections.Generic;
+using Fitter.BL.Model;
+
+namespace Fitter.BL.Repositories.Interfaces
 {
     public interface ITeamsRepository
     {
-        //Create team
+        TeamDetailModel Create(TeamDetailModel team);
+        TeamDetailModel GetById(Guid id);
 
-        //Remove team
+        void AddUserToTeam(UserDetailModel user, Guid id);
+        void RemoveUserFromTeam(UserDetailModel user, Guid id);
+        bool Exists(string name);
+        void Delete(Guid id);
 
-        //Get all teams for user ??? (Do IUsers?)
-
-        //Get team by ID
-
-        //Get team description
-
-        //Get users in team
-
-        //Add user to team ??? (get all app users) ???
-
-        //Remove user from team
+        IEnumerable<TeamListModel> GetTeamsForUser(Guid id);
     }
 }

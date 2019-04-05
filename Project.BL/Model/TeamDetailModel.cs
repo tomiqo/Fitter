@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fitter.BL.Model
+﻿namespace Fitter.BL.Model
 {
     public class TeamDetailModel : BaseModel
     {

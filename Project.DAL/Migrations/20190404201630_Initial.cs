@@ -8,20 +8,6 @@ namespace Fitter.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Admin = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -39,14 +25,34 @@ namespace Fitter.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 20, nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    AdminId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_Users_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CurrentAuthorId = table.Column<Guid>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
+                    Text = table.Column<string>(maxLength: 180, nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
                     CurrentTeamId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -117,7 +123,7 @@ namespace Fitter.DAL.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CurrentAuthorId = table.Column<Guid>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
+                    Text = table.Column<string>(maxLength: 180, nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     CurrentPostId = table.Column<Guid>(nullable: false)
                 },
@@ -162,6 +168,11 @@ namespace Fitter.DAL.Migrations
                 name: "IX_Posts_CurrentTeamId",
                 table: "Posts",
                 column: "CurrentTeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_AdminId",
+                table: "Teams",
+                column: "AdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CommentId",

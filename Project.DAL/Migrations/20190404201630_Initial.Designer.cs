@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitter.DAL.Migrations
 {
     [DbContext(typeof(FitterDbContext))]
-    [Migration("20190404112157_entitiesRequired")]
-    partial class entitiesRequired
+    [Migration("20190404201630_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,19 +120,13 @@ namespace Fitter.DAL.Migrations
 
                     b.Property<Guid?>("CommentId");
 
-                    b.Property<string>("Email")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("LastName");
 
-                    b.Property<string>("Password")
-                        .IsRequired();
+                    b.Property<string>("Password");
 
                     b.Property<Guid?>("PostId");
 

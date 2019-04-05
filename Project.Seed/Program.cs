@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Fitter.DAL;
 using Fitter.DAL.Entity;
 using Fitter.DAL.Enums;
@@ -98,8 +97,6 @@ namespace Fitter.Seed
                 Post = post,
             };
             dbContext.SaveChanges();
-            dbContext.Users.Remove(user1);
-            dbContext.Teams.Remove(team);
             dbContext.SaveChanges();
         }
 

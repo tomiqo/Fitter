@@ -13,9 +13,8 @@ namespace Fitter.BL.Mapper.Interface
         TeamDetailModel MapTeamDetailModelFromEntity(Team team);
         TeamListModel MapTeamListModelFromEntity(Team team);
 
-        Post MapPostToEntity(PostDetailModel model);
-        PostDetailModel MapPostDetailModelFromEntity(Post post);
-        PostListModel MapPostListModelFromEntity(Post post);
+        Post MapPostToEntity(PostModel model);
+        PostModel MapPostModelFromEntity(Post post);
 
         Comment MapCommentToEntity(CommentModel model);
         CommentModel MapCommentModelFromEntity(Comment comment);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Fitter.BL.Mapper.Interface;
+﻿using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.DAL.Entity;
 
@@ -84,7 +81,7 @@ namespace Fitter.BL.Mapper
 
         #region Post Mapping
 
-        public Post MapPostToEntity(PostDetailModel model)
+        public Post MapPostToEntity(PostModel model)
         {
             return new Post
             {
@@ -97,26 +94,15 @@ namespace Fitter.BL.Mapper
             };
         }
 
-        public PostDetailModel MapPostDetailModelFromEntity(Post post)
+        public PostModel MapPostModelFromEntity(Post post)
         {
-            return new PostDetailModel
+            return new PostModel
             {
                 Id = post.Id,
                 Author = MapUserDetailModelFromEntity(post.Author),
                 Created = post.Created,
                 Team = MapTeamDetailModelFromEntity(post.Team),
                 Text = post.Text,
-                Title = post.Title
-            };
-        }
-
-        public PostListModel MapPostListModelFromEntity(Post post)
-        {
-            return new PostListModel
-            {
-                Id = post.Id,
-                Author = MapUserDetailModelFromEntity(post.Author),
-                Created = post.Created,
                 Title = post.Title
             };
         }
@@ -145,7 +131,7 @@ namespace Fitter.BL.Mapper
                 Author = MapUserDetailModelFromEntity(comment.Author),
                 Created = comment.Created,
                 Text = comment.Text,
-                Post = MapPostDetailModelFromEntity(comment.Post)
+                Post = MapPostModelFromEntity(comment.Post)
             };
         }
 
@@ -173,7 +159,7 @@ namespace Fitter.BL.Mapper
                 Name = attachment.Name,
                 File = attachment.File,
                 FileType = attachment.FileType,
-                Post = MapPostDetailModelFromEntity(attachment.Post)
+                Post = MapPostModelFromEntity(attachment.Post)
             };
         }
 

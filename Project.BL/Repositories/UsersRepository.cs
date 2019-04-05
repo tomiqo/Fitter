@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
+using Fitter.BL.Services;
 using Fitter.DAL;
-using Fitter.DAL.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fitter.BL.Repositories
 {
@@ -26,8 +23,10 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
+                var passwordHasher = new PasswordHasher(user.Password);
+                user.Password = passwordHasher.GetHashedPassword();
+
                 var entity = _mapper.MapUserToEntity(user);
-                entity.Password = HashPassword(entity.Password);
                 dbContext.Users.Add(entity);
                 dbContext.SaveChanges();
                 return _mapper.MapUserDetailModelFromEntity(entity);
@@ -63,18 +62,14 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        private string HashPassword(string password)
+        public IEnumerable<UserListModel> GetUsersNotInTeam(Guid id)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
+            using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                byte[] ArrayOfSha256 = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                StringBuilder returnString = new StringBuilder();
-
-                foreach (var b in ArrayOfSha256)
-                    returnString.Append(b.ToString("x2"));
-
-                return returnString.ToString();
+                return dbContext.Users
+                    .Where(p => p.UsersInTeams
+                        .All(k => k.TeamId != id))
+                    .Select(e => _mapper.MapUserListModelFromEntity(e));
             }
         }
     }
