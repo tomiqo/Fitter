@@ -12,6 +12,7 @@ namespace Fitter.DAL
         public FitterDbContext(DbContextOptions options) : base(options)
         {
         }
+        public int asd { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
