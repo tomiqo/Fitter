@@ -1,4 +1,5 @@
-﻿using Fitter.BL.Model;
+﻿using System.Collections.Generic;
+using Fitter.BL.Model;
 using Fitter.DAL.Entity;
 
 namespace Fitter.BL.Mapper.Interface

@@ -71,16 +71,11 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                var selected = (from data in dbContext.Posts
-                    where data.CurrentTeamId == id
-                    join comm in dbContext.Comments on data.Id equals comm.CurrentPostId
-                    orderby comm.Created descending 
-                    select new {data}).Distinct(); 
-
-                return dbContext.Teams
-                    .First(p => p.Id == id)
-                    .Posts
-                    .Select(e => _mapper.MapPostModelFromEntity(e));
+                return (dbContext.Posts.Where(data => data.CurrentTeamId == id)
+                        .Join(dbContext.Comments, data => data.Id, comm => comm.CurrentPostId, (data, comm) => new {data, comm})
+                        .OrderByDescending(@t => @t.comm.Created)
+                        .Select(@t => @t.data)).Distinct()
+                        .Select(e => _mapper.MapPostModelFromEntity(e));
             }
         }
 
