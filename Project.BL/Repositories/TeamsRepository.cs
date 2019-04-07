@@ -6,6 +6,7 @@ using Fitter.BL.Repositories.Interfaces;
 using System.Linq;
 using Fitter.BL.Factories;
 using Fitter.DAL.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fitter.BL.Repositories
 {
@@ -34,7 +35,7 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                var entity = dbContext.Teams.FirstOrDefault(t => t.Id == id);
+                var entity = dbContext.Teams.Include(t => t.Admin).FirstOrDefault( t => t.Id == id);
                 return _mapper.MapTeamDetailModelFromEntity(entity);
             }
         }

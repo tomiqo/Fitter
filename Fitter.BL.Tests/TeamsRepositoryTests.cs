@@ -51,9 +51,11 @@ namespace Fitter.BL.Tests
                 Name = "The bests",
                 Description = "Alfonzov team",
             };
+
             var createdTeam = sut.Create(model);
             var foundedTeam = sut.GetById(createdTeam.Id);
-            Assert.NotNull(foundedTeam);
+
+            Assert.Equal(createdTeam.Id, foundedTeam.Id);
         }
 
         [Fact]
@@ -63,24 +65,24 @@ namespace Fitter.BL.Tests
             var admin = new UserDetailModel()
             {
                 Id = Guid.NewGuid(),
-                LastName = "Adam",
-                FirstName = "Vysoky",
-                Password = "adamko13213",
-                Email = "andershall@gmail.com"
+                LastName = "Doe",
+                FirstName = "John",
+                Password = "123",
+                Email = "john@doe.com"
             };
 
-            var model = new TeamDetailModel()
+            var team = new TeamDetailModel()
             {
                 Id = Guid.NewGuid(),
                 Admin = admin,
-                Name = "United",
-                Description = "Najlepsi futbalovy team",
+                Name = "Team1",
+                Description = "Team1 description"
             };
-            var createdTeam = sut.Create(model);
-            var teamInDb = sut.GetById(createdTeam.Id);
+
+            var createdTeam = sut.Create(team);
             sut.Delete(createdTeam.Id);
-            teamInDb = sut.GetById(createdTeam.Id);
-            Assert.Null(createdTeam.Name);
+
+            Assert.Throws<NullReferenceException>(() => sut.GetById(createdTeam.Id));
         }
 
         [Fact]
