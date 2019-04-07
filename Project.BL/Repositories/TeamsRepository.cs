@@ -44,13 +44,14 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                var entity = _mapper.MapUserToEntity(user);
+                var userEntity = _mapper.MapUserToEntity(user);
+
                 dbContext.Teams
                     .First(k => k.Id == id)
                     .UsersInTeams
                     .Add(new UsersInTeam()
                         {
-                            User = entity
+                            User = userEntity
                         });
                 dbContext.SaveChanges();
             }
@@ -62,6 +63,8 @@ namespace Fitter.BL.Repositories
             {
                 var entity = _mapper.MapUserToEntity(user);
                 var selected = (dbContext.UsersInTeams
+                        .Include(t => t.Team)
+                        .Include(t => t.User)
                         .Where(data => (data.TeamId == id && data.User == entity)))
                         .First();
 
