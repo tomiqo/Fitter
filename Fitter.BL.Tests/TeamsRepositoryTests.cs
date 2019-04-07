@@ -33,6 +33,7 @@ namespace Fitter.BL.Tests
             };
             var createdTeam = sut.Create(model);
             Assert.NotNull(createdTeam);
+            sut.Delete(model.Id);
         }
 
         [Fact]
@@ -190,6 +191,7 @@ namespace Fitter.BL.Tests
             sut.Delete(createdTeam.Id);
             var exist = sut.Exists(createdTeam.Name);
             Assert.False(exist);
+
         }
 
         private TeamsRepository CreateSUT()

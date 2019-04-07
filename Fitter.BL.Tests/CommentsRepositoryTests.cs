@@ -61,6 +61,7 @@ namespace Fitter.BL.Tests
             };
             sut.Create(model);
             Assert.NotNull(sut.GetCommentsForPost(post.Id));
+            
         }
 
         [Fact]
