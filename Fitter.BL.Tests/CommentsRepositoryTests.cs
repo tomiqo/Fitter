@@ -4,7 +4,6 @@ using System.Linq;
 using Fitter.BL.Factories;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories;
-using Fitter.DAL.Tests;
 using Xunit;
 
 namespace Fitter.BL.Tests

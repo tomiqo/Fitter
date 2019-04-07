@@ -58,7 +58,11 @@ namespace Fitter.BL.Repositories
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Posts
+                    .Include(t => t.Team)
+                        .ThenInclude(a => a.Admin)
+                    .Include(a => a.Author)
                     .Include(c => c.Comments)
+                        .ThenInclude(k => k.Author)
                     .First(p => p.Id == id)
                     .Comments
                     .Select(e => _mapper.MapCommentModelFromEntity(e)).ToList();

@@ -83,7 +83,8 @@ namespace Fitter.BL.Tests
 
             sut.Create(model);
             sut.Delete(model.Id);
-            Assert.Throws<ObjectDisposedException>(() => sut.GetPostsForTeam(team.Id).ToList());
+            var posts = sut.GetPostsForTeam(team.Id).ToList();
+            Assert.Empty(posts);
         }
 
         [Fact]
