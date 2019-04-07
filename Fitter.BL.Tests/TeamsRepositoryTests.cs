@@ -93,60 +93,30 @@ namespace Fitter.BL.Tests
             {
                 Admin = new UserDetailModel()
                 {
+                    Id = Guid.NewGuid(),
                     LastName = "Michaela",
                     FirstName = "Sucha",
                     Password = "miskasucha",
                     Email = "michaella159@seznam.cz"
                 },
+                Id = Guid.NewGuid(),
                 Name = "Miskin team",
                 Description = "Dievcensky team pre michaelu",
             };
             var user = new UserDetailModel()
             {
-                LastName = "Eva",
-                FirstName = "Novakova",
+                Id = Guid.NewGuid(),
+                LastName = "Modra",
+                FirstName = "Modra",
                 Password = "asassad",
                 Email = "novakovaEva@gmail.com"
             };
             var createdTeam = sut.Create(model);
-            sut.AddUserToTeam(user,model.Id);
-            Assert.NotNull(user);
-        }
+            sut.AddUserToTeam(user,createdTeam.Id);
 
-        [Fact]
-        public void RemoveUserFromTeam()
-        {
-            var sut = CreateSUT();
-            var users = CreateUser();
-            var model = new TeamDetailModel()
-            {
-                Admin = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    LastName = "Vaclav",
-                    FirstName = "Siroky",
-                    Password = "dobreheslo",
-                    Email = "sirokyvaclav@gmail.com"
-                },
-                Id = Guid.NewGuid(),
-                Name = "Ministri",
-                Description = "Team pre ministrov",
-            };
-            var user = new UserDetailModel()
-            {
-                Id = Guid.NewGuid(),
-                LastName = "Michal",
-                FirstName = "Kruty",
-                Password = "najlepsieheslo",
-                Email = "kruty@gmail.com"
-            };
-
-            var createdUser = users.Create(user);
-            var createdTeam = sut.Create(model);
-            sut.AddUserToTeam(createdUser, model.Id);
-            sut.RemoveUserFromTeam(user, createdTeam.Id);
-
-            Assert.Throws<ObjectDisposedException>(() => users.GetUsersInTeam(createdUser.Id).ToList());
+            var teams = sut.GetTeamsForUser(user.Id);
+            Assert.Equal(teams[1].Id, createdTeam.Id);
+            
         }
 
         [Fact]
@@ -193,6 +163,8 @@ namespace Fitter.BL.Tests
             sut.Delete(createdTeam.Id);
             var exist = sut.Exists(createdTeam.Name);
             Assert.False(exist);
+
+            
         }
 
         private TeamsRepository CreateSUT()

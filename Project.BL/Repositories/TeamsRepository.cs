@@ -73,14 +73,16 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IEnumerable<TeamListModel> GetTeamsForUser(Guid id)
+        public IList<TeamListModel> GetTeamsForUser(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Teams
+                    .Include(t => t.UsersInTeams)
+                    .ThenInclude(t => t.User)
                     .Where(p => p.UsersInTeams
                         .All(k => k.UserId == id))
-                    .Select(e => _mapper.MapTeamListModelFromEntity(e));
+                    .Select(e => _mapper.MapTeamListModelFromEntity(e)).ToList();
             }
         }
 

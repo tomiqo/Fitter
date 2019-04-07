@@ -14,6 +14,6 @@ namespace Fitter.BL.Repositories.Interfaces
         bool Exists(string name);
         void Delete(Guid id);
 
-        IEnumerable<TeamListModel> GetTeamsForUser(Guid id);
+        IList<TeamListModel> GetTeamsForUser(Guid id);
     }
 }

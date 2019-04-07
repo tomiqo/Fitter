@@ -11,8 +11,8 @@ namespace Fitter.BL.Repositories.Interfaces
         void AddAttachments(List<AttachmentModel> attachments, Guid id);
         void TagUsers(List<UserDetailModel> users, Guid id);
 
-        IEnumerable<PostModel> GetPostsForTeam(Guid id);
-        IEnumerable<AttachmentModel> GetAttachmentsForPost(Guid id);
-        IEnumerable<UserListModel> GetTagsForPost(Guid id);
+        IList<PostModel> GetPostsForTeam(Guid id);
+        IList<AttachmentModel> GetAttachmentsForPost(Guid id);
+        IList<UserListModel> GetTagsForPost(Guid id);
     }
 }

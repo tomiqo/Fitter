@@ -67,7 +67,7 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IEnumerable<PostModel> GetPostsForTeam(Guid id)
+        public IList<PostModel> GetPostsForTeam(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
@@ -75,29 +75,29 @@ namespace Fitter.BL.Repositories
                         .Join(dbContext.Comments, data => data.Id, comm => comm.CurrentPostId, (data, comm) => new {data, comm})
                         .OrderByDescending(@t => @t.comm.Created)
                         .Select(@t => @t.data)).Distinct()
-                        .Select(e => _mapper.MapPostModelFromEntity(e));
+                        .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();
             }
         }
 
-        public IEnumerable<AttachmentModel> GetAttachmentsForPost(Guid id)
+        public IList<AttachmentModel> GetAttachmentsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Posts
                     .First(p => p.Id == id)
                     .Attachments
-                    .Select(e => _mapper.MapAttachmentModelFromEntity(e));
+                    .Select(e => _mapper.MapAttachmentModelFromEntity(e)).ToList();
             }
         }
 
-        public IEnumerable<UserListModel> GetTagsForPost(Guid id)
+        public IList<UserListModel> GetTagsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Posts
                     .First(p => p.Id == id)
                     .Tags
-                    .Select(e => _mapper.MapUserListModelFromEntity(e));
+                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
     }

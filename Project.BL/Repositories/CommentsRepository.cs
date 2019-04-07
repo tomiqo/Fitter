@@ -52,25 +52,25 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IEnumerable<CommentModel> GetCommentsForPost(Guid id)
+        public IList<CommentModel> GetCommentsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Posts
                     .First(p => p.Id == id)
                     .Comments
-                    .Select(e => _mapper.MapCommentModelFromEntity(e));
+                    .Select(e => _mapper.MapCommentModelFromEntity(e)).ToList();
             }
         }
 
-        public IEnumerable<UserListModel> GetTagsForComment(Guid id)
+        public IList<UserListModel> GetTagsForComment(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Comments
                     .First(p => p.Id == id)
                     .Tags
-                    .Select(e => _mapper.MapUserListModelFromEntity(e));
+                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
     }

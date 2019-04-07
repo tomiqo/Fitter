@@ -51,25 +51,25 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IEnumerable<UserListModel> GetUsersInTeam(Guid id)
+        public IList<UserListModel> GetUsersInTeam(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Users
                         .Where(p => p.UsersInTeams
                             .All(k => k.TeamId == id))
-                        .Select(e => _mapper.MapUserListModelFromEntity(e));
+                        .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
 
-        public IEnumerable<UserListModel> GetUsersNotInTeam(Guid id)
+        public IList<UserListModel> GetUsersNotInTeam(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Users
                     .Where(p => p.UsersInTeams
                         .All(k => k.TeamId != id))
-                    .Select(e => _mapper.MapUserListModelFromEntity(e));
+                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
     }
