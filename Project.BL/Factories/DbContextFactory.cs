@@ -11,7 +11,7 @@ namespace Fitter.BL.Factories
 
             optionsBuilder.UseSqlServer(
                 @"Data Source = (LocalDB)\MSSQLLocalDB;
-                        Initial Catalog = ProjectDB;
+                        Initial Catalog = FitterDB;
                         MultipleActiveResultSets = True;
                         Integrated Security = True ");
 

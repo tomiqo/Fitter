@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
-using Fitter.DAL;
 using System.Linq;
+using Fitter.BL.Factories;
 using Fitter.DAL.Entity;
 
 namespace Fitter.BL.Repositories
 {
     public class TeamsRepository : ITeamsRepository
     {
-        private readonly IFitterDbContext _fitterDbContext;
+        private readonly IDbContextFactory _fitterDbContext;
         private readonly IMapper _mapper;
-        public TeamsRepository(IFitterDbContext fitterDbContext, IMapper mapper)
+        public TeamsRepository(IDbContextFactory fitterDbContext, IMapper mapper)
         {
             this._fitterDbContext = fitterDbContext;
             this._mapper = mapper;
@@ -34,7 +34,7 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                var entity = dbContext.Teams.First(t => t.Id == id);
+                var entity = dbContext.Teams.FirstOrDefault(t => t.Id == id);
                 return _mapper.MapTeamDetailModelFromEntity(entity);
             }
         }

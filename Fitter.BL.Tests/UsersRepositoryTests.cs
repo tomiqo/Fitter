@@ -59,7 +59,7 @@ namespace Fitter.BL.Tests
 
         private IUsersRepository CreateSUT()
         {
-            return new UsersRepository(new InMemoryFitterDbContext(), new Mapper.Mapper());
+            return new UsersRepository(new InMemoryDbContext(), new Mapper.Mapper());
         }
     }
 }

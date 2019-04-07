@@ -1,10 +1,14 @@
-﻿using System.Diagnostics.SymbolStore;
+﻿using System;
+using System.Diagnostics.SymbolStore;
 using System.Runtime.InteropServices.ComTypes;
+using Fitter.BL.Factories;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories;
 using Fitter.BL.Repositories.Interfaces;
+using Fitter.DAL;
 using Fitter.DAL.Entity;
 using Fitter.DAL.Tests;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Fitter.BL.Tests
@@ -56,20 +60,26 @@ namespace Fitter.BL.Tests
         public void DeleteTeam()
         {
             var sut = CreateSUT();
+            var admin = new UserDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                LastName = "Adam",
+                FirstName = "Vysoky",
+                Password = "adamko13213",
+                Email = "andershall@gmail.com"
+            };
+
             var model = new TeamDetailModel()
             {
-                Admin = new UserDetailModel()
-                {
-                    LastName = "Adam",
-                    FirstName = "Vysoky",
-                    Password = "adamko13213",
-                    Email = "andershall@gmail.com"
-                },
+                Id = Guid.NewGuid(),
+                Admin = admin,
                 Name = "United",
                 Description = "Najlepsi futbalovy team",
             };
             var createdTeam = sut.Create(model);
+            var teamInDb = sut.GetById(createdTeam.Id);
             sut.Delete(createdTeam.Id);
+            teamInDb = sut.GetById(createdTeam.Id);
             Assert.Null(createdTeam.Name);
         }
 
@@ -179,14 +189,17 @@ namespace Fitter.BL.Tests
             var exist = sut.Exists(createdTeam.Name);
             Assert.False(exist);
         }
+
         private TeamsRepository CreateSUT()
         {
-            return new TeamsRepository(new InMemoryFitterDbContext(), new Mapper.Mapper());
+
+            return new TeamsRepository(new InMemoryDbContext(), new Mapper.Mapper());
         }
+
 
         private UsersRepository CreateUser()
         {
-            return new UsersRepository(new InMemoryFitterDbContext(), new Mapper.Mapper());
+            return new UsersRepository(new InMemoryDbContext(), new Mapper.Mapper());
         }
     }
 }

@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
-using Fitter.DAL;
 using System.Linq;
+using Fitter.BL.Factories;
 using Fitter.BL.Repositories.Interfaces;
 
 namespace Fitter.BL.Repositories
 {
     public class CommentsRepository : ICommentsRepository
     {
-        private readonly IFitterDbContext _fitterDbContext;
+        private readonly IDbContextFactory _fitterDbContext;
         private readonly IMapper _mapper;
-        public CommentsRepository(IFitterDbContext fitterDbContext, IMapper mapper)
+        public CommentsRepository(IDbContextFactory fitterDbContext, IMapper mapper)
         {
             this._fitterDbContext = fitterDbContext;
             this._mapper = mapper;

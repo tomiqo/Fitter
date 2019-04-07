@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fitter.BL.Factories;
 using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
-using Fitter.DAL;
 
 namespace Fitter.BL.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly IFitterDbContext _fitterDbContext;
+        private readonly IDbContextFactory _fitterDbContext;
         private readonly IMapper _mapper;
-        public UsersRepository(IFitterDbContext fitterDbContext, IMapper mapper)
+        public UsersRepository(IDbContextFactory fitterDbContext, IMapper mapper)
         {
             this._fitterDbContext = fitterDbContext;
             this._mapper = mapper;
