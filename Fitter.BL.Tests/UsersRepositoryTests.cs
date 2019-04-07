@@ -3,7 +3,6 @@ using System.Linq;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories;
 using Fitter.BL.Repositories.Interfaces;
-using Fitter.DAL.Tests;
 using Xunit;
 
 namespace Fitter.BL.Tests

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.SymbolStore;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using Fitter.BL.Factories;
 using Fitter.BL.Model;
@@ -7,7 +8,6 @@ using Fitter.BL.Repositories;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.DAL;
 using Fitter.DAL.Entity;
-using Fitter.DAL.Tests;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -109,7 +109,7 @@ namespace Fitter.BL.Tests
                 Email = "novakovaEva@gmail.com"
             };
             var createdTeam = sut.Create(model);
-            sut.AddUserToTeam(user,createdTeam.Id);
+            sut.AddUserToTeam(user,model.Id);
             Assert.NotNull(user);
         }
 
@@ -122,16 +122,19 @@ namespace Fitter.BL.Tests
             {
                 Admin = new UserDetailModel()
                 {
+                    Id = Guid.NewGuid(),
                     LastName = "Vaclav",
                     FirstName = "Siroky",
                     Password = "dobreheslo",
                     Email = "sirokyvaclav@gmail.com"
                 },
+                Id = Guid.NewGuid(),
                 Name = "Ministri",
                 Description = "Team pre ministrov",
             };
             var user = new UserDetailModel()
             {
+                Id = Guid.NewGuid(),
                 LastName = "Michal",
                 FirstName = "Kruty",
                 Password = "najlepsieheslo",
@@ -140,10 +143,10 @@ namespace Fitter.BL.Tests
 
             var createdUser = users.Create(user);
             var createdTeam = sut.Create(model);
-            sut.AddUserToTeam(user, createdTeam.Id);
+            sut.AddUserToTeam(createdUser, model.Id);
             sut.RemoveUserFromTeam(user, createdTeam.Id);
-            var usersInTeam = users.GetUsersInTeam(createdUser.Id);
-            Assert.Null(usersInTeam);
+
+            Assert.Throws<ObjectDisposedException>(() => users.GetUsersInTeam(createdUser.Id).ToList());
         }
 
         [Fact]
