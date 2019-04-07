@@ -40,8 +40,6 @@ namespace Fitter.DAL.Tests
                     var retrievedUser = dbContext.Users
                         .First(x => x.Id == user.Id);
                     Assert.NotNull(retrievedUser);
-                    Assert.Equal(0, retrievedUser.Comments.Count);
-                    Assert.Equal(0, retrievedUser.Posts.Count);
                 }
             }
 
@@ -96,8 +94,6 @@ namespace Fitter.DAL.Tests
                     var retrievedTeam = dbContext.Teams
                         .First(x => x.Id == team.Id);
                     Assert.NotNull(retrievedTeam);
-                    Assert.Equal(0, retrievedTeam.UsersInTeams.Count);
-                    Assert.Equal(0, retrievedTeam.Posts.Count);
                 }
             }
 
@@ -151,9 +147,6 @@ namespace Fitter.DAL.Tests
                     var retrievedPost = dbContext.Posts
                         .First(x => x.Id == post.Id);
                     Assert.NotNull(retrievedPost);
-                    Assert.Equal(post.Title, retrievedPost.Title);
-                    Assert.Equal(0, retrievedPost.Attachments.Count);
-                    Assert.Equal(0, retrievedPost.Comments.Count);
                 }
             }
 
@@ -207,8 +200,6 @@ namespace Fitter.DAL.Tests
                     var retrievedComment = dbContext.Comments
                         .First(x => x.Id == comment.Id);
                     Assert.NotNull(retrievedComment);
-                    Assert.Null(retrievedComment.Author);
-                    Assert.Equal(0, retrievedComment.Tags.Count);
                 }
             }
 
