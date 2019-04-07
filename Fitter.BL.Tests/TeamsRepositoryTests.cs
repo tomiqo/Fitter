@@ -110,7 +110,7 @@ namespace Fitter.BL.Tests
             };
             var createdTeam = sut.Create(model);
             sut.AddUserToTeam(user,createdTeam.Id);
-            Assert.NotNull(user);
+            Assert.NotNull(sut.GetTeamsForUser(user.Id));
         }
 
         [Fact]
