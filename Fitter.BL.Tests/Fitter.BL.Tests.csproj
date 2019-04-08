@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Project.BL\Fitter.BL.csproj" />
+    <ProjectReference Include="..\Fitter.BL\Fitter.BL.csproj" />
   </ItemGroup>
 
 </Project>
