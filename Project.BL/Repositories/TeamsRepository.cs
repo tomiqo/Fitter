@@ -6,6 +6,7 @@ using Fitter.BL.Repositories.Interfaces;
 using System.Linq;
 using Fitter.BL.Factories;
 using Fitter.DAL.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fitter.BL.Repositories
 {
@@ -34,7 +35,7 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                var entity = dbContext.Teams.FirstOrDefault(t => t.Id == id);
+                var entity = dbContext.Teams.Include(t => t.Admin).FirstOrDefault( t => t.Id == id);
                 return _mapper.MapTeamDetailModelFromEntity(entity);
             }
         }
@@ -43,13 +44,14 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                var entity = _mapper.MapUserToEntity(user);
+                var userEntity = _mapper.MapUserToEntity(user);
+
                 dbContext.Teams
                     .First(k => k.Id == id)
                     .UsersInTeams
                     .Add(new UsersInTeam()
                         {
-                            User = entity
+                            User = userEntity
                         });
                 dbContext.SaveChanges();
             }
@@ -61,6 +63,8 @@ namespace Fitter.BL.Repositories
             {
                 var entity = _mapper.MapUserToEntity(user);
                 var selected = (dbContext.UsersInTeams
+                        .Include(t => t.Team)
+                        .Include(t => t.User)
                         .Where(data => (data.TeamId == id && data.User == entity)))
                         .First();
 
@@ -69,14 +73,16 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IEnumerable<TeamListModel> GetTeamsForUser(Guid id)
+        public IList<TeamListModel> GetTeamsForUser(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Teams
+                    .Include(t => t.UsersInTeams)
+                    .ThenInclude(t => t.User)
                     .Where(p => p.UsersInTeams
                         .All(k => k.UserId == id))
-                    .Select(e => _mapper.MapTeamListModelFromEntity(e));
+                    .Select(e => _mapper.MapTeamListModelFromEntity(e)).ToList();
             }
         }
 

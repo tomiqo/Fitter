@@ -10,7 +10,7 @@ namespace Fitter.BL.Repositories.Interfaces
         void Delete(Guid id);
         void TagUsers(List<UserDetailModel> users, Guid id);
 
-        IEnumerable<CommentModel> GetCommentsForPost(Guid id);
-        IEnumerable<UserListModel> GetTagsForComment(Guid id);
+        IList<CommentModel> GetCommentsForPost(Guid id);
+        IList<UserListModel> GetTagsForComment(Guid id);
     }
 }

@@ -5,6 +5,7 @@ using Fitter.BL.Model;
 using System.Linq;
 using Fitter.BL.Factories;
 using Fitter.BL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fitter.BL.Repositories
 {
@@ -52,25 +53,31 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IEnumerable<CommentModel> GetCommentsForPost(Guid id)
+        public IList<CommentModel> GetCommentsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Posts
+                    .Include(t => t.Team)
+                        .ThenInclude(a => a.Admin)
+                    .Include(a => a.Author)
+                    .Include(c => c.Comments)
+                        .ThenInclude(k => k.Author)
                     .First(p => p.Id == id)
                     .Comments
-                    .Select(e => _mapper.MapCommentModelFromEntity(e));
+                    .Select(e => _mapper.MapCommentModelFromEntity(e)).ToList();
             }
         }
 
-        public IEnumerable<UserListModel> GetTagsForComment(Guid id)
+        public IList<UserListModel> GetTagsForComment(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.Comments
+                    .Include(t => t.Tags)
                     .First(p => p.Id == id)
                     .Tags
-                    .Select(e => _mapper.MapUserListModelFromEntity(e));
+                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
     }
