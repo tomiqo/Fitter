@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Project.DAL\Fitter.DAL.csproj" />
+    <ProjectReference Include="..\Fitter.DAL\Fitter.DAL.csproj" />
   </ItemGroup>
 
 </Project>

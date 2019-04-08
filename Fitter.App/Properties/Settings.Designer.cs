@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Project.App.Properties
+namespace Fitter.App.Properties
 {
 
 

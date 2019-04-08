@@ -1,4 +1,10 @@
-﻿namespace Fitter.App.ViewModels
+﻿using Fitter.BL.Factories;
+using Fitter.BL.Mapper;
+using Fitter.BL.Repositories;
+using Fitter.BL.Repositories.Interfaces;
+using Fitter.BL.Services;
+
+namespace Fitter.App.ViewModels
 {
     public class ViewModelLocator
     {

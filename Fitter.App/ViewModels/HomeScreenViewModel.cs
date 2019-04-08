@@ -1,4 +1,6 @@
 using Fitter.App.ViewModels.Base;
+using Fitter.BL.Repositories.Interfaces;
+using Fitter.BL.Services;
 
 namespace Fitter.App.ViewModels
 {

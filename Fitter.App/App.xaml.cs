@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Project.App
+namespace Fitter.App
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Project.App.Views.LoginPanel"
+﻿<UserControl x:Class="Fitter.App.Views.LoginPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
