@@ -6,6 +6,7 @@ using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fitter.BL.Repositories
 {
@@ -55,10 +56,9 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                return dbContext.Users
-                        .Where(p => p.UsersInTeams
-                            .All(k => k.TeamId == id))
-                        .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
+                return dbContext.UsersInTeams.Include(p => p.User)
+                    .Where(data => data.TeamId == id)
+                    .Select(data => _mapper.MapUserListModelFromEntity(data.User)).ToList();
             }
         }
 
@@ -66,10 +66,9 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                return dbContext.Users
-                    .Where(p => p.UsersInTeams
-                        .All(k => k.TeamId != id))
-                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
+                return dbContext.UsersInTeams.Include(p => p.User)
+                    .Where(data => data.TeamId != id)
+                    .Select(data => _mapper.MapUserListModelFromEntity(data.User)).ToList();
             }
         }
     }

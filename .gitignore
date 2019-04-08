@@ -260,3 +260,9 @@ paket-files/
 __pycache__/
 *.pyc
 /Fitter.Swagger.API
+/Project.BL/Services/IMediator.cs
+/Project.BL/Services/Mediator.cs
+/Project.BL/Messages
+/Project.App/Commands
+/Project.App/ViewModels
+/Project.App/Views
