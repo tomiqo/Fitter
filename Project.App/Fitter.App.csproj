@@ -160,6 +160,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\AddTScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddUScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +191,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\AddTScreen.xaml.cs">
+      <DependentUpon>AddTScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddUScreen.xaml.cs">
+      <DependentUpon>AddUScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppPanel.xaml.cs">
+      <DependentUpon>AppPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeScreen.xaml.cs">
+      <DependentUpon>HomeScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPanel.xaml.cs">
       <DependentUpon>LoginPanel.xaml</DependentUpon>
@@ -270,6 +298,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\AppBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\circleBack.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

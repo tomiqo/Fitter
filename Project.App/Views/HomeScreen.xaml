@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Project.App.Views.HomeScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Project.App.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700">
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/AppBackground.png"/>
+        </Grid.Background>
+        <Grid Margin="30" MaxHeight="200">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Padding="25" BorderThickness="1"  Margin="20" CornerRadius="50" BorderBrush="Black" >
+                <Border.Background>
+                    <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
+                </Border.Background>
+                <TextBlock FontStyle="Oblique" Foreground="#FFE6D4D4" Margin="10"  FontSize="16" TextWrapping="Wrap" TextAlignment="Center">
+                    Create your own Team with administrator benefits!
+                </TextBlock>
+            </Border>
+            <Button Grid.Column="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="40"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" Content="Create Team" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50">
+            </Button>
+            <Border Grid.Column="1" Padding="25" BorderThickness="1" Margin="20" CornerRadius="50" BorderBrush="Black" >
+                <Border.Background>
+                    <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
+                </Border.Background>
+                <TextBlock FontStyle="Oblique" Foreground="#FFE6D4D4" Margin="10"  FontSize="16" TextWrapping="Wrap" TextAlignment="Center">
+                    Add another user and let him enjoy Fitter too!
+                </TextBlock>
+            </Border>
+            <Button Grid.Column="1" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="40"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50">
+            </Button>
+
+        </Grid>
+    </Grid>
+</UserControl>
