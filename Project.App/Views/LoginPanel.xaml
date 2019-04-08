@@ -81,7 +81,7 @@
                 </Grid>
             </Grid>
             <Grid Row="2" >
-                <Button BorderBrush="{x:Null}" Background="#FF48C523" Foreground="#FF1F2124" Content="Log In" FontWeight="Bold" FontSize="16" MinHeight="50" Height="50" VerticalAlignment="Bottom"/>
+                <Button BorderBrush="{x:Null}" Background="#FF2E9110" Foreground="#FFE6D4D4" Content="Log In" FontWeight="Bold" FontSize="16" MinHeight="50" Height="50" VerticalAlignment="Bottom"/>
             </Grid>
         </Grid>
     </Grid>
