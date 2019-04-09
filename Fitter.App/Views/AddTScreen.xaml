@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fitter.App.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="700">
-    <Grid>
+             d:DesignHeight="450"
+             d:DesignWidth="700"
+             xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:AddTScreenViewModel}"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=AddTScreenViewModel}">
+    <Grid Visibility="{Binding Model, Converter={StaticResource NullableToVisibilityConverter}}">
         <Grid.Background>
             <ImageBrush ImageSource="Images/AppBackground.png"/>
         </Grid.Background>
