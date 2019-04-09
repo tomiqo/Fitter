@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using Fitter.App.ViewModels;
+using Fitter.App.Views;
 
 namespace Fitter.App
 {

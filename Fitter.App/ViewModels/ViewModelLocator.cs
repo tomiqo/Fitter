@@ -8,22 +8,26 @@ namespace Fitter.App.ViewModels
 {
     public class ViewModelLocator
     {
-        private readonly IMediator mediator;
-        private readonly IDbContextFactory dbContextFactory;
-        private readonly ICommentsRepository commentsRepository;
-        private readonly IPostsRepository postsRepository;
-        private readonly IUsersRepository userRepository;
-        private readonly ITeamsRepository teamsRepository;
+        private readonly IMediator _mediator;
+        private readonly IDbContextFactory _dbContextFactory;
+        private readonly ICommentsRepository _commentsRepository;
+        private readonly IPostsRepository _postsRepository;
+        private readonly IUsersRepository _userRepository;
+        private readonly ITeamsRepository _teamsRepository;
 
-        public HomeScreenViewModel HomeScreenViewModel => new HomeScreenViewModel(userRepository, mediator, teamsRepository);
+        public HomeScreenViewModel HomeScreenViewModel => new HomeScreenViewModel();
+        public AddUScreenViewModel AddUScreenViewModel => new AddUScreenViewModel();
+        public AddTScreenViewModel AddTScreenViewModel => new AddTScreenViewModel();
+        public LoginPanelViewModel LoginPanelViewModel => new LoginPanelViewModel(_userRepository, _mediator);
+        public AppPanelViewModel AppPanelViewModel => new AppPanelViewModel();
         public ViewModelLocator()
        {
-           mediator = new Mediator();
-           dbContextFactory = new DbContextFactory();
-           commentsRepository = new CommentsRepository(dbContextFactory, new Mapper());
-           postsRepository = new PostsRepository(dbContextFactory, new Mapper());
-           userRepository = new UsersRepository(dbContextFactory, new Mapper());
-           teamsRepository = new TeamsRepository(dbContextFactory, new Mapper());
+           _mediator = new Mediator();
+           _dbContextFactory = new DbContextFactory();
+           _commentsRepository = new CommentsRepository(_dbContextFactory, new Mapper());
+           _postsRepository = new PostsRepository(_dbContextFactory, new Mapper());
+           _userRepository = new UsersRepository(_dbContextFactory, new Mapper());
+           _teamsRepository = new TeamsRepository(_dbContextFactory, new Mapper());
        }
     }
 }

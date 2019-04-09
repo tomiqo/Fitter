@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fitter.App.Views"
+             xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="450" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance viewModels:LoginPanelViewModel}"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=LoginPanelViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -67,20 +71,24 @@
                         <Grid Row="1">
                             <UniformGrid Columns="1">
                                 <Label Content="Email" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
-                                <TextBox Background="#FF383C42" MaxHeight="35" />
+                                <TextBox Background="#FF383C42" MaxHeight="35" 
+                                         Text="{Binding Model.Email, UpdateSourceTrigger=PropertyChanged}"/>
                             </UniformGrid>
                         </Grid>
                         <Grid Row="2">
                             <UniformGrid Columns="1">
                                 <Label Content="Password" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Bottom" />
-                                <TextBox Background="#FF383C42" MaxHeight="35" />
+                                <TextBox Background="#FF383C42" MaxHeight="35" 
+                                         Text="{Binding Model.Password, UpdateSourceTrigger=PropertyChanged}"/>
                             </UniformGrid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid Row="2" >
-                <Button BorderBrush="{x:Null}" Background="#FF2E9110" Foreground="#FFE6D4D4" Content="Log In" FontWeight="Bold" FontSize="16" MinHeight="50" Height="50" VerticalAlignment="Bottom"/>
+                <Button BorderBrush="{x:Null}" Background="#FF2E9110" Foreground="#FFE6D4D4" 
+                        Content="Log In" FontWeight="Bold" FontSize="16" MinHeight="50" Height="50" VerticalAlignment="Bottom"
+                        Command="{Binding NewUserCommand}"/>
             </Grid>
         </Grid>
     </Grid>
