@@ -1,0 +1,954 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "Fitter API"
+    },
+    "paths": {
+        "/api/comments/create": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "operationId": "CreateComment",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/CommentModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/comments/delete": {
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "operationId": "DeleteComment",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/comments/tagUsers": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "operationId": "CommentTagUsers",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "users",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserDetailModel"
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/comments/getCommentsForPost": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "operationId": "GetCommentsForPost",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CommentModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/comments/getTagsForComment": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "operationId": "GetTagsForComment",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserListModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/create": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "CreatePost",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "post",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/PostModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/posts/delete": {
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "DeletePost",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/posts/addAttachments": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "PostAddAttachments",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "attachments",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/AttachmentModel"
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/posts/tagUsers": {
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "PostTagUsers",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "users",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserDetailModel"
+                            }
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/posts/getPostsForTeam": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "GetPostsForTeam",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PostModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/getAttachmentsForPost": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "GetAttachmentsForPost",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/AttachmentModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/posts/getTagsForPost": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "operationId": "GetTagsForPost",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserListModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/teams/create": {
+            "post": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "CreateTeam",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "team",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/TeamDetailModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TeamDetailModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/teams/getById": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "GetTeamById",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TeamDetailModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/teams/addUserToTeam": {
+            "post": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "AddUserToTeam",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UserDetailModel"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/teams/removeUserFromTeam": {
+            "delete": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "RemoveUserFromTeam",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UserDetailModel"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/teams/getTeamsForUser": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "GetTeamsForUser",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TeamListModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/teams/exists": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "TeamExists",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/teams/delete": {
+            "delete": {
+                "tags": [
+                    "Teams"
+                ],
+                "operationId": "DeleteTeam",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/users/create": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UserCreate",
+                "consumes": [
+                    "application/json-patch+json",
+                    "application/json",
+                    "text/json",
+                    "application/*+json"
+                ],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UserDetailModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetailModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/getById": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UserGetById",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetailModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/getByEmail": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UserGetByEmail",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetailModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/getUsersInTeam": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UsersInTeam",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserListModel"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/getUsersNotInTeam": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "UsersNotInTeam",
+                "consumes": [],
+                "produces": [
+                    "text/plain",
+                    "application/json",
+                    "text/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserListModel"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "CommentModel": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "$ref": "#/definitions/UserDetailModel"
+                },
+                "created": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "post": {
+                    "$ref": "#/definitions/PostModel"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "UserDetailModel": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "PostModel": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "$ref": "#/definitions/UserDetailModel"
+                },
+                "created": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "team": {
+                    "$ref": "#/definitions/TeamDetailModel"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "TeamDetailModel": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "admin": {
+                    "$ref": "#/definitions/UserDetailModel"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "UserListModel": {
+            "type": "object",
+            "properties": {
+                "fullname": {
+                    "type": "string"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "AttachmentModel": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "fileType": {
+                    "enum": [
+                        "Picture",
+                        "Video",
+                        "File"
+                    ],
+                    "type": "string"
+                },
+                "file": {
+                    "format": "byte",
+                    "type": "string"
+                },
+                "post": {
+                    "$ref": "#/definitions/PostModel"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "TeamListModel": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "id": {
+                    "format": "uuid",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": []
+}
