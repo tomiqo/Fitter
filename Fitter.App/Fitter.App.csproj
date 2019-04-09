@@ -177,6 +177,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API\Custom\ApiClient.cs" />
     <Compile Include="API\Generated\APIClient.cs" />
     <Compile Include="API\Generated\APIClientExtensions.cs" />
     <Compile Include="API\Generated\IAPIClient.cs" />
