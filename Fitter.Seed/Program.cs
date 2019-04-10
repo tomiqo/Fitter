@@ -3,6 +3,7 @@ using Fitter.DAL;
 using Fitter.DAL.Entity;
 using Fitter.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
+using Fitter.BL.Services;
 
 namespace Fitter.Seed
 {
@@ -26,6 +27,8 @@ namespace Fitter.Seed
                 Email = "dartwader128@azet.sk",
                 Password = "pumkli28",
             };
+            var passwordHasher = new PasswordHasher(user1.Password);
+            user1.Password = passwordHasher.GetHashedPassword();
             dbContext.Users.Add(user1);
 
             var user2 = new User
@@ -35,8 +38,11 @@ namespace Fitter.Seed
                 Email = "optimus13@pokec.sk",
                 Password = "danulko13",
             };
+            passwordHasher = new PasswordHasher(user2.Password);
+            user2.Password = passwordHasher.GetHashedPassword();
             dbContext.Users.Add(user2);
             dbContext.SaveChanges();
+
             var team = new Team
             {
                 Name = "Sicaci",

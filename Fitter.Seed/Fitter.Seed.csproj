@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fitter.BL\Fitter.BL.csproj" />
     <ProjectReference Include="..\Fitter.DAL\Fitter.DAL.csproj" />
   </ItemGroup>
 

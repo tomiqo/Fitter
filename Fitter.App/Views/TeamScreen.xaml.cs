@@ -5,7 +5,7 @@ namespace Fitter.App.Views
     /// <summary>
     /// Interaction logic for TeamScreen.xaml
     /// </summary>
-    public partial class TeamScreen : UserControl
+    public partial class TeamScreen
     {
         public TeamScreen()
         {

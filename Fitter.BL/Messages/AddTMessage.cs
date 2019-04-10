@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Fitter.BL.Messages
 {
-    public class UserLoginMessage : IMessage
+    public class AddTMessage : IMessage
     {
-        public Guid Id { get; set; }
     }
 }

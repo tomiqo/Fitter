@@ -9,11 +9,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-            <ResourceDictionary>
-                <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-                <viewModels:ViewModelLocator x:Key="ViewModelLocator"/>
-            </ResourceDictionary>
+                <ResourceDictionary>
+                    <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+                    <viewModels:ViewModelLocator x:Key="ViewModelLocator"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        </Application.Resources>
+    </Application.Resources>
 </Application>

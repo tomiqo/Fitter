@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Fitter.App.ViewModels;
@@ -11,5 +12,10 @@ namespace Fitter.App
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cs");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("cs");
+        }
     }
 }

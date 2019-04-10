@@ -15,11 +15,11 @@ namespace Fitter.App.ViewModels
         private readonly IUsersRepository _userRepository;
         private readonly ITeamsRepository _teamsRepository;
 
-        public HomeScreenViewModel HomeScreenViewModel => new HomeScreenViewModel();
+        public HomeScreenViewModel HomeScreenViewModel => new HomeScreenViewModel(_mediator);
         public AddUScreenViewModel AddUScreenViewModel => new AddUScreenViewModel();
         public AddTScreenViewModel AddTScreenViewModel => new AddTScreenViewModel();
         public LoginPanelViewModel LoginPanelViewModel => new LoginPanelViewModel(_userRepository, _mediator);
-        public AppPanelViewModel AppPanelViewModel => new AppPanelViewModel();
+        public AppPanelViewModel AppPanelViewModel => new AppPanelViewModel(_teamsRepository, _mediator, _userRepository);
         public ViewModelLocator()
        {
            _mediator = new Mediator();
