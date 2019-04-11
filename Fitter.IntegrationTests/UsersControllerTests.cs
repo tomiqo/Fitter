@@ -14,19 +14,58 @@ namespace Fitter.IntegrationTests
     public class UsersControllerTests
     {
         [Fact]
-        public async Task GetUserByEmail()
+        public async Task GetUserById()
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/users/getByEmail?email=adrianboros@centrum.sk");
+                var response = await client.GetAsync("/api/users/getById?id=d628cab8-bd94-4346-32c3-08d6b8f33c69");
 
                 response.EnsureSuccessStatusCode();
 
-                response.StatusCode.Should().Be(HttpStatusCode.OK);
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode); 
             }
         }
 
         [Fact]
+        public async Task GetUserByEmail()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var response = await client.GetAsync("/api/users/getByEmail?email=adrian@boros.sk");
+
+                response.EnsureSuccessStatusCode();
+
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            }
+        }
+
+        [Fact]
+        public async Task GetUsersInTeamAsync()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var response = await client.GetAsync("/api/users/getUsersInTeam?id=d628cab8-bd94-4346-32c3-08d6b8f33c69");
+
+                response.EnsureSuccessStatusCode();
+
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            }
+        }
+
+        [Fact]
+        public async Task GetUsersNotInTeamAsync()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var response = await client.GetAsync("/api/users/getUsersNotInTeam?id=d628cab8-bd94-4346-32c3-08d6b8f33c69");
+
+                response.EnsureSuccessStatusCode();
+
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            }
+        }
+
+        /*[Fact]
         public async Task CreateUser()
         {
             using (var client = new TestClientProvider().Client)
@@ -37,8 +76,8 @@ namespace Fitter.IntegrationTests
 
                 response.EnsureSuccessStatusCode();
 
-                response.StatusCode.Should().Be(HttpStatusCode.OK);
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             }
-        }
+        }*/
     }
 }
