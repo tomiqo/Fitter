@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Messages;
+using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
 
@@ -12,40 +13,47 @@ namespace Fitter.App.ViewModels
     public class HomeScreenViewModel : ViewModelBase
     {
         private readonly IMediator mediator;
+        private readonly IUsersRepository usersRepository;
+        private UserDetailModel _model;
 
-        public ICommand GoToCreateU { get; set; }
         public ICommand GoToCreateT { get; set; }
-        private object currentView;
+        public ICommand GoToCreateU { get; set; }
 
-        public object CurrentView
+        public UserDetailModel Model
         {
-            get { return currentView; }
-            set { currentView = value; OnPropertyChanged("CurrentView"); }
-        }
-        public HomeScreenViewModel(IMediator mediator)
-        {
-            GoToCreateT = new RelayCommand(GoToT);
-            GoToCreateU = new RelayCommand(GoToU);
-        }
-
-        private void GoToU()
-        {
-            CurrentView = new AddUScreenViewModel();
-        }
-
-        private void GoToT(object obj)
-        {
-            CurrentView = new AddTScreenViewModel();
-        }
-
-        public new event PropertyChangedEventHandler PropertyChanged;
-
-        private new void OnPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
+            get { return _model; }
+            set
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                if (Equals(value, Model))
+                    return;
+
+                _model = value;
+                OnPropertyChanged();
             }
+        }
+
+        public HomeScreenViewModel(IUsersRepository usersRepository, IMediator mediator)
+        {
+            this.mediator = mediator;
+            this.usersRepository = usersRepository;
+            GoToCreateT = new RelayCommand(NewTeam);
+            GoToCreateU = new RelayCommand(NewUser);
+            mediator.Register<UserLoginMessage>(UserLogin);
+        }
+
+        private void NewUser()
+        {
+            mediator.Send(new AddUMessage());
+        }
+
+        private void NewTeam()
+        {
+            mediator.Send(new AddTMessage{Id = Model.Id});
+        }
+
+        private void UserLogin(UserLoginMessage obj)
+        {
+            Model = usersRepository.GetById(obj.Id);
         }
     }
 }

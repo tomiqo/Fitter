@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:converters="clr-namespace:Fitter.App.Converters"
+             xmlns:views="clr-namespace:Fitter.App.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -12,8 +13,14 @@
                 <ResourceDictionary>
                     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
                     <viewModels:ViewModelLocator x:Key="ViewModelLocator"/>
+                    <DataTemplate DataType="{x:Type viewModels:AddTScreenViewModel}">
+                        <views:AddTScreen/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:AddUScreenViewModel}">
+                        <views:AddUScreen/>
+                    </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Application.Resources>
+        </Application.Resources>
 </Application>

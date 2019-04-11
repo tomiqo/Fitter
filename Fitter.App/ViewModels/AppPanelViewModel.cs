@@ -16,7 +16,21 @@ namespace Fitter.App.ViewModels
         private readonly ITeamsRepository teamsRepository;
         private readonly IUsersRepository usersRepository;
         private readonly IMediator mediator;
-        public UserDetailModel Model { get; set; }
+
+        private UserDetailModel _model;
+       // public UserDetailModel Model { get; set; }
+        public UserDetailModel Model
+        {
+            get { return _model; }
+            set
+            {
+                if (Equals(value, Model))
+                    return;
+
+                _model = value;
+                OnPropertyChanged();
+            }
+        }
         public AppPanelViewModel(ITeamsRepository teamsRepository, IMediator mediator, IUsersRepository usersRepository)
         {
             this.teamsRepository = teamsRepository;

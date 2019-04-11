@@ -9,18 +9,11 @@
              d:DesignHeight="450" d:DesignWidth="700"
              mc:Ignorable="d"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=HomeScreenViewModel}">
-    <UserControl.Resources>
-        <DataTemplate DataType="{x:Type viewModels:AddTScreenViewModel}">
-            <local:AddTScreen/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModels:AddUScreenViewModel}">
-            <local:AddUScreen/>
-        </DataTemplate>
-    </UserControl.Resources>
-    <Grid>
+    <Grid Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}">
         <Grid.Background>
             <ImageBrush ImageSource="Images/AppBackground.png"/>
         </Grid.Background>
+        <ContentControl Content="{Binding CurrentView}"/>
         <Grid Margin="30" MaxHeight="200">
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="*"/>
@@ -50,8 +43,6 @@
                     Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
                     Command="{Binding GoToCreateU}">
             </Button>
-
         </Grid>
-        <ContentControl Content="{Binding CurrentView}"/>
     </Grid>
 </local:UserControlBase>

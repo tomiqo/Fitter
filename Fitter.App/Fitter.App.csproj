@@ -197,7 +197,6 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\LoginPanelViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\AppWindowBase.xaml.cs">
       <DependentUpon>AppWindowBase.xaml</DependentUpon>
