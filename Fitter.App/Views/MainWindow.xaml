@@ -22,6 +22,9 @@
             <Grid.Background>
                 <ImageBrush ImageSource="Images/loginPicture.png"/>
             </Grid.Background>
+            <views:HomeScreen/>
+            <views:AddTScreen/>
+            <views:AddUScreen/>
         </Grid>
     </Grid>
 </Window>

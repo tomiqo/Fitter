@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             xmlns:local="clr-namespace:Fitter.App.Views">
-    <Grid>
+             xmlns:local="clr-namespace:Fitter.App.Views"
+             xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:AddUScreenViewModel}"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=AddUScreenViewModel}">
+    <Grid Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}">
         <Grid.Background>
             <ImageBrush ImageSource="Images/AppBackground.png"/>
         </Grid.Background>
@@ -34,12 +37,17 @@
                 <Label Grid.Row="2" Grid.Column="0" Content="Last name:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
                 <Label Grid.Row="3" Grid.Column="0" Content="E-mail:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
                 <Label Grid.Row="4" Grid.Column="0" Content="Password:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 
+                         Text="{Binding Model.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 
+                         Text="{Binding Model.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 
+                         Text="{Binding Model.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                <PasswordBox Name="PasswordBox" Grid.Row="4" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" PasswordChar="*"/>
                 <StackPanel Grid.ColumnSpan="2" Grid.Column="0" Margin="4" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center">
-                    <Button BorderBrush="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50">
+                    <Button BorderBrush="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
+                            Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50" 
+                            Command="{Binding AddUserCommand}" CommandParameter="{Binding ElementName=PasswordBox}">
                     </Button>
                 </StackPanel>
             </Grid>
