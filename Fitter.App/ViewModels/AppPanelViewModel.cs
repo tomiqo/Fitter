@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
+using Fitter.BL.Extensions;
 using Fitter.BL.Messages;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
@@ -18,7 +23,21 @@ namespace Fitter.App.ViewModels
         private readonly IMediator mediator;
 
         private UserDetailModel _model;
-       // public UserDetailModel Model { get; set; }
+        private ObservableCollection<TeamListModel> _teams;
+
+        public ObservableCollection<TeamListModel> Teams
+        {
+            get { return _teams; }
+            set
+            {
+                if (Equals(value,_teams))return;
+                {
+                    _teams = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ICommand TeamSelectedCommand { get; set; }
         public UserDetailModel Model
         {
             get { return _model; }
@@ -36,13 +55,24 @@ namespace Fitter.App.ViewModels
             this.teamsRepository = teamsRepository;
             this.usersRepository = usersRepository;
             this.mediator = mediator;
-
+            TeamSelectedCommand = new RelayCommand<TeamListModel>(TeamSelected);
             mediator.Register<UserLoginMessage>(UserLog);
+        }
+
+        private void TeamSelected(TeamListModel team)
+        {
+            mediator.Send(new TeamSelectedMessage{Id = team.Id});
         }
 
         private void UserLog(UserLoginMessage obj)
         {
             Model = usersRepository.GetById(obj.Id);
+            OnLoad();
+        }
+
+        public void OnLoad()
+        {
+            Teams = new ObservableCollection<TeamListModel>(teamsRepository.GetTeamsForUser(Model.Id));
         }
     }
 }

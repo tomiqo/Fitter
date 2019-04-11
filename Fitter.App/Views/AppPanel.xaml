@@ -5,14 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:AppPanelViewModel}"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=AppPanelViewModel}">
     <Grid Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}" Background="#1f2124">
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Grid Row="0" Margin="0" Width="180" Height="65">
             <Grid.Background>
@@ -20,8 +23,38 @@
             </Grid.Background>
         </Grid>
         <Grid Row="1">
-            <Label Content="Teams" FontSize="12" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0"/>
-            <Separator  Height="4" Margin="30,20,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
+            <Button Width="100" Height="100">
+               <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="Images/HomeButton.png"></ImageBrush>
+                            </Grid.Background>
+                            <Ellipse/>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Grid Row="2">
+            <Label Content="Teams" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0" FontStyle="Oblique" />
+            <Separator  Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
+        </Grid>
+        <Grid Row="3">
+            <ListBox x:Name="IngredientsListBox" Grid.Row="1" ItemsSource="{Binding Teams}" HorizontalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"
+                                               CommandParameter="{Binding ElementName=TeamsListBox, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label x:Name="TestLabel" Content="{Binding Name}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 </local:UserControlBase>

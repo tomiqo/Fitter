@@ -77,11 +77,11 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                return dbContext.Teams
-                    .Include(t => t.UsersInTeams)
-                    .ThenInclude(t => t.User)
-                    .Where(p => p.UsersInTeams
-                        .All(k => k.UserId == id))
+                return dbContext.UsersInTeams
+                    .Include(u => u.User)
+                    .Include(t => t.Team)
+                    .Where(data => data.UserId == id)
+                    .Select(data => data.Team)
                     .Select(e => _mapper.MapTeamListModelFromEntity(e)).ToList();
             }
         }
