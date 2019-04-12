@@ -13,13 +13,32 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images/AppBackground.png"/>
         </Grid.Background>
-        <ContentControl Content="{Binding CurrentView}"/>
-        <Grid Margin="30" MaxHeight="200">
+        <Grid MinWidth="500" MinHeight="500">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*" MaxHeight="400"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Padding="25" BorderThickness="1"  Margin="20" CornerRadius="50" BorderBrush="Black" >
+            <Grid Row="0" Column="1" Margin="0,10,10,0">
+                <Button Width="50" Height="50" Command="{Binding LogOut}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse>
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="Images/logoutButton.png"></ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Border Grid.Row="1" Grid.Column="0" Padding="25" BorderThickness="1"  Margin="20,100" CornerRadius="50" BorderBrush="Black" >
                 <Border.Background>
                     <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
                 </Border.Background>
@@ -27,11 +46,11 @@
                     Create your own Team with administrator benefits!
                 </TextBlock>
             </Border>
-            <Button Grid.Column="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="40"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
+            <Button Grid.Row="1" Grid.Column="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="120"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
                     Content="Create Team" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
                     Command="{Binding GoToCreateT}">
             </Button>
-            <Border Grid.Column="1" Padding="25" BorderThickness="1" Margin="20" CornerRadius="50" BorderBrush="Black" >
+            <Border Grid.Row="1" Grid.Column="1" Padding="25" BorderThickness="1" Margin="20,100" CornerRadius="50" BorderBrush="Black" >
                 <Border.Background>
                     <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
                 </Border.Background>
@@ -39,7 +58,7 @@
                     Add another user and let him enjoy Fitter too!
                 </TextBlock>
             </Border>
-            <Button Grid.Column="1" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="40"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
+            <Button Grid.Row="1" Grid.Column="1" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="120"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
                     Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
                     Command="{Binding GoToCreateU}">
             </Button>

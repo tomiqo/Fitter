@@ -4,9 +4,84 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Fitter.App.Views"
+             xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="700">
-    <Grid>
-            
+             d:DesignHeight="450" d:DesignWidth="700"
+             d:DataContext="{d:DesignInstance viewModels:TeamScreenViewModel}"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamScreenViewModel}">
+    <Grid Visibility="{Binding TeamDetailModel, Converter={StaticResource NullToVisibilityConverter}}">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/AppBackground.png"/>
+        </Grid.Background>
+       <Grid.ColumnDefinitions>
+           <ColumnDefinition Width="*"/>
+           <ColumnDefinition Width="3*"/>
+           <ColumnDefinition Width="*"/>
+       </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Column="1" Row="0" Margin="0,10">
+            <Grid.Background>
+                <ImageBrush ImageSource="Images/circleBack.png"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="4"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Create Post" FontSize="16" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0" FontStyle="Oblique" />
+            <Separator Grid.Row="0" Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
+            <Grid Row="1">
+                <Label Content="Title:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
+                <TextBox  Margin="50,0,10,10" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" Text="{Binding PostModel.Title, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Row="2">
+                <TextBox Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" TextWrapping="Wrap" VerticalContentAlignment="Top" x:Name="SearchTermTextBox" Text="{Binding PostModel.Text, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock IsHitTestVisible="False" Text="Write what's on your mind..." Height="100" TextWrapping="Wrap" FontStyle="Oblique" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkGray" Width="410">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            <Button Grid.Row="3" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
+                    Content="Post It" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50" Margin="10" Command="{Binding CreatePostCommand}">
+            </Button>
+            <Separator Grid.Row="4" Height="4" Margin="10,0,10,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
+        </Grid>
+        <Grid Column="1" Row="1">
+            <Grid.Background>
+                <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
+            </Grid.Background>
+            <ScrollViewer>
+                <ListBox x:Name="PostsListBox" MinWidth="300" ItemsSource="{Binding Posts}" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction CommandParameter="{Binding ElementName=PostsListBox, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel MinWidth="300" MinHeight="70">
+                            <Label x:Name="TestLabel" Content="{Binding Title}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Text}" Foreground="#FFE6D4D4"  FontSize="16" FontStyle="Oblique"/>
+                            <Separator Grid.Row="4" Height="4" Margin="10" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </local:UserControlBase>

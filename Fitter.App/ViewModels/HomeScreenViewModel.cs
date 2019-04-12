@@ -18,6 +18,7 @@ namespace Fitter.App.ViewModels
 
         public ICommand GoToCreateT { get; set; }
         public ICommand GoToCreateU { get; set; }
+        public ICommand LogOut { get; set; }
 
         public UserDetailModel Model
         {
@@ -38,7 +39,14 @@ namespace Fitter.App.ViewModels
             this.usersRepository = usersRepository;
             GoToCreateT = new RelayCommand(NewTeam);
             GoToCreateU = new RelayCommand(NewUser);
+            LogOut = new RelayCommand(LogOutUser);
             mediator.Register<UserLoginMessage>(UserLogin);
+        }
+
+        private void LogOutUser()
+        {
+            Model = null;
+            mediator.Send(new LogOutMessage());
         }
 
         private void NewUser()

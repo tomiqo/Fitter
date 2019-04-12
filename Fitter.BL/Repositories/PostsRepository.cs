@@ -5,6 +5,7 @@ using Fitter.BL.Model;
 using System.Linq;
 using Fitter.BL.Factories;
 using Fitter.BL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fitter.BL.Repositories
 {
@@ -72,6 +73,8 @@ namespace Fitter.BL.Repositories
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return (dbContext.Posts.Where(data => data.CurrentTeamId == id)
+                        .Include(t => t.Team)
+                        .Include(a => a.Author)
                         .Join(dbContext.Comments, data => data.Id, comm => comm.CurrentPostId, (data, comm) => new {data, comm})
                         .OrderByDescending(@t => @t.comm.Created)
                         .Select(@t => @t.data)).Distinct()

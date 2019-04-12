@@ -21,6 +21,7 @@ namespace Fitter.App.ViewModels
         private readonly IMediator mediator;
         private UserDetailModel _model;
         public ICommand AddUserCommand { get; set; }
+        public ICommand GoBackCommand { get; set; }
         public UserDetailModel Model
         {
             get { return _model; }
@@ -38,7 +39,19 @@ namespace Fitter.App.ViewModels
             this.usersRepository = usersRepository;
             this.mediator = mediator;
             AddUserCommand = new RelayCommand(AddUser, CanAddUser);
+            GoBackCommand = new RelayCommand(GoBack);
             mediator.Register<AddUMessage>(NewUser);
+            mediator.Register<GoToHomeMessage>(GoHome);
+        }
+
+        private void GoHome(GoToHomeMessage obj)
+        {
+            Model = null;
+        }
+
+        private void GoBack()
+        {
+            Model = null;
         }
 
         private bool CanAddUser(object obj)

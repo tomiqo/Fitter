@@ -50,6 +50,7 @@ namespace Fitter.App.ViewModels
                 {
                     MessageBox.Show("Wrong Password!");
                 }
+                pwBox.Clear();
             }
             catch (Exception)
             {

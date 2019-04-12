@@ -196,6 +196,7 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\LoginPanelViewModel.cs" />
+    <Compile Include="ViewModels\TeamScreenViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\AppWindowBase.xaml.cs">
       <DependentUpon>AppWindowBase.xaml</DependentUpon>
@@ -356,10 +357,19 @@
     <Resource Include="Views\Images\AppBackground.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Views\Images\HomeButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\navBack.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Views\Images\circleBack.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\Images\HomeButton.png" />
+    <Resource Include="Views\Images\logoutButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\moreOptions.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

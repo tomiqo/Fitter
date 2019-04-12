@@ -23,14 +23,13 @@
             </Grid.Background>
         </Grid>
         <Grid Row="1">
-            <Button Width="100" Height="100">
+            <Button Width="75" Height="75" Command="{Binding GoToHomeCommand}">
                <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Grid.Background>
                                 <ImageBrush ImageSource="Images/HomeButton.png"></ImageBrush>
                             </Grid.Background>
-                            <Ellipse/>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                     </ControlTemplate>
@@ -42,7 +41,7 @@
             <Separator  Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
         </Grid>
         <Grid Row="3">
-            <ListBox x:Name="IngredientsListBox" Grid.Row="1" ItemsSource="{Binding Teams}" HorizontalAlignment="Center">
+            <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" HorizontalAlignment="Center">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"

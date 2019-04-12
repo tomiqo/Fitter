@@ -25,6 +25,7 @@
             <views:HomeScreen/>
             <views:AddTScreen/>
             <views:AddUScreen/>
+            <views:TeamScreen/>
         </Grid>
     </Grid>
 </Window>

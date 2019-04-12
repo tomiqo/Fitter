@@ -34,6 +34,7 @@ namespace Fitter.App.ViewModels
             }
         }
         public ICommand AddTeamCommand { get; set; }
+        public ICommand GoBackCommand { get; set; }
         public UserDetailModel Model
         {
             get => _model;
@@ -51,8 +52,20 @@ namespace Fitter.App.ViewModels
             this.mediator = mediator;
             this.teamsRepository = teamsRepository;
             this.usersRepository = usersRepository;
+            GoBackCommand = new RelayCommand(GoBack);
             AddTeamCommand = new RelayCommand(AddTeam, CanAddTeam);
+            mediator.Register<GoToHomeMessage>(GoToHome);
             mediator.Register<AddTMessage>(NewTeam);
+        }
+
+        private void GoToHome(GoToHomeMessage obj)
+        {
+            Model = null;
+        }
+
+        private void GoBack()
+        {
+            Model = null;
         }
 
         private void AddTeam()

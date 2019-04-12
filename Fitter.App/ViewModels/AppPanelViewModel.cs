@@ -38,6 +38,7 @@ namespace Fitter.App.ViewModels
             }
         }
         public ICommand TeamSelectedCommand { get; set; }
+        public ICommand GoToHomeCommand { get; set; }
         public UserDetailModel Model
         {
             get { return _model; }
@@ -56,7 +57,19 @@ namespace Fitter.App.ViewModels
             this.usersRepository = usersRepository;
             this.mediator = mediator;
             TeamSelectedCommand = new RelayCommand<TeamListModel>(TeamSelected);
+            GoToHomeCommand = new RelayCommand(GoToHome);
             mediator.Register<UserLoginMessage>(UserLog);
+            mediator.Register<LogOutMessage>(UserLogOut);
+        }
+
+        private void GoToHome()
+        {
+            mediator.Send(new GoToHomeMessage());
+        }
+
+        private void UserLogOut(LogOutMessage obj)
+        {
+            Model = null;
         }
 
         private void TeamSelected(TeamListModel team)
