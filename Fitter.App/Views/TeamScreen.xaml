@@ -23,6 +23,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid Column="0" Row="0">
+            <Button Width="40" Height="40" Command="{Binding AddUserToTeamCommand}" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button.Template>
+                   <ControlTemplate TargetType="{x:Type Button}">
+                       <Grid>
+                           <Grid.Background>
+                               <ImageBrush ImageSource="Images/addUser.png"></ImageBrush>
+                           </Grid.Background>   
+                           <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                       </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
         <Grid Column="1" Row="0" Margin="0,10">
             <Grid.Background>
                 <ImageBrush ImageSource="Images/circleBack.png"/>
@@ -65,18 +79,26 @@
                 <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
             </Grid.Background>
             <ScrollViewer>
-                <ListBox x:Name="PostsListBox" MinWidth="300" ItemsSource="{Binding Posts}" HorizontalAlignment="Center">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction CommandParameter="{Binding ElementName=PostsListBox, Path=SelectedItem}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                <ListBox x:Name="PostsListBox" MinWidth="300" HorizontalAlignment="Center" ItemsSource="{Binding Posts}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel MinWidth="300" MinHeight="70">
-                            <Label x:Name="TestLabel" Content="{Binding Title}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique" HorizontalAlignment="Center"/>
+                                <Label x:Name="TestLabel" Content="{Binding Title}" Foreground="#97C1EF" FontWeight="Bold" FontSize="16" FontStyle="Oblique" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding Text}" Foreground="#FFE6D4D4"  FontSize="16" FontStyle="Oblique"/>
-                            <Separator Grid.Row="4" Height="4" Margin="10" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
+                                <Label Foreground="#FFE6D4D4" FontSize="10" FontStyle="Oblique" HorizontalAlignment="Center">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="Author: {0} {1}   Created: {2}">
+                                                    <Binding Path="Author.FirstName" />
+                                                    <Binding Path="Author.LastName" />
+                                                    <Binding Path="Created"></Binding>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                                <Separator Grid.Row="4" Height="4" Margin="10,0,10,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

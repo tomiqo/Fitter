@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
@@ -24,6 +25,7 @@ namespace Fitter.App.ViewModels
         private TeamDetailModel _teamDetailModel;
         private PostModel _postModel;
         private UserDetailModel _userDetailModel;
+        public ICommand AddUserToTeamCommand { get; set; }
         public ICommand CreatePostCommand { get; set; }
 
         public TeamDetailModel TeamDetailModel
@@ -79,6 +81,23 @@ namespace Fitter.App.ViewModels
             }
         }
 
+        private ObservableCollection<CommentModel> _comments;
+
+        public ObservableCollection<CommentModel> Comments
+        {
+            get => _comments;
+            set
+            {
+                if (Equals(value,Comments))
+                {
+                    return;
+                }
+
+                _comments = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TeamScreenViewModel(ITeamsRepository teamsRepository, IUsersRepository usersRepository,
             IMediator mediator, IPostsRepository postsRepository, ICommentsRepository commentsRepository)
         {
@@ -88,9 +107,15 @@ namespace Fitter.App.ViewModels
             this.postsRepository = postsRepository;
             this.commentsRepository = commentsRepository;
             CreatePostCommand = new RelayCommand(CreatePost, CanCreatePost);
+            AddUserToTeamCommand = new RelayCommand(AddUserToTeam);
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
             mediator.Register<UserLoginMessage>(CreateAdmin);
+        }
+
+        private void AddUserToTeam()
+        {
+            mediator.Send(new AddUserToTeamMessage{Id = TeamDetailModel.Id});
         }
 
         private void CreateAdmin(UserLoginMessage obj)
@@ -116,7 +141,6 @@ namespace Fitter.App.ViewModels
         private void GoToHome(GoToHomeMessage obj)
         {
             TeamDetailModel = null;
-
         }
 
         private void SelectedTeam(TeamSelectedMessage obj)
@@ -128,6 +152,7 @@ namespace Fitter.App.ViewModels
         private void OnLoad()
         {
             Posts = new ObservableCollection<PostModel>(postsRepository.GetPostsForTeam(TeamDetailModel.Id));
+            //Comments = new ObservableCollection<CommentModel>(commentsRepository.GetCommentsForPost(TeamDetailModel.Id));
             PostModel = new PostModel();
         }
     }

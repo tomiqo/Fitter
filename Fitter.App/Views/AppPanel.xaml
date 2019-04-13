@@ -37,6 +37,11 @@
             </Button>
         </Grid>
         <Grid Row="2">
+            <Button Height="24" Width="24" HorizontalAlignment="Left" Margin="30,0,0,0" BorderBrush="{x:Null}" Command="{Binding UserInfoCommand}">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/profile2.png"></ImageBrush>
+                </Button.Background>
+            </Button>
             <Label Content="Teams" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0" FontStyle="Oblique" />
             <Separator  Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
         </Grid>

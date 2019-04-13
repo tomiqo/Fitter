@@ -191,13 +191,18 @@
     <Compile Include="Converters\NullToVisibilityConverter .cs" />
     <Compile Include="ViewModels\AddTScreenViewModel.cs" />
     <Compile Include="ViewModels\AddUScreenViewModel.cs" />
+    <Compile Include="ViewModels\AddUserToTeamViewModel.cs" />
     <Compile Include="ViewModels\AppPanelViewModel.cs" />
     <Compile Include="ViewModels\HomeScreenViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\LoginPanelViewModel.cs" />
     <Compile Include="ViewModels\TeamScreenViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\AddUserToTeamView.xaml.cs">
+      <DependentUpon>AddUserToTeamView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AppWindowBase.xaml.cs">
       <DependentUpon>AppWindowBase.xaml</DependentUpon>
     </Compile>
@@ -213,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddUScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddUserToTeamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,6 +379,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Images\moreOptions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\addUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\kisspng-computer-icons-youku-tudou-info-button-5b300754108e02.1350499215298742600678.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\profile48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\profile2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

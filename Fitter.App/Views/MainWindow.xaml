@@ -26,6 +26,8 @@
             <views:AddTScreen/>
             <views:AddUScreen/>
             <views:TeamScreen/>
+            <views:AddUserToTeamView/>
+            <views:UserInfo/>
         </Grid>
     </Grid>
 </Window>
