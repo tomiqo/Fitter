@@ -22,7 +22,9 @@ namespace Fitter.App.ViewModels
         public AppPanelViewModel AppPanelViewModel => new AppPanelViewModel(_teamsRepository, _mediator, _userRepository);
         public TeamScreenViewModel TeamScreenViewModel => new TeamScreenViewModel(_teamsRepository, _userRepository,_mediator, _postsRepository, _commentsRepository);
         public AddUserToTeamViewModel AddUserToTeamViewModel => new AddUserToTeamViewModel(_teamsRepository, _mediator, _userRepository);
-        public UserInfoViewModel UserInfoViewModel => new UserInfoViewModel(_mediator, _userRepository, _teamsRepository);
+        public UserInfoViewModel UserInfoViewModel => new UserInfoViewModel(_mediator, _userRepository, _teamsRepository, _commentsRepository, _postsRepository);
+        public TeamInfoViewModel TeamInfoViewModel => new TeamInfoViewModel(_mediator, _teamsRepository, _userRepository);
+        public RemoveUserFromTeamViewModel RemoveUserFromTeamViewModel => new RemoveUserFromTeamViewModel(_teamsRepository, _mediator, _userRepository);
         public ViewModelLocator()
        {
            _mediator = new Mediator();

@@ -197,6 +197,8 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\LoginPanelViewModel.cs" />
+    <Compile Include="ViewModels\RemoveUserFromTeamViewModel.cs" />
+    <Compile Include="ViewModels\TeamInfoViewModel.cs" />
     <Compile Include="ViewModels\TeamScreenViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -205,6 +207,12 @@
     </Compile>
     <Compile Include="Views\AppWindowBase.xaml.cs">
       <DependentUpon>AppWindowBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RemoveUserFromTeamView.xaml.cs">
+      <DependentUpon>RemoveUserFromTeamView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeamInfoView.xaml.cs">
+      <DependentUpon>TeamInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TeamScreen.xaml.cs">
       <DependentUpon>TeamScreen.xaml</DependentUpon>
@@ -268,6 +276,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\RemoveUserFromTeamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TeamInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TeamScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -394,6 +410,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Images\profile2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\infoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\addUserWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\add-user-2-48.png" />
+    <Resource Include="Views\Images\remove-user-48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

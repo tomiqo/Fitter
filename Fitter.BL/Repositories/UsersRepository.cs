@@ -57,6 +57,7 @@ namespace Fitter.BL.Repositories
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 return dbContext.UsersInTeams.Include(p => p.User)
+                    .Include(t => t.Team)
                     .Where(data => data.TeamId == id)
                     .Select(data => _mapper.MapUserListModelFromEntity(data.User)).ToList();
             }

@@ -15,7 +15,7 @@ using Fitter.BL.Services;
 
 namespace Fitter.App.ViewModels
 {
-    public class AddUserToTeamViewModel : ViewModelBase
+    public class RemoveUserFromTeamViewModel : ViewModelBase
     {
         private readonly IMediator mediator;
         private readonly ITeamsRepository teamsRepository;
@@ -37,7 +37,7 @@ namespace Fitter.App.ViewModels
             }
         }
         public ICommand GoBackCommand { get; set; }
-        public ICommand AddUserCommand { get; set; }
+        public ICommand RemoveUserCommand { get; set; }
 
         public TeamDetailModel TeamModel
         {
@@ -54,24 +54,24 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        public AddUserToTeamViewModel(ITeamsRepository teamsRepository, IMediator mediator,
+        public RemoveUserFromTeamViewModel(ITeamsRepository teamsRepository, IMediator mediator,
             IUsersRepository usersRepository)
         {
             this.mediator = mediator;
             this.teamsRepository = teamsRepository;
             this.usersRepository = usersRepository;
             GoBackCommand = new RelayCommand(GoBack);
-            AddUserCommand = new RelayCommand<UserListModel>(AddUserToTeam);
-            mediator.Register<AddUserToTeamMessage>(AddUser);
+            RemoveUserCommand = new RelayCommand<UserListModel>(RemoveUser);
+            mediator.Register<RemoveUserFromTeamMessage>(RemovingUsers);
             mediator.Register<GoToHomeMessage>(GoToHome);
         }
 
-        private void AddUserToTeam(UserListModel obj)
+        private void RemoveUser(UserListModel obj)
         {
             try
             {
                 UserDetailModel user = usersRepository.GetById(obj.Id);
-                teamsRepository.AddUserToTeam(user, TeamModel.Id);
+                teamsRepository.RemoveUserFromTeam(user,obj.Id);
                 TeamModel = null;
             }
             catch (Exception)
@@ -90,10 +90,10 @@ namespace Fitter.App.ViewModels
             TeamModel = null;
         }
 
-        private void AddUser(AddUserToTeamMessage obj)
+        private void RemovingUsers(RemoveUserFromTeamMessage obj)
         {
             TeamModel = teamsRepository.GetById(obj.Id);
-            Users = new ObservableCollection<UserListModel>(usersRepository.GetUsersNotInTeam(TeamModel.Id));
+            Users = new ObservableCollection<UserListModel>(usersRepository.GetUsersInTeam(TeamModel.Id));
         }
     }
 }

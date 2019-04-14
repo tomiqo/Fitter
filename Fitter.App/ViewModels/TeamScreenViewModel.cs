@@ -27,6 +27,7 @@ namespace Fitter.App.ViewModels
         private UserDetailModel _userDetailModel;
         public ICommand AddUserToTeamCommand { get; set; }
         public ICommand CreatePostCommand { get; set; }
+        public ICommand TeamInfoCommand { get; set; }
 
         public TeamDetailModel TeamDetailModel
         {
@@ -108,9 +109,15 @@ namespace Fitter.App.ViewModels
             this.commentsRepository = commentsRepository;
             CreatePostCommand = new RelayCommand(CreatePost, CanCreatePost);
             AddUserToTeamCommand = new RelayCommand(AddUserToTeam);
+            TeamInfoCommand = new RelayCommand(ShowInfo);
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
             mediator.Register<UserLoginMessage>(CreateAdmin);
+        }
+
+        private void ShowInfo()
+        {
+            mediator.Send(new TeamInfoMessage{Id = TeamDetailModel.Id});
         }
 
         private void AddUserToTeam()
@@ -135,6 +142,7 @@ namespace Fitter.App.ViewModels
             PostModel.Author = UserDetailModel;
             PostModel.Team = TeamDetailModel;
             postsRepository.Create(PostModel);
+            mediator.Send(new LastActivityMessage{LastPost = PostModel.Title});
             PostModel = null;
         }
 

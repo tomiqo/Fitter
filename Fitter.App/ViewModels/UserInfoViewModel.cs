@@ -19,8 +19,25 @@ namespace Fitter.App.ViewModels
         private readonly IMediator mediator;
         private readonly IUsersRepository usersRepository;
         private readonly ITeamsRepository teamsRepository;
+        private readonly IPostsRepository postsRepository;
+        private readonly ICommentsRepository commentsRepository;
         private UserDetailModel _userModel;
+        private string _lastActivity;
         public ICommand GoBackCommand { get; set; }
+        public ICommand TeamSelectedCommand { get; set; }
+
+        public string LastActivity
+        {
+            get { return _lastActivity; }
+            set
+            {
+                if (Equals(value,_lastActivity)) return;
+                {
+                    _lastActivity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private ObservableCollection<TeamListModel> _teams;
 
         public ObservableCollection<TeamListModel> Teams
@@ -49,13 +66,35 @@ namespace Fitter.App.ViewModels
         }
 
         public UserInfoViewModel(IMediator mediator,
-            IUsersRepository usersRepository, ITeamsRepository teamsRepository)
+            IUsersRepository usersRepository, ITeamsRepository teamsRepository, ICommentsRepository commentsRepository,
+            IPostsRepository postsRepository)
         {
             this.mediator = mediator;
             this.usersRepository = usersRepository;
+            this.teamsRepository = teamsRepository;
+            TeamSelectedCommand = new RelayCommand<TeamListModel>(TeamSelected);
             GoBackCommand = new RelayCommand(GoBack);
             mediator.Register<UserInfoMessage>(ShowInfo);
             mediator.Register<GoToHomeMessage>(GoHome);
+            mediator.Register<LastActivityMessage>(Activity);
+        }
+
+        private void TeamSelected(TeamListModel team)
+        {
+            mediator.Send(new TeamSelectedMessage { Id = team.Id });
+            UserModel = null;
+        }
+
+        private void Activity(LastActivityMessage obj)
+        {
+            if (obj.LastComment == null)
+            {
+                LastActivity = "Creating Post " + obj.LastPost;
+            }
+            else
+            {
+                LastActivity = "Commenting on Post " + obj.LastPost + " - " + obj.LastComment;
+            }
         }
 
         private void GoHome(GoToHomeMessage obj)
@@ -77,6 +116,10 @@ namespace Fitter.App.ViewModels
         public void OnLoad()
         {
             Teams = new ObservableCollection<TeamListModel>(teamsRepository.GetTeamsForUser(UserModel.Id));
+            if (LastActivity == null)
+            {
+                LastActivity = "-";
+            }
         }
     }
 }

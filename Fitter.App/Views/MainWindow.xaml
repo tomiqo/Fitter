@@ -27,7 +27,9 @@
             <views:AddUScreen/>
             <views:TeamScreen/>
             <views:AddUserToTeamView/>
+            <views:TeamInfoView/>
             <views:UserInfo/>
+            <views:RemoveUserFromTeamView/>
         </Grid>
     </Grid>
 </Window>

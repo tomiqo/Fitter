@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:UserInfoViewModel}"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=UserInfoViewModel}">
@@ -45,26 +46,32 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Foreground="#FFE6D4D4" FontSize="20" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Center">
-                        <Label.Content>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="User: {0} {1}">
-                                        <Binding Path="UserModel.FirstName" />
-                                        <Binding Path="UserModel.LastName" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </Label.Content>
-                    </Label>
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="User: {0} {1}">
+                                    <Binding Path="UserModel.FirstName" />
+                                    <Binding Path="UserModel.LastName" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
                 <Label Grid.Row="1" Content="User's teams:" Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Left"/>
                 <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" HorizontalAlignment="Center" Grid.Row="2">
-                    <ListBox.ItemTemplate>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"
+                                                   CommandParameter="{Binding ElementName=TeamsListBox, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Label x:Name="TestLabel" Content="{Binding Name}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique"/>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ListBox>
-                <TextBlock Grid.Row="3" Text="{Binding }"/>
+                <Label Grid.Row="3" ContentStringFormat="Last activity: {0}" Content="{Binding LastActivity}" Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Left"></Label>
             </Grid>
         </Border>
     </Grid>
