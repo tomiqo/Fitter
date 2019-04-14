@@ -6,7 +6,9 @@ using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
+using Fitter.DAL.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
 
 namespace Fitter.BL.Repositories
 {
@@ -67,9 +69,11 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                return dbContext.UsersInTeams.Include(p => p.User)
-                    .Where(data => data.TeamId != id)
-                    .Select(data => _mapper.MapUserListModelFromEntity(data.User)).ToList();
+                return dbContext.Users
+                    .Include(u => u.UsersInTeams)?
+                    .Where(p => p.UsersInTeams
+                        .All(t => t.TeamId != id))
+                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
     }
