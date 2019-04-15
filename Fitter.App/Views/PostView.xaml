@@ -1,0 +1,91 @@
+﻿<local:UserControlBase x:Class="Fitter.App.Views.PostView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Fitter.App.Views"
+             xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:PostViewModel}"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PostViewModel}">
+    <Grid Visibility="{Binding PostModel, Converter={StaticResource NullToVisibilityConverter}}">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/AppBackground.png"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Row="0" Margin="10,10,0,0">
+            <Button Width="50" Height="50" Command="{Binding GoBackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="Images/navBack.png"></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Grid Row="1" Width="Auto" HorizontalAlignment="Center">
+            <Grid.Background>
+                <ImageBrush ImageSource="Images/circleBack.png"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="{Binding PostModel.Title}" Foreground="#97C1EF" FontWeight="Bold" FontSize="20" FontStyle="Oblique" HorizontalAlignment="Center"/>
+            <Label Grid.Row="1" Content="{Binding PostModel.Text}" Foreground="#FFE6D4D4"  FontSize="18" FontStyle="Oblique"/>
+            <Grid Row="2">
+                <Label Foreground="#FFE6D4D4" FontSize="10" FontStyle="Oblique" HorizontalAlignment="Right">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="Author: {0} {1}   Created: {2}">
+                                    <Binding Path="PostModel.Author.FirstName" />
+                                    <Binding Path="PostModel.Author.LastName" />
+                                    <Binding Path="PostModel.Created"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+            </Grid>
+            <ScrollViewer Grid.Row="3" Margin="40,0,0,0">
+                <ItemsControl MinWidth="300" HorizontalAlignment="Center" ItemsSource="{Binding Comments}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel MinWidth="300" MinHeight="70">
+                                <Separator Margin="10,0,10,10" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
+                                <TextBlock Text="{Binding Text}" Foreground="#FFE6D4D4"  FontSize="14" FontStyle="Oblique"/>
+                                <Label Foreground="#FFE6D4D4" FontSize="10" FontStyle="Oblique" HorizontalAlignment="Right">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="Author: {0} {1}   Created: {2}">
+                                                    <Binding Path="Author.FirstName" />
+                                                    <Binding Path="Author.LastName" />
+                                                    <Binding Path="Created"></Binding>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</local:UserControlBase>

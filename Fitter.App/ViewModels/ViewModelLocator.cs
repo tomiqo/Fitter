@@ -25,6 +25,7 @@ namespace Fitter.App.ViewModels
         public UserInfoViewModel UserInfoViewModel => new UserInfoViewModel(_mediator, _userRepository, _teamsRepository, _commentsRepository, _postsRepository);
         public TeamInfoViewModel TeamInfoViewModel => new TeamInfoViewModel(_mediator, _teamsRepository, _userRepository);
         public RemoveUserFromTeamViewModel RemoveUserFromTeamViewModel => new RemoveUserFromTeamViewModel(_teamsRepository, _mediator, _userRepository);
+        public PostViewModel PostViewModel => new PostViewModel(_mediator, _commentsRepository, _postsRepository);
         public ViewModelLocator()
        {
            _mediator = new Mediator();

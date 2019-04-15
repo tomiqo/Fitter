@@ -24,7 +24,7 @@
         </Grid>
         <Grid Row="1">
             <Button Width="75" Height="75" Command="{Binding GoToHomeCommand}">
-               <Button.Template>
+                <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Grid.Background>

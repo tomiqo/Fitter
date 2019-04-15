@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700"
              d:DataContext="{d:DesignInstance viewModels:TeamScreenViewModel}"
@@ -92,6 +93,12 @@
             </Grid.Background>
             <ScrollViewer>
                 <ListBox x:Name="PostsListBox" MinWidth="300" HorizontalAlignment="Center" ItemsSource="{Binding Posts}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedPostCommand}"
+                                                   CommandParameter="{Binding ElementName=PostsListBox, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel MinWidth="300" MinHeight="70">
@@ -104,12 +111,13 @@
                                                 <MultiBinding StringFormat="Author: {0} {1}   Created: {2}">
                                                     <Binding Path="Author.FirstName" />
                                                     <Binding Path="Author.LastName" />
-                                                    <Binding Path="Created"></Binding>
+                                                    <Binding Path="Created"/>
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
                                     </Label.Content>
                                 </Label>
+
                                 <Separator Grid.Row="4" Height="4" Margin="10,0,10,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
                             </StackPanel>
                         </DataTemplate>
