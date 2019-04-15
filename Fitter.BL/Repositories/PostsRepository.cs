@@ -103,5 +103,17 @@ namespace Fitter.BL.Repositories
                     .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
+
+        public PostModel GetById(Guid id)
+        {
+            using (var dbContext = _fitterDbContext.CreateDbContext())
+            {
+                var entity = dbContext.Posts
+                    .Include(a => a.Author)
+                    .Include(t => t.Team)
+                    .First(t => t.Id == id);
+                return _mapper.MapPostModelFromEntity(entity);
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Fitter.BL.Messages
 {
-    public class SelectedPostMessage : IMessage
+    public class PostSelectedMessage : IMessage
     {
         public Guid Id { get; set; }
     }

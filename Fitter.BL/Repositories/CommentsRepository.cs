@@ -61,6 +61,7 @@ namespace Fitter.BL.Repositories
                     .Include(t => t.Team)
                         .ThenInclude(a => a.Admin)
                     .Include(a => a.Author)
+                    .Include(a => a.Attachments)
                     .Include(c => c.Comments)
                         .ThenInclude(k => k.Author)
                     .First(p => p.Id == id)

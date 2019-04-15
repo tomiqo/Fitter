@@ -28,6 +28,7 @@ namespace Fitter.App.ViewModels
         public ICommand AddUserToTeamCommand { get; set; }
         public ICommand CreatePostCommand { get; set; }
         public ICommand TeamInfoCommand { get; set; }
+        public ICommand SelectedPostCommand { get; set; }
 
         public TeamDetailModel TeamDetailModel
         {
@@ -110,9 +111,15 @@ namespace Fitter.App.ViewModels
             CreatePostCommand = new RelayCommand(CreatePost, CanCreatePost);
             AddUserToTeamCommand = new RelayCommand(AddUserToTeam);
             TeamInfoCommand = new RelayCommand(ShowInfo);
+            SelectedPostCommand = new RelayCommand<PostModel>(SelectedPost);
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
             mediator.Register<UserLoginMessage>(CreateAdmin);
+        }
+
+        private void SelectedPost(PostModel post)
+        {
+            mediator.Send(new PostSelectedMessage{Id = post.Id});
         }
 
         private void ShowInfo()
@@ -160,7 +167,7 @@ namespace Fitter.App.ViewModels
         private void OnLoad()
         {
             Posts = new ObservableCollection<PostModel>(postsRepository.GetPostsForTeam(TeamDetailModel.Id));
-            //Comments = new ObservableCollection<CommentModel>(commentsRepository.GetCommentsForPost(TeamDetailModel.Id));
+            //Comments = new ObservableCollection<CommentModel>(commentsRepository.GetCommentsForPost(PostModel.Id));
             PostModel = new PostModel();
         }
     }

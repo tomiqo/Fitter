@@ -14,5 +14,7 @@ namespace Fitter.BL.Repositories.Interfaces
         IList<PostModel> GetPostsForTeam(Guid id);
         IList<AttachmentModel> GetAttachmentsForPost(Guid id);
         IList<UserListModel> GetTagsForPost(Guid id);
+
+        PostModel GetById(Guid id);
     }
 }
