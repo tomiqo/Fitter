@@ -45,14 +45,22 @@ namespace Fitter.BL.Repositories
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 var userEntity = _mapper.MapUserToEntity(user);
+                var teamEntity = _mapper.MapTeamToEntity(GetById(id));
+
+                var uitEntity = new UsersInTeam()
+                {
+                    Id = Guid.NewGuid(),
+                    User = userEntity,
+                    Team = teamEntity
+                };
 
                 dbContext.Teams
                     .First(k => k.Id == id)
                     .UsersInTeams
-                    .Add(new UsersInTeam()
-                        {
-                            User = userEntity
-                        });
+                    .Add(uitEntity);
+
+                dbContext.UsersInTeams.Update(uitEntity);
+
                 dbContext.SaveChanges();
             }
         }
@@ -100,6 +108,16 @@ namespace Fitter.BL.Repositories
             {
                 var entity = dbContext.Teams.First(t => t.Id == id);
                 dbContext.Remove(entity);
+                dbContext.SaveChanges();
+            }
+        }
+
+        public void Update(TeamDetailModel team)
+        {
+            using (var dbContext = _fitterDbContext.CreateDbContext())
+            {
+                var entity = _mapper.MapTeamToEntity(team);
+                dbContext.Teams.Update(entity);
                 dbContext.SaveChanges();
             }
         }

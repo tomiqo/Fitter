@@ -10,6 +10,11 @@ namespace Fitter.BL.Mapper
 
         public User MapUserToEntity(UserDetailModel model)
         {
+            if (model == null)
+            {
+                return null;
+            }
+
             return new User
             {
                 Id = model.Id,
@@ -22,6 +27,11 @@ namespace Fitter.BL.Mapper
 
         public UserDetailModel MapUserDetailModelFromEntity(User user)
         {
+            if (user == null)
+            {
+                return null;
+            }
+
             return new UserDetailModel
             {
                 Id = user.Id,

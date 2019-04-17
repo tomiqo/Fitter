@@ -1,8 +1,9 @@
 ﻿using System;
+using Fitter.DAL.Entity.Base;
 
 namespace Fitter.DAL.Entity
 {
-    public class UsersInTeam
+    public class UsersInTeam : BaseEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }

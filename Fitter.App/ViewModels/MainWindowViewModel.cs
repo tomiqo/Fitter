@@ -35,7 +35,7 @@ namespace Fitter.App.ViewModels
         }
         private void Maximize()
         {
-            System.Windows.Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            System.Windows.Application.Current.MainWindow.WindowState = System.Windows.Application.Current.MainWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
     }
 }

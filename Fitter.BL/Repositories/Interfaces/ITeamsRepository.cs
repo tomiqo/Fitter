@@ -13,6 +13,7 @@ namespace Fitter.BL.Repositories.Interfaces
         void RemoveUserFromTeam(UserDetailModel user, Guid id);
         bool Exists(string name);
         void Delete(Guid id);
+        void Update(TeamDetailModel team);
 
         IList<TeamListModel> GetTeamsForUser(Guid id);
     }

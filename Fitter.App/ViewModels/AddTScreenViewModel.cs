@@ -76,8 +76,10 @@ namespace Fitter.App.ViewModels
             }
             else
             {
+                TeamModel = teamsRepository.Create(TeamModel);
                 TeamModel.Admin = Model;
-                teamsRepository.Create(TeamModel);
+                teamsRepository.Update(TeamModel);
+                teamsRepository.AddUserToTeam(TeamModel.Admin, TeamModel.Id);
                 TeamModel = null;
                 Model = null;
             }

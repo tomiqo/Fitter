@@ -19,7 +19,7 @@ namespace Fitter.BL.Tests
         public void AddUserToTeam()
         {
             var sut = CreateSUT();
-            var model = new TeamDetailModel()
+            var teamModel = new TeamDetailModel()
             {
                 Admin = new UserDetailModel()
                 {
@@ -31,9 +31,10 @@ namespace Fitter.BL.Tests
                 },
                 Id = Guid.NewGuid(),
                 Name = "Miskin team",
-                Description = "Dievcensky team pre michaelu",
+                Description = "Team pre Michaelu",
             };
-            var user = new UserDetailModel()
+
+            var userModel = new UserDetailModel()
             {
                 Id = Guid.NewGuid(),
                 LastName = "Modra",
@@ -41,10 +42,11 @@ namespace Fitter.BL.Tests
                 Password = "asassad",
                 Email = "dianka@gmail.com"
             };
-            var createdTeam = sut.Create(model);
-            sut.AddUserToTeam(user, createdTeam.Id);
 
-            var teams = sut.GetTeamsForUser(user.Id);
+            var createdTeam = sut.Create(teamModel);
+            sut.AddUserToTeam(userModel, createdTeam.Id); //
+
+            var teams = sut.GetTeamsForUser(userModel.Id);
             Assert.NotEmpty(teams);
 
         }
@@ -80,9 +82,10 @@ namespace Fitter.BL.Tests
             var createdUser = users.Create(user);
             var createdTeam = sut.Create(model);
             sut.AddUserToTeam(createdUser, model.Id);
-            sut.RemoveUserFromTeam(user, createdTeam.Id);
+            sut.RemoveUserFromTeam(createdUser, createdTeam.Id);
 
-            Assert.Throws<ObjectDisposedException>(() => users.GetUsersInTeam(createdUser.Id).ToList());
+            var userCount = users.GetUsersInTeam(createdTeam.Id).ToList().Count;
+            Assert.Equal(0, userCount);
         }
 
         [Fact]
