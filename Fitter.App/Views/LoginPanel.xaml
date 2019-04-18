@@ -74,14 +74,14 @@
                             <UniformGrid Columns="1">
                                 <Label Content="Email" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Bottom"/>
                                 <TextBox Background="#FF383C42" MaxHeight="35" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"
-                                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Padding="3,0"/>
                             </UniformGrid>
                         </Grid>
                         <Grid Row="2">
                             <UniformGrid Columns="1">
                                 <Label Content="Password" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Bottom" />
                                 <PasswordBox PasswordChar="*" Background="#FF383C42" MaxHeight="35" 
-                                        Name="PasswordBox" Foreground="#FFE6D4D4"  FontSize="16"/>
+                                        Name="PasswordBox" Foreground="#FFE6D4D4"  FontSize="16" Padding="3,0"/>
                             </UniformGrid>
                         </Grid>
                     </Grid>

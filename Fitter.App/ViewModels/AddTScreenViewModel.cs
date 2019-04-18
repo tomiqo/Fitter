@@ -78,8 +78,9 @@ namespace Fitter.App.ViewModels
             {
                 TeamModel = teamsRepository.Create(TeamModel);
                 TeamModel.Admin = Model;
-                teamsRepository.Update(TeamModel);
                 teamsRepository.AddUserToTeam(TeamModel.Admin, TeamModel.Id);
+                teamsRepository.Update(TeamModel);
+                mediator.Send(new UpdatedTeamsMessage());
                 TeamModel = null;
                 Model = null;
             }

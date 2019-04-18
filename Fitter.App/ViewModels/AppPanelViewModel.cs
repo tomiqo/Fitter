@@ -62,6 +62,7 @@ namespace Fitter.App.ViewModels
             GoToHomeCommand = new RelayCommand(GoToHome);
             mediator.Register<UserLoginMessage>(UserLog);
             mediator.Register<LogOutMessage>(UserLogOut);
+            mediator.Register<UpdatedTeamsMessage>(TeamListUpdated);
         }
 
         private void UserInfo()
@@ -87,6 +88,11 @@ namespace Fitter.App.ViewModels
         private void UserLog(UserLoginMessage obj)
         {
             Model = usersRepository.GetById(obj.Id);
+            OnLoad();
+        }
+
+        public void TeamListUpdated(UpdatedTeamsMessage msg)
+        {
             OnLoad();
         }
 

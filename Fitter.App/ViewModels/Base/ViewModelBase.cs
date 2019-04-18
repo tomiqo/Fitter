@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Fitter.App.ViewModels.Base
 {
-    public abstract class ViewModelBase:IViewModel ,INotifyPropertyChanged
+    public abstract class ViewModelBase : IViewModel, INotifyPropertyChanged
     {
         public virtual void Load()
         {

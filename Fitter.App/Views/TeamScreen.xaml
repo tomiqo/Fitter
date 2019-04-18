@@ -12,12 +12,85 @@
              d:DataContext="{d:DesignInstance viewModels:TeamScreenViewModel}"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamScreenViewModel}">
     <Grid Visibility="{Binding TeamDetailModel, Converter={StaticResource NullToVisibilityConverter}}">
-        <Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="50" MaxHeight="50" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Row="0" Background="#2f3136" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="50" MaxWidth="50"/>
+                <ColumnDefinition MinWidth="50" MaxWidth="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MinWidth="220" MaxWidth="220"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Command="{Binding AddUserToTeamCommand}" Height="Auto" HorizontalContentAlignment="Center" Margin="10">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="Images/addUserWhite.png" Stretch="Uniform"></ImageBrush>
+                            </Grid.Background>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Grid.Column="1" Command="{Binding TeamInfoCommand}" Height="Auto" HorizontalContentAlignment="Center" Margin="10">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="Images/infoIcon.png" Stretch="Uniform"></ImageBrush>
+                            </Grid.Background>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Grid Column="3" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MinWidth="40" MaxWidth="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text ="Search" Background="#484c52" Foreground="#7f8186" FontSize="18" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Stretch" Padding="2,-1,2,0"/>
+                <Button Grid.Column="1" Command="{Binding TeamInfoCommand}" Height="Auto" HorizontalContentAlignment="Center">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="Images/search.png" Stretch="Uniform"></ImageBrush>
+                                </Grid.Background>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </Grid>
+        </Grid>
+
+        <Grid Row="1" Background="#36393f">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Row="0" Margin="30,10,30,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Background="#2f3136" Foreground="#FFE6D4D4" Content="Create Post" FontSize="18"/>
+                <Button Grid.Row="0" Background="#FFE6D4D4" Content="POST" HorizontalContentAlignment="Right" HorizontalAlignment="Right"/>
+                <TextBox Grid.Row="1" MinLines="3" Foreground="#7f8186" Background="#34373c" TextWrapping="Wrap" FontSize="16" VerticalContentAlignment="Top" Padding="5,0"/>
+            </Grid>
+        </Grid>
+        
+        <!--<Grid.Background>
             <ImageBrush ImageSource="Images/AppBackground.png"/>
         </Grid.Background>
        <Grid.ColumnDefinitions>
            <ColumnDefinition Width="*"/>
-           <ColumnDefinition Width="3*"/>
+           <ColumnDefinition Width="20*"/>
            <ColumnDefinition Width="*"/>
        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -124,6 +197,6 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
-        </Grid>
+        </Grid>-->
     </Grid>
 </local:UserControlBase>

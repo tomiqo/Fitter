@@ -7,11 +7,5 @@ namespace Fitter.BL.Messages
 {
     public class UpdatedTeamsMessage : IMessage
     {
-        public TeamDetailModel Model { get; set; }
-
-        public UpdatedTeamsMessage(TeamDetailModel model)
-        {
-            Model = model;
-        }
     }
 }

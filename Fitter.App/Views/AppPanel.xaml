@@ -46,9 +46,9 @@
             <Separator  Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
         </Grid>
         <Grid Row="3">
-            <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" HorizontalAlignment="Center">
+            <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" HorizontalContentAlignment="Center" Margin="30,0">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
                         <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"
                                                CommandParameter="{Binding ElementName=TeamsListBox, Path=SelectedItem}"/>
                     </i:EventTrigger>

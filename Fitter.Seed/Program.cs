@@ -41,6 +41,17 @@ namespace Fitter.Seed
             passwordHasher = new PasswordHasher(user2.Password);
             user2.Password = passwordHasher.GetHashedPassword();
             dbContext.Users.Add(user2);
+
+            var user3 = new User
+            {
+                FirstName = "ATest",
+                LastName = "ATest",
+                Email = "a",
+                Password = "a",
+            };
+            passwordHasher = new PasswordHasher(user3.Password);
+            user3.Password = passwordHasher.GetHashedPassword();
+            dbContext.Users.Add(user3);
             dbContext.SaveChanges();
 
             var team = new Team
@@ -52,6 +63,7 @@ namespace Fitter.Seed
                 {
                     new UsersInTeam()
                     {
+                        Id = Guid.NewGuid(),
                         User = user1
                     }
                 }
