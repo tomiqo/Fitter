@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Fitter.BL.Model;
-using Fitter.DAL.Enums;
 using Newtonsoft.Json;
 using Xunit;
 

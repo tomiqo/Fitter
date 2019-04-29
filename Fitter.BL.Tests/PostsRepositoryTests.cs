@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories;
-using Fitter.DAL.Enums;
 using Xunit;
 
 namespace Fitter.BL.Tests
@@ -125,100 +124,6 @@ namespace Fitter.BL.Tests
             Assert.NotNull(retrievedPost);
         }
 
-        [Fact]
-        public void CheckAttachmentInPost()
-        {
-            var sut = CreateSUT();
-            var team = new TeamDetailModel()
-            {
-                Id = Guid.NewGuid(),
-                Admin = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    LastName = "Vaclav",
-                    FirstName = "Siroky",
-                    Password = "dobreheslo",
-                    Email = "sirokyvaclav@gmail.com"
-                },
-                Name = "Ministri",
-                Description = "Team pre ministrov"
-            };
-            var model = new PostModel
-            {
-                Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    LastName = "Michal",
-                    FirstName = "Kruty",
-                    Password = "najlepsieheslo",
-                    Email = "kruty@gmail.com"
-                },
-                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Team = team,
-                Title = "Najepsi post",
-                Text = "Post s prilohou",
-            };
-            sut.Create(model);
-            var attachment = new AttachmentModel()
-            {
-                Id = Guid.NewGuid(),
-                File = new byte[2],
-                FileType = FileType.File,
-                Name = "Priloha",
-                Post = model
-            };
-            sut.AddAttachments(new List<AttachmentModel>(){attachment}, model.Id);
-            var retrievedAttachment = sut.GetAttachmentsForPost(model.Id);
-            Assert.NotNull(retrievedAttachment);
-        }
-
-        [Fact]
-        public void TagUserInPost()
-        {
-            var sut = CreateSUT();
-            var user = new UserDetailModel()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Bradley",
-                LastName = "Smith",
-                Email = "bradley@outlook.com",
-                Password = "qwertz"
-            };
-            var team = new TeamDetailModel()
-            {
-                Id = Guid.NewGuid(),
-                Admin = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Anna",
-                    LastName = "White",
-                    Email = "AnnaWhite@outlook.com",
-                    Password = "anna987"
-                },
-                Description = "Team number1",
-                Name = "Team1"
-            };
-            var model = new PostModel()
-            {
-                Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Anna",
-                    LastName = "White",
-                    Email = "AnnaWhite@outlook.com",
-                    Password = "anna987"
-                },
-                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Team = team,
-                Text = "Post in team number1",
-                Title = "Post1"
-            };
-            sut.Create(model);
-            sut.TagUsers(new List<UserDetailModel>(){user}, model.Id);
-            Assert.NotNull(sut.GetTagsForPost(model.Id));
-        }
 
         private PostsRepository CreateSUT()
         {

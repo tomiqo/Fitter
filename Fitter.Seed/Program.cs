@@ -1,7 +1,6 @@
 ﻿using System;
 using Fitter.DAL;
 using Fitter.DAL.Entity;
-using Fitter.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
 using Fitter.BL.Services;
 
@@ -35,7 +34,6 @@ namespace Fitter.Seed
 
         private static void ClearDatabase(FitterDbContext dbContext)
         {
-            dbContext.RemoveRange(dbContext.Attachments);
             dbContext.RemoveRange(dbContext.Comments);
             dbContext.RemoveRange(dbContext.Posts);
             dbContext.RemoveRange(dbContext.Teams);

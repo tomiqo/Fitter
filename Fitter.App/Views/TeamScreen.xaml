@@ -195,21 +195,21 @@
                                         <ItemsControl Grid.Row="0" ItemsSource="{Binding Comments}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border BorderBrush="DimGray" BorderThickness="0,1,0,0" Margin="0,-1,0,0" Padding="0">
+                                                    <Border BorderBrush="DimGray" BorderThickness="0,1,0,0">
                                                         <Grid Margin="5">
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="Auto"/>
                                                                 <ColumnDefinition Width="*"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <Grid Column="0" Margin="10,0,0,0">
+                                                            <Grid Column="0" Margin="5,0,0,0">
                                                                 <Grid.RowDefinitions>
                                                                     <RowDefinition Height="Auto"/>
                                                                     <RowDefinition Height="Auto"/>
                                                                 </Grid.RowDefinitions>
-                                                                <Label Grid.Row="0" Content="{Binding Author.FullName}" Foreground="#FFE6D4D4" Padding="0,0,10,0"/>
-                                                                <Label Grid.Row="1" Content="{Binding Created}" HorizontalAlignment="Left" Foreground="#7f8186" FontSize="8" Padding="0,0,10,0"/>
+                                                                <Label Grid.Row="0" Content="{Binding Author.FullName}" Foreground="#FFE6D4D4" Padding="0" HorizontalContentAlignment="Right"/>
+                                                                <Label Grid.Row="1" Content="{Binding Created}" HorizontalAlignment="Right" Foreground="#7f8186" Padding="0" FontSize="8"/>
                                                             </Grid>
-                                                            <toolkit:RichTextBox Grid.Column="1" Text="{Binding Text}" IsReadOnly="True" Foreground="#7f8186" Margin="0,0,10,0" FontSize="8" Background="#34373c" BorderThickness="0" Padding="0,-2,0,5"/>
+                                                            <toolkit:RichTextBox Grid.Column="1" Text="{Binding Text}" IsReadOnly="True" Foreground="#7f8186" Margin="0,0,10,0" FontSize="12" Background="#34373c" BorderThickness="0" Padding="0,-2,0,5"/>
                                                             <Button Grid.Column="1" Height="10" Width="10" HorizontalAlignment="Right" VerticalAlignment="Top">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="Click">
@@ -245,7 +245,7 @@
                                                     <toolkit:RichTextBoxFormatBar/>
                                                 </toolkit:RichTextBoxFormatBarManager.FormatBar>
                                             </toolkit:RichTextBox>
-                                            <TextBlock Grid.Column="0" IsHitTestVisible="False" Text="Write a comment..." TextWrapping="Wrap" Foreground="#7f8186">
+                                            <TextBlock Grid.Column="0" IsHitTestVisible="False" Height="32" Text="Write a comment..." FontSize="14" TextWrapping="Wrap" Foreground="Red">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Visibility" Value="Collapsed"/>

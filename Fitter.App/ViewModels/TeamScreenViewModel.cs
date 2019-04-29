@@ -40,7 +40,6 @@ namespace Fitter.App.ViewModels
         public ICommand TeamInfoCommand { get; set; }
         public ICommand SelectedPostCommand { get; set; }
         public ICommand SearchCommand { get; set; }
-        public ICommand TagSelectedCommand { get; set; }
 
         public TeamDetailModel TeamDetailModel
         {
@@ -165,34 +164,6 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private List<UserDetailModel> _tagList;
-        public List<UserDetailModel> TagList {
-            get => _tagList;
-            set {
-                if (Equals(value, TagList))
-                {
-                    return;
-                }
-
-                _tagList = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _tags;
-        public string Tags {
-            get => _tags;
-            set {
-                if (Equals(value, Tags))
-                {
-                    return;
-                }
-
-                _tags = value;
-                OnPropertyChanged();
-            }
-        }
-
         public TeamScreenViewModel(ITeamsRepository teamsRepository, IUsersRepository usersRepository,
             IMediator mediator, IPostsRepository postsRepository, ICommentsRepository commentsRepository)
         {
@@ -210,7 +181,6 @@ namespace Fitter.App.ViewModels
             TeamInfoCommand = new RelayCommand(ShowInfo);
             SelectedPostCommand = new RelayCommand<PostModel>(SelectedPost);
             SearchCommand = new RelayCommand(Search, CanSearch);
-            TagSelectedCommand = new RelayCommand<UserListModel>(AppendTag);
 
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
@@ -218,15 +188,6 @@ namespace Fitter.App.ViewModels
             mediator.Register<NewPostMessage>(NewPost);
             mediator.Register<NewCommentMessage>(NewComment);
             mediator.Register<SearchMessage>(NewSearch);
-        }
-
-        private void AppendTag(UserListModel tag)
-        {
-            if (!TagList.Select(e => e.FullName).Contains(tag.Fullname))
-            {
-                TagList.Add(usersRepository.GetById(tag.Id));
-                Tags += $"@{tag.Fullname}  ";
-            }
         }
 
         private void CanDeleteComment(Guid id)
@@ -361,8 +322,6 @@ namespace Fitter.App.ViewModels
             PostModel.Author = UserDetailModel;
             postsRepository.Create(PostModel);
 
-            postsRepository.TagUsers(TagList, PostModel.Id);
-
             mediator.Send(new NewPostMessage());
             mediator.Send(new LastActivityMessage{LastPost = PostModel.Title});
         }
@@ -398,13 +357,10 @@ namespace Fitter.App.ViewModels
             PostModel = new PostModel();
             CommentModel = new CommentModel();
             UsersInTeam = new List<UserListModel>(usersRepository.GetUsersInTeam(TeamDetailModel.Id));
-            TagList = new List<UserDetailModel>();
-            Tags = "";
 
             foreach (var post in Posts)
             {
                 post.Comments = new ObservableCollection<CommentModel>(commentsRepository.GetCommentsForPost(post.Id));
-                post.Tags = new ObservableCollection<UserListModel>(postsRepository.GetTagsForPost(post.Id));
             }
         }
     }

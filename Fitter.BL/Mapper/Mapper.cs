@@ -152,33 +152,5 @@ namespace Fitter.BL.Mapper
         }
 
         #endregion
-
-        #region Attachment Mapping
-
-        public Attachment MapAttachmentToEntity(AttachmentModel model)
-        {
-            return new Attachment
-            {
-                Id = model.Id,
-                Name = model.Name,
-                FileType = model.FileType,
-                File = model.File,
-                Post = MapPostToEntity(model.Post)
-            };
-        }
-
-        public AttachmentModel MapAttachmentModelFromEntity(Attachment attachment)
-        {
-            return new AttachmentModel
-            {
-                Id = attachment.Id,
-                Name = attachment.Name,
-                File = attachment.File,
-                FileType = attachment.FileType,
-                Post = MapPostModelFromEntity(attachment.Post)
-            };
-        }
-
-        #endregion
     }
 }

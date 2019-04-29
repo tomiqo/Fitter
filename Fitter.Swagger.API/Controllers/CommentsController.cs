@@ -47,29 +47,12 @@ namespace Fitter.Swagger.API.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("tagUsers")]
-        [SwaggerOperation(OperationId = "CommentTagUsers")]
-        public ActionResult TagUsers(List<UserDetailModel> users, Guid id)
-        {
-            _commentsRepository.TagUsers(users, id);
-            return Ok();
-        }
-
         [HttpGet]
         [Route("getCommentsForPost")]
         [SwaggerOperation(OperationId = "GetCommentsForPost")]
         public ActionResult<IList<CommentModel>> GetCommentsForPost(Guid id)
         {
             return _commentsRepository.GetCommentsForPost(id).ToList();
-        }
-
-        [HttpGet]
-        [Route("getTagsForComment")]
-        [SwaggerOperation(OperationId = "GetTagsForComment")]
-        public ActionResult<IList<UserListModel>> GetTagsForComment(Guid id)
-        {
-            return _commentsRepository.GetTagsForComment(id).ToList();
         }
     }
 }

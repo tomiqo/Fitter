@@ -35,21 +35,9 @@ namespace Fitter.DAL
                 .WithOne(a => a.Author)
                 .HasForeignKey(k => k.CurrentAuthorId)
                 .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<Post>()
-                .HasMany<Attachment>(a => a.Attachments)
-                .WithOne(p => p.Post)
-                .HasForeignKey(k => k.CurrentPostId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Post>()
-                .HasMany(t => t.Tags)
-                .WithOne();
-            modelBuilder.Entity<Comment>()
-                .HasMany(t => t.Tags)
-                .WithOne();
             modelBuilder.Entity<UsersInTeam>().HasKey(ut => new {ut.UserId, ut.TeamId});
         }
 
-        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Team> Teams { get; set; }

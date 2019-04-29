@@ -48,47 +48,12 @@ namespace Fitter.Swagger.API.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("addAttachments")]
-        [SwaggerOperation(OperationId = "PostAddAttachments")]
-        public ActionResult AddAttachments(List<AttachmentModel> attachments, Guid id)
-        {
-            _postsRepository.AddAttachments(attachments, id);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("tagUsers")]
-        [SwaggerOperation(OperationId = "PostTagUsers")]
-        public ActionResult TagUsers(List<UserDetailModel> users, Guid id)
-        {
-            _postsRepository.TagUsers(users, id);
-            return Ok();
-        }
-
-
         [HttpGet]
         [Route("getPostsForTeam")]
         [SwaggerOperation(OperationId = "GetPostsForTeam")]
         public ActionResult<IList<PostModel>> GetPostsForTeam(Guid id)
         {
             return _postsRepository.GetPostsForTeam(id).ToList();
-        }
-
-        [HttpGet]
-        [Route("getAttachmentsForPost")]
-        [SwaggerOperation(OperationId = "GetAttachmentsForPost")]
-        public ActionResult<IList<AttachmentModel>> GetAttachmentsForPost(Guid id)
-        {
-            return _postsRepository.GetAttachmentsForPost(id).ToList();
-        }
-
-        [HttpGet]
-        [Route("getTagsForPost")]
-        [SwaggerOperation(OperationId = "GetTagsForPost")]
-        public ActionResult<IList<UserListModel>> GetTagsForPost(Guid id)
-        {
-            return _postsRepository.GetTagsForPost(id).ToList();
         }
     }
 }

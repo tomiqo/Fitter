@@ -42,20 +42,6 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public void TagUsers(List<UserDetailModel> users, Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                foreach (var user in users)
-                {
-                    var entity = _mapper.MapUserToEntity(user);
-                    dbContext.Comments.First(p => p.Id == id).Tags.Add(entity);
-                }
-
-                dbContext.SaveChanges();
-            }
-        }
-
         public IList<CommentModel> GetCommentsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
@@ -64,25 +50,12 @@ namespace Fitter.BL.Repositories
                     .Include(t => t.Team)
                         .ThenInclude(a => a.Admin)
                     .Include(a => a.Author)
-                    .Include(a => a.Attachments)
                     .Include(c => c.Comments)
                         .ThenInclude(k => k.Author)
                     .First(p => p.Id == id)
                     .Comments
                     .OrderBy(e => e.Created)
                     .Select(e => _mapper.MapCommentModelFromEntity(e)).ToList();
-            }
-        }
-
-        public IList<UserListModel> GetTagsForComment(Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                return dbContext.Comments
-                    .Include(t => t.Tags)
-                    .First(p => p.Id == id)
-                    .Tags
-                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
 

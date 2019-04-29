@@ -13,7 +13,5 @@ namespace Fitter.DAL.Entity.Base
         [Required]
         public string Text { get; set; }
         public string Created { get; set; }
-        
-        public ICollection<User> Tags { get; set; } = new List<User>();
     }
 }
