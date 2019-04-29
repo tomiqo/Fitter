@@ -209,7 +209,7 @@ namespace Fitter.App.ViewModels
             AddUserToTeamCommand = new RelayCommand(AddUserToTeam);
             TeamInfoCommand = new RelayCommand(ShowInfo);
             SelectedPostCommand = new RelayCommand<PostModel>(SelectedPost);
-            SearchCommand = new RelayCommand(Search, CanSearch);
+            SearchCommand = new RelayCommand(Search);
             TagSelectedCommand = new RelayCommand<UserListModel>(AppendTag);
 
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
@@ -277,11 +277,6 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private bool CanSearch()
-        {
-            return SearchString != null && !string.IsNullOrWhiteSpace(SearchString);
-        }
-
         private void NewSearch(SearchMessage obj)
         {
             LoadSearchResults();
@@ -289,16 +284,20 @@ namespace Fitter.App.ViewModels
 
         private void Search()
         {
+            if (SearchString == null)
+            {
+                OnLoad();
+                return;
+            }
             var searchIds = new List<Guid>(postsRepository.SearchInPosts(SearchString, TeamDetailModel.Id));
             searchIds.AddRange(commentsRepository.SearchInComments(SearchString, TeamDetailModel.Id));
             searchIds = searchIds.Distinct().ToList();
-            
             SearchResults = new List<PostModel>();
             foreach (var id in searchIds)
             {
                 SearchResults.Add(postsRepository.GetById(id));
             }
-
+            SearchResults = SearchResults.OrderByDescending(c => c.Created).ToList();
             mediator.Send(new SearchMessage());
         }
         private void LoadSearchResults()

@@ -88,17 +88,14 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                /*return (dbContext.Posts.Where(data => data.CurrentTeamId == id)
+                return (dbContext.Posts.Where(data => data.CurrentTeamId == id)
                         .Include(t => t.Team)
                         .Include(a => a.Author)
                         .Join(dbContext.Comments, data => data.Id, comm => comm.CurrentPostId, (data, comm) => new {data, comm})
-                        .OrderByDescending(@t => @t.comm.Created)
-                        .Select(@t => @t.data)).Distinct()
-                        .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();*/
-                return dbContext.Posts.Include(t => t.Team)
-                    .Include(a => a.Author)
-                    .Where(data => data.Team.Id == id)
-                    .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();
+                        .OrderByDescending(t => t.comm.Created)
+                        .Select(t => t.data))
+                        .Union(dbContext.Posts.Where(post => post.CurrentTeamId == id && !post.Comments.Any()).OrderByDescending(p => p.Created))
+                        .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();
             }
         }
 
