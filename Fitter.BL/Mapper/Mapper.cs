@@ -105,7 +105,7 @@ namespace Fitter.BL.Mapper
                 Title = model.Title,
                 Author = MapUserToEntity(model.Author),
                 Text = model.Text,
-                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
+                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                 Team = MapTeamToEntity(model.Team)
             };
         }
@@ -133,7 +133,7 @@ namespace Fitter.BL.Mapper
             {
                 Id = model.Id,
                 Author = MapUserToEntity(model.Author),
-                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
+                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                 Text = model.Text,
                 Post = MapPostToEntity(model.Post)
             };
