@@ -20,101 +20,16 @@ namespace Fitter.Seed
 
         private static void SeedData(FitterDbContext dbContext)
         {
-            var user1 = new User
+            var user = new User
             {
-                FirstName = "ikkmlm",
-                LastName = "Boros",
-                Email = "dartwader128@azet.sk",
-                Password = "pumkli28",
-            };
-            var passwordHasher = new PasswordHasher(user1.Password);
-            user1.Password = passwordHasher.GetHashedPassword();
-            dbContext.Users.Add(user1);
-
-            var user2 = new User
-            {
-                FirstName = "Djkjg",
-                LastName = "Danko",
-                Email = "optimus13@pokec.sk",
-                Password = "danulko13",
-            };
-            passwordHasher = new PasswordHasher(user2.Password);
-            user2.Password = passwordHasher.GetHashedPassword();
-            dbContext.Users.Add(user2);
-
-            var user3 = new User
-            {
-                FirstName = "ATest",
-                LastName = "ATest",
+                FirstName = "Jon",
+                LastName = "Snow",
                 Email = "a",
                 Password = "a",
             };
-            passwordHasher = new PasswordHasher(user3.Password);
-            user3.Password = passwordHasher.GetHashedPassword();
-            dbContext.Users.Add(user3);
-            dbContext.SaveChanges();
-
-            var team = new Team
-            {
-                Name = "Sicaci",
-                Admin = user1,
-                Description = "Team for seeding data",
-                UsersInTeams = 
-                {
-                    new UsersInTeam()
-                    {
-                        Id = Guid.NewGuid(),
-                        User = user1
-                    }
-                }
-            };
-            dbContext.Teams.Add(team);
-            team.UsersInTeams.Add(new UsersInTeam(){User = user2});
-            dbContext.Teams.Add(team);
-
-            var post = new Post
-            {
-                Author = user1,
-                Text = "Pekna praca!",
-                Created = DateTime.Now,
-                Title = "Vysocina",
-                Attachments =
-                {
-                    new Attachment()
-                    {
-                        FileType = FileType.Picture,
-                        File = new byte[5],
-                        Name = "Kuraptomuj"
-                    }
-                },
-                Tags =
-                {
-                    user2
-                },
-                Team = team
-            };
-            dbContext.Posts.Add(post);
-
-            var comment = new Comment
-            {
-                Author = user1,
-                Text = "Velmi dobre to ide.",
-                Created = DateTime.Now,
-                Post = post,
-                Tags =
-                {
-                    user2
-                }
-            };
-            dbContext.Comments.Add(comment);
-            var comment2 = new Comment
-            {
-                Author = user1,
-                Text = "Asi hej",
-                Created = DateTime.Now,
-                Post = post,
-            };
-            dbContext.SaveChanges();
+            var passwordHasher = new PasswordHasher(user.Password);
+            user.Password = passwordHasher.GetHashedPassword();
+            dbContext.Users.Add(user);
             dbContext.SaveChanges();
         }
 

@@ -22,11 +22,9 @@ namespace Fitter.App.ViewModels
         private PostModel _postModel;
         private ObservableCollection<CommentModel> _comments;
 
-        public ObservableCollection<CommentModel> Comments
-        {
+        public ObservableCollection<CommentModel> Comments {
             get => _comments;
-            set
-            {
+            set {
                 if (Equals(value, Comments))
                 {
                     return;
@@ -37,11 +35,9 @@ namespace Fitter.App.ViewModels
             }
         }
         public ICommand GoBackCommand { get; set; }
-        public PostModel PostModel
-        {
+        public PostModel PostModel {
             get => _postModel;
-            set
-            {
+            set {
                 if (Equals(value, PostModel))
                 {
                     return;

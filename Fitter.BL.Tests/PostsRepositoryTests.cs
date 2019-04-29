@@ -39,7 +39,7 @@ namespace Fitter.BL.Tests
                     Password = "123",
                     Email = "john@doe.com"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = team,
                 Text = "Randon text in post",
                 Title = "Random"
@@ -77,7 +77,7 @@ namespace Fitter.BL.Tests
                     Email = "LisaBlack@gmail.com",
                     Password = "lisalisalisa"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = team
             };
 
@@ -114,7 +114,7 @@ namespace Fitter.BL.Tests
                     Password = "14758963",
                     Email = "martin12313@gmail.com"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = team,
                 Title = "Prvy post",
                 Text = "Toto je prvy post v skupine",
@@ -154,7 +154,7 @@ namespace Fitter.BL.Tests
                     Password = "najlepsieheslo",
                     Email = "kruty@gmail.com"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = team,
                 Title = "Najepsi post",
                 Text = "Post s prilohou",
@@ -210,7 +210,7 @@ namespace Fitter.BL.Tests
                     Email = "AnnaWhite@outlook.com",
                     Password = "anna987"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = team,
                 Text = "Post in team number1",
                 Title = "Post1"

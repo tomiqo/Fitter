@@ -132,7 +132,7 @@ namespace Fitter.DAL.Tests
                 var post = new Post()
                 {
                     Title = "Prvy post v skupine",
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Toto je prvy post v tejto skupine"
                 };
 
@@ -156,7 +156,7 @@ namespace Fitter.DAL.Tests
                 var post = new Post()
                 {
                     Title = "Prvy post v skupine",
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Toto je prvy post v tejto skupine"
                 };
 
@@ -185,7 +185,7 @@ namespace Fitter.DAL.Tests
             {
                 var comment = new Comment()
                 {
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Koment na post"
                 };
 
@@ -208,7 +208,7 @@ namespace Fitter.DAL.Tests
             {
                 var comment = new Comment()
                 {
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Koment na post"
                 };
 

@@ -25,7 +25,7 @@ namespace Fitter.BL.Tests
                     Email = "harry@callum.com",
                     Password = "asdf131"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = new TeamDetailModel()
                 {
                     Id = Guid.NewGuid(),
@@ -54,7 +54,7 @@ namespace Fitter.BL.Tests
                     Email = "olijake@outlook.com",
                     Password = "oli12345"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Post = post,
                 Text = "Comment on post in team"
             };
@@ -78,7 +78,7 @@ namespace Fitter.BL.Tests
                     Email = "james@charlie.com",
                     Password = "charlie258"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = new TeamDetailModel()
                 {
                     Id = Guid.NewGuid(),
@@ -108,7 +108,7 @@ namespace Fitter.BL.Tests
                     Email = "olijake@outlook.com",
                     Password = "oli12345"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Post = post,
                 Text = "Comment on post in team"
             };
@@ -140,7 +140,7 @@ namespace Fitter.BL.Tests
                     Email = "thomas@joe.com",
                     Password = "password"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = new TeamDetailModel()
                 {
                     Id = Guid.NewGuid(),
@@ -170,7 +170,7 @@ namespace Fitter.BL.Tests
                     Email = "charlie@kyle.com",
                     Password = "passwd"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Post = post,
                 Text = "Unbelievable comment"
             };
@@ -204,7 +204,7 @@ namespace Fitter.BL.Tests
                     Email = "thomas@joe.com",
                     Password = "password"
                 },
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = new TeamDetailModel()
                 {
                     Id = Guid.NewGuid(),
@@ -220,7 +220,7 @@ namespace Fitter.BL.Tests
             {
                 Id = Guid.NewGuid(),
                 Author = user,
-                Created = DateTime.Today,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Post = post,
                 Text = "Unbelievable comment"
             };

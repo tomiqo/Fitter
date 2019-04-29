@@ -4,14 +4,16 @@ using Fitter.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fitter.DAL.Migrations
 {
     [DbContext(typeof(FitterDbContext))]
-    partial class FitterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190419163619_dateTime_update")]
+    partial class dateTime_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,8 @@ namespace Fitter.DAL.Migrations
                     b.Property<Guid>("CurrentPostId");
 
                     b.Property<string>("Text")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(180);
 
                     b.HasKey("Id");
 
@@ -74,7 +77,8 @@ namespace Fitter.DAL.Migrations
                     b.Property<Guid>("CurrentTeamId");
 
                     b.Property<string>("Text")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(180);
 
                     b.Property<string>("Title")
                         .IsRequired();

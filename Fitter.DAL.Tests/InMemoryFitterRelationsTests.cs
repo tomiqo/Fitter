@@ -177,7 +177,7 @@ namespace Fitter.DAL.Tests
                 var postInMichaelaTeam = new Post()
                 {
                     Author = userDaniel,
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Skuska postu",
                     Title = "Obrazok",
                 };
@@ -223,7 +223,7 @@ namespace Fitter.DAL.Tests
                 var postInMichaelaTeam = new Post()
                 {
                     Author = userDaniel,
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Post v Michaelovej skupine",
                     Title = "Post",
                 };
@@ -240,7 +240,7 @@ namespace Fitter.DAL.Tests
                     Author = userDaniel,
                     Post = postInMichaelaTeam,
                     Text = "Komentar na post",
-                    Created = new DateTime(2019, 4, 4)
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm")
                 };
 
                 using (var dbContext = dbContextFitter.CreateDbContext())
@@ -283,7 +283,7 @@ namespace Fitter.DAL.Tests
                 var postInTeam = new Post()
                 {
                     Author = userDaniel,
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Text ako post",
                     Title = "Skuska",
                     Tags = new List<User>() { userDaniel }
@@ -337,7 +337,7 @@ namespace Fitter.DAL.Tests
                 var postInTeam = new Post()
                 {
                     Author = userRichard,
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Post na subor PDF",
                     Title = "PDF",
                     Attachments = new List<Attachment>() { attachment}
@@ -384,7 +384,7 @@ namespace Fitter.DAL.Tests
                 var post = new Post()
                 {
                     Author = userRichard,
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Title = "Nahodny post",
                     Text = "Nahodny text k postu v skupine"
                 };
@@ -427,12 +427,12 @@ namespace Fitter.DAL.Tests
                 var comment = new Comment()
                 {
                     Text = "Koment k postu",
-                    Created = DateTime.Today
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm")
                 };
 
                 var postInMichaelaTeam = new Post()
                 {
-                    Created = DateTime.Today,
+                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                     Text = "Post v Michaelovej skupine",
                     Title = "Post",
                     Comments = new List<Comment>() { comment}

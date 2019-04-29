@@ -56,7 +56,6 @@
                 <views:TeamInfoView/>
                 <views:UserInfo/>
                 <views:RemoveUserFromTeamView/>
-                <views:PostView/>
             </Grid>
         </Grid>
     </Grid>

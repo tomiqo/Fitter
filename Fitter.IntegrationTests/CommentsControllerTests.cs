@@ -85,7 +85,7 @@ namespace Fitter.IntegrationTests
                             Password = "123456",
                             Email = "alexis@gmail.com"
                         },
-                        Created = DateTime.Today,
+                        Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                         Post = new PostModel()
                         {
                             Id = Guid.NewGuid(),
@@ -97,7 +97,7 @@ namespace Fitter.IntegrationTests
                                 Password = "ediediedi",
                                 Email = "norbert@pokec.com"
                             },
-                            Created = DateTime.Today,
+                            Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                             Team = new TeamDetailModel()
                             {
                                 Admin = new UserDetailModel()

@@ -1,4 +1,5 @@
-﻿using Fitter.BL.Mapper.Interface;
+﻿using System;
+using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using Fitter.DAL.Entity;
 
@@ -58,6 +59,11 @@ namespace Fitter.BL.Mapper
 
         public Team MapTeamToEntity(TeamDetailModel model)
         {
+            if (model == null)
+            {
+                return null;
+            }
+
             return new Team
             {
                 Id = model.Id,
@@ -99,7 +105,7 @@ namespace Fitter.BL.Mapper
                 Title = model.Title,
                 Author = MapUserToEntity(model.Author),
                 Text = model.Text,
-                Created = model.Created,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Team = MapTeamToEntity(model.Team)
             };
         }
@@ -127,7 +133,7 @@ namespace Fitter.BL.Mapper
             {
                 Id = model.Id,
                 Author = MapUserToEntity(model.Author),
-                Created = model.Created,
+                Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                 Text = model.Text,
                 Post = MapPostToEntity(model.Post)
             };

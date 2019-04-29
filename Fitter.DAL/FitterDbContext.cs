@@ -47,14 +47,6 @@ namespace Fitter.DAL
                 .HasMany(t => t.Tags)
                 .WithOne();
             modelBuilder.Entity<UsersInTeam>().HasKey(ut => new {ut.UserId, ut.TeamId});
-            /*modelBuilder.Entity<UsersInTeam>()
-                .HasOne(u => u.User)
-                .WithMany(t => t.UsersInTeams)
-                .HasForeignKey(ut => ut.UserId);
-            modelBuilder.Entity<UsersInTeam>()
-                .HasOne(t => t.Team)
-                .WithMany(ut => ut.UsersInTeams)
-                .HasForeignKey(k => k.TeamId);*/
         }
 
         public DbSet<Attachment> Attachments { get; set; }

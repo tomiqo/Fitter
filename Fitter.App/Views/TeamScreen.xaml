@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700"
              d:DataContext="{d:DesignInstance viewModels:TeamScreenViewModel}"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamScreenViewModel}">
-    <Grid Visibility="{Binding TeamDetailModel, Converter={StaticResource NullToVisibilityConverter}}">
+    <Grid x:Name="Root" Visibility="{Binding TeamDetailModel, Converter={StaticResource NullToVisibilityConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="50" MaxHeight="50" />
             <RowDefinition Height="*"/>
@@ -40,7 +41,7 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Grid.Background>
-                                <ImageBrush ImageSource="Images/infoIcon.png" Stretch="Uniform"></ImageBrush>
+                                <ImageBrush ImageSource="Images/infoIcon.png" Stretch="Uniform"/>
                             </Grid.Background>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
@@ -52,8 +53,20 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition MinWidth="40" MaxWidth="40"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Text ="Search" Background="#484c52" Foreground="#7f8186" FontSize="18" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Stretch" Padding="2,-1,2,0"/>
-                <Button Grid.Column="1" Command="{Binding TeamInfoCommand}" Height="Auto" HorizontalContentAlignment="Center">
+                <TextBox Grid.Column="0" x:Name="SearchBox" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" Background="#484c52" Foreground="#7f8186" FontSize="18" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Stretch" Padding="2,-1,2,0"/>
+                <TextBlock Grid.Column="0" IsHitTestVisible="False" Foreground="#7f8186" Text="Search" FontSize="18" Padding="2,2,0,0" Margin="2,0,0,0">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Button Grid.Column="1" Command="{Binding SearchCommand}" Height="Auto" HorizontalContentAlignment="Center">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
@@ -69,7 +82,7 @@
             </Grid>
         </Grid>
 
-        <Grid Row="1" Background="#36393f">
+        <Grid Row="1" Background="#FF43474D">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -79,124 +92,188 @@
                     <RowDefinition MinHeight="30"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Background="#2f3136" Foreground="#FFE6D4D4" Content="Create Post" FontSize="18"/>
-                <Button Grid.Row="0" Background="#FFE6D4D4" Content="POST" HorizontalContentAlignment="Right" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="1" MinLines="3" Foreground="#7f8186" Background="#34373c" TextWrapping="Wrap" FontSize="16" VerticalContentAlignment="Top" Padding="5,0"/>
-            </Grid>
-        </Grid>
-        
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="Images/AppBackground.png"/>
-        </Grid.Background>
-       <Grid.ColumnDefinitions>
-           <ColumnDefinition Width="*"/>
-           <ColumnDefinition Width="20*"/>
-           <ColumnDefinition Width="*"/>
-       </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Column="0" Row="0">
-            <Button Width="40" Height="40" Command="{Binding AddUserToTeamCommand}" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <Button.Template>
-                   <ControlTemplate TargetType="{x:Type Button}">
-                       <Grid>
-                           <Grid.Background>
-                               <ImageBrush ImageSource="Images/addUser.png"></ImageBrush>
-                           </Grid.Background>   
-                           <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                       </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Margin="50,0,0,0" Width="40" Height="40" Command="{Binding TeamInfoCommand}" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Grid.Background>
-                                <ImageBrush ImageSource="Images/infoIcon.png"></ImageBrush>
-                            </Grid.Background>
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
-        <Grid Column="1" Row="0" Margin="0,10">
-            <Grid.Background>
-                <ImageBrush ImageSource="Images/circleBack.png"/>
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="4"/>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Create Post" FontSize="16" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0" FontStyle="Oblique" />
-            <Separator Grid.Row="0" Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
-            <Grid Row="1">
-                <Label Content="Title:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <TextBox  Margin="50,0,10,10" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" Text="{Binding PostModel.Title, UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
-            <Grid Row="2">
-                <TextBox Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" TextWrapping="Wrap" VerticalContentAlignment="Top" x:Name="SearchTermTextBox" Text="{Binding PostModel.Text, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock IsHitTestVisible="False" Text="Write what's on your mind..." Height="100" TextWrapping="Wrap" FontStyle="Oblique" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkGray" Width="410">
+                <Grid Row="0" Background="#2f3136">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <toolkit:RichTextBox Grid.Column="0" x:Name="PostTitleBox" BorderThickness="0" Background="#2f3136" Foreground="#FFE6D4D4" FontSize="18" Text="{Binding PostModel.Title, UpdateSourceTrigger=PropertyChanged}" Padding="3,5,3,0">
+                        <toolkit:RichTextBoxFormatBarManager.FormatBar>
+                            <toolkit:RichTextBoxFormatBar/>
+                        </toolkit:RichTextBoxFormatBarManager.FormatBar>
+                    </toolkit:RichTextBox>
+                    <TextBlock Grid.Column="0" IsHitTestVisible="False" Foreground="#FFE6D4D4" Text="Add title here..." FontSize="18" FontStyle="Oblique" Padding="3,3,3,3" Margin="3,0,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=PostTitleBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <Button Grid.Column="1" Background="#FFE6D4D4" Content="CREATE POST" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Command="{Binding CreatePostCommand}"/>
+                </Grid>
+                <toolkit:RichTextBox Grid.Row="1" Text="{Binding PostModel.Text, UpdateSourceTrigger=PropertyChanged}" x:Name="PostTextBox" 
+                                     Foreground="#7f8186" Background="#34373c" FontSize="16" VerticalContentAlignment="Top" Padding="3,3,3,33" Margin="0" BorderThickness="0">
+                    <toolkit:RichTextBoxFormatBarManager.FormatBar>
+                        <toolkit:RichTextBoxFormatBar/>
+                    </toolkit:RichTextBoxFormatBarManager.FormatBar>
+                </toolkit:RichTextBox>
+                <TextBlock Grid.Row="1" IsHitTestVisible="False" Text="Write what's on your mind..." TextWrapping="Wrap" FontStyle="Oblique" VerticalAlignment="Top" Padding="3,3,3,0" FontSize="16" Foreground="#7f8186">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                <DataTrigger Binding="{Binding Text, ElementName=PostTextBox}" Value="">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+                <Separator Grid.Row="1" Background="DimGray" VerticalAlignment="Bottom" Margin="0,0,0,-10"/>
             </Grid>
-            <Button Grid.Row="3" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
-                    Content="Post It" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50" Margin="10" Command="{Binding CreatePostCommand}">
-            </Button>
-            <Separator Grid.Row="4" Height="4" Margin="10,0,10,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
-        </Grid>
-        <Grid Column="1" Row="1">
-            <Grid.Background>
-                <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
-            </Grid.Background>
-            <ScrollViewer>
-                <ListBox x:Name="PostsListBox" MinWidth="300" HorizontalAlignment="Center" ItemsSource="{Binding Posts}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding SelectedPostCommand}"
-                                                   CommandParameter="{Binding ElementName=PostsListBox, Path=SelectedItem}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel MinWidth="300" MinHeight="70">
-                                <Label x:Name="TestLabel" Content="{Binding Title}" Foreground="#97C1EF" FontWeight="Bold" FontSize="16" FontStyle="Oblique" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding Text}" Foreground="#FFE6D4D4"  FontSize="16" FontStyle="Oblique"/>
-                                <Label Foreground="#FFE6D4D4" FontSize="10" FontStyle="Oblique" HorizontalAlignment="Center">
-                                    <Label.Content>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="Author: {0} {1}   Created: {2}">
-                                                    <Binding Path="Author.FirstName" />
-                                                    <Binding Path="Author.LastName" />
-                                                    <Binding Path="Created"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </Label.Content>
-                                </Label>
 
-                                <Separator Grid.Row="4" Height="4" Margin="10,0,10,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="#97C1EF"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
-        </Grid>-->
+            <Grid Row="1">
+                <ScrollViewer Margin="0,10,0,0">
+                    <ItemsControl Margin="30,10,10,0" ItemsSource="{Binding Posts}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,20" Background="#34373c">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Row="0" Background="#2f3136">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Column="0">
+                                            <toolkit:RichTextBox Text="{Binding Title}" IsReadOnly="True" Foreground="#FFE6D4D4" FontSize="18" VerticalAlignment="Center" Padding="10,5,0,5" FontWeight="Bold" BorderThickness="0" Background="#2f3136"/>
+                                        </Grid>
+                                        <Grid Column="1" Margin="10,2,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="0" x:Name="AuthorLabel" Content="{Binding Author.FullName}" HorizontalContentAlignment="Right" Padding="0,0,10,0" Foreground="#FFE6D4D4" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                                            <Button Grid.Row="0" Height="15" Width="15" HorizontalAlignment="Right">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction
+                                                            Command="{Binding DataContext.DeletePostCommand, ElementName=Root}"
+                                                            CommandParameter="{Binding Id}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Grid>
+                                                            <Grid.Background>
+                                                                <ImageBrush ImageSource="Images/app_exit.png" Stretch="Uniform"/>
+                                                            </Grid.Background>
+                                                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                            <Label Grid.Row="1" x:Name="CreatedLabel" Content="{Binding Created}" HorizontalContentAlignment="Right" Padding="0,0,10,0" Foreground="#7f8186" FontSize="8" Margin="0,0,10,0"/>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Row="1">
+                                        <toolkit:RichTextBox Text="{Binding Text}" IsReadOnly="True" Foreground="#7f8186" Background="#34373c" FontSize="16" BorderThickness="0" Margin="10,5,10,10"/>
+                                    </Grid>
+                                    <Grid Row="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Comments}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="DimGray" BorderThickness="0,1,0,0" Margin="0,-1,0,0" Padding="0">
+                                                        <Grid Margin="5">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid Column="0" Margin="10,0,0,0">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Label Grid.Row="0" Content="{Binding Author.FullName}" Foreground="#FFE6D4D4" Padding="0,0,10,0"/>
+                                                                <Label Grid.Row="1" Content="{Binding Created}" HorizontalAlignment="Left" Foreground="#7f8186" FontSize="8" Padding="0,0,10,0"/>
+                                                            </Grid>
+                                                            <toolkit:RichTextBox Grid.Column="1" Text="{Binding Text}" IsReadOnly="True" Foreground="#7f8186" Margin="0,0,10,0" FontSize="8" Background="#34373c" BorderThickness="0" Padding="0,-2,0,5"/>
+                                                            <Button Grid.Column="1" Height="10" Width="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="Click">
+                                                                        <i:InvokeCommandAction
+                                                                            Command="{Binding DataContext.DeleteCommentCommand, ElementName=Root}"
+                                                                            CommandParameter="{Binding Id}" />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                                <Button.Template>
+                                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                                        <Grid>
+                                                                            <Grid.Background>
+                                                                                <ImageBrush ImageSource="Images/app_exit.png" Stretch="Uniform"/>
+                                                                            </Grid.Background>
+                                                                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                        </Grid>
+                                                                    </ControlTemplate>
+                                                                </Button.Template>
+                                                            </Button>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <Grid Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <toolkit:RichTextBox Grid.Column="0" x:Name="NewCommentBox" HorizontalAlignment="Stretch" Padding="5,5,5,5" FontSize="14" Background="#FF41454B" Foreground="#7f8186" BorderThickness="1" 
+                                                                 Text="{Binding NewComment.Text, UpdateSourceTrigger=PropertyChanged}" Margin="0" BorderBrush="#34373c">
+                                                <toolkit:RichTextBoxFormatBarManager.FormatBar>
+                                                    <toolkit:RichTextBoxFormatBar/>
+                                                </toolkit:RichTextBoxFormatBarManager.FormatBar>
+                                            </toolkit:RichTextBox>
+                                            <TextBlock Grid.Column="0" IsHitTestVisible="False" Text="Write a comment..." TextWrapping="Wrap" Foreground="#7f8186">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=NewCommentBox}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <Button Grid.Column="1" x:Name="CommentButton" Background="#FFE6D4D4" Content="COMMENT" HorizontalContentAlignment="Right" HorizontalAlignment="Right" FontSize="10" Padding="16,4" Margin="0" Height="32" VerticalContentAlignment="Center" VerticalAlignment="Bottom">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction
+                                                            Command="{Binding DataContext.AddCommentCommand, ElementName=Root}"
+                                                            CommandParameter="{Binding Id}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
     </Grid>
 </local:UserControlBase>

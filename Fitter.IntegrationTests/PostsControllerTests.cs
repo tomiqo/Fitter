@@ -73,7 +73,7 @@ namespace Fitter.IntegrationTests
                     JsonConvert.SerializeObject(new PostModel()
                     {
                         Author = user,
-                        Created = DateTime.Today,
+                        Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
                         Team = team,
                         Title = "Post v time",
                         Text = "Nejaky text",

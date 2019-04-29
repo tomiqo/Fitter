@@ -1,4 +1,6 @@
-﻿namespace Fitter.BL.Model
+﻿using System.Collections.ObjectModel;
+
+namespace Fitter.BL.Model
 {
     public class TeamDetailModel : BaseModel
     {

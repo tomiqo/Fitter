@@ -26,9 +26,23 @@ namespace Fitter.BL.Repositories
             {
                 var entity = _mapper.MapPostToEntity(post);
                 dbContext.Posts.Add(entity);
+                dbContext.Entry(entity.Team).State = EntityState.Unchanged;
+                dbContext.Entry(entity.Team.Admin).State = EntityState.Unchanged;
+                dbContext.Entry(entity.Author).State = EntityState.Unchanged;
                 dbContext.SaveChanges();
             }
         }
+        public void Update(PostModel post)
+        {
+            using (var dbContext = _fitterDbContext.CreateDbContext())
+            {
+                var entity = _mapper.MapPostToEntity(post);
+                dbContext.Entry(entity).State = EntityState.Modified;
+                dbContext.Posts.Update(entity);
+                dbContext.SaveChanges();
+            }
+        }
+
 
         public void Delete(Guid id)
         {
@@ -62,6 +76,8 @@ namespace Fitter.BL.Repositories
                 {
                     var entity = _mapper.MapUserToEntity(user);
                     dbContext.Posts.First(p => p.Id == id).Tags.Add(entity);
+                    //dbContext.Entry(entity).State = EntityState.Modified;
+                    //dbContext.Entry(entity).State = EntityState.Unchanged;
                 }
 
                 dbContext.SaveChanges();
@@ -72,13 +88,17 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                return (dbContext.Posts.Where(data => data.CurrentTeamId == id)
+                /*return (dbContext.Posts.Where(data => data.CurrentTeamId == id)
                         .Include(t => t.Team)
                         .Include(a => a.Author)
                         .Join(dbContext.Comments, data => data.Id, comm => comm.CurrentPostId, (data, comm) => new {data, comm})
                         .OrderByDescending(@t => @t.comm.Created)
                         .Select(@t => @t.data)).Distinct()
-                        .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();
+                        .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();*/
+                return dbContext.Posts.Include(t => t.Team)
+                    .Include(a => a.Author)
+                    .Where(data => data.Team.Id == id)
+                    .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();
             }
         }
 
@@ -113,6 +133,19 @@ namespace Fitter.BL.Repositories
                     .Include(t => t.Team)
                     .First(t => t.Id == id);
                 return _mapper.MapPostModelFromEntity(entity);
+            }
+        }
+
+        public IList<Guid> SearchInPosts(string substring, Guid id)
+        {
+            using (var dbContext = _fitterDbContext.CreateDbContext())
+            {
+                return dbContext.Posts
+                    .Include(a => a.Author)
+                    .Include(t => t.Team)
+                    .Where(t => t.CurrentTeamId == id)
+                    .Where(e => e.Title.Contains(substring) || e.Text.Contains(substring))
+                    .Select(e => e.Id).ToList();
             }
         }
     }

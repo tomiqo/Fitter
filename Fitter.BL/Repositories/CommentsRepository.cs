@@ -25,6 +25,9 @@ namespace Fitter.BL.Repositories
             {
                 var entity = _mapper.MapCommentToEntity(comment);
                 dbContext.Comments.Add(entity);
+                dbContext.Entry(entity.Author).State = EntityState.Unchanged;
+                dbContext.Entry(entity.Post).State = EntityState.Unchanged;
+                dbContext.Entry(entity.Post.Team).State = EntityState.Unchanged;
                 dbContext.SaveChanges();
             }
         }
@@ -66,6 +69,7 @@ namespace Fitter.BL.Repositories
                         .ThenInclude(k => k.Author)
                     .First(p => p.Id == id)
                     .Comments
+                    .OrderBy(e => e.Created)
                     .Select(e => _mapper.MapCommentModelFromEntity(e)).ToList();
             }
         }
@@ -79,6 +83,28 @@ namespace Fitter.BL.Repositories
                     .First(p => p.Id == id)
                     .Tags
                     .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
+            }
+        }
+
+        public IList<Guid> SearchInComments(string substring, Guid id)
+        {
+            using (var dbContext = _fitterDbContext.CreateDbContext())
+            {
+                /*return dbContext.Comments
+                    .Include(k => k.Author)
+                    .Include(k => k.Post)
+                    .ThenInclude(k => k.Team)
+                    .Where(e => e.Post.CurrentTeamId == id)
+                    .Where(e => e.Text.Contains(substring))
+                    .Select(e => _mapper.MapPostModelFromEntity(e.Post)).ToList();*/
+
+                var posts = dbContext.Comments
+                    .Include(k => k.Post)
+                    .Where(e => e.Text.Contains(substring))
+                    .Select(e => e.Post)
+                    .Where(e => e.CurrentTeamId == id).Distinct();
+
+                return posts.Include(k => k.Team).Include(k => k.Author).Select(e => e.Id).ToList();
             }
         }
     }

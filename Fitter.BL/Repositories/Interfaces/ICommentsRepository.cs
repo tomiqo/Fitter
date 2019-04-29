@@ -12,5 +12,6 @@ namespace Fitter.BL.Repositories.Interfaces
 
         IList<CommentModel> GetCommentsForPost(Guid id);
         IList<UserListModel> GetTagsForComment(Guid id);
+        IList<Guid> SearchInComments(string substring, Guid id);
     }
 }
