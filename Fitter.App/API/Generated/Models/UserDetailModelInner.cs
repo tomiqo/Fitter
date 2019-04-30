@@ -22,10 +22,11 @@ namespace Fitter.App.API.Models
         /// <summary>
         /// Initializes a new instance of the UserDetailModelInner class.
         /// </summary>
-        public UserDetailModelInner(string firstName = default(string), string lastName = default(string), string email = default(string), string password = default(string), System.Guid? id = default(System.Guid?))
+        public UserDetailModelInner(string firstName = default(string), string lastName = default(string), string fullName = default(string), string email = default(string), string password = default(string), System.Guid? id = default(System.Guid?))
         {
             FirstName = firstName;
             LastName = lastName;
+            FullName = fullName;
             Email = email;
             Password = password;
             Id = id;
@@ -46,6 +47,11 @@ namespace Fitter.App.API.Models
         /// </summary>
         [JsonProperty(PropertyName = "lastName")]
         public string LastName { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "fullName")]
+        public string FullName { get; private set; }
 
         /// <summary>
         /// </summary>

@@ -68,16 +68,9 @@ namespace Fitter.App.ViewModels
 
         private void RemoveUser(UserListModel obj)
         {
-            try
-            {
-                UserDetailModel user = usersRepository.GetById(obj.Id);
-                teamsRepository.RemoveUserFromTeam(user,obj.Id);
-                TeamModel = null;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("User does not exists!");
-            }
+            UserDetailModel user = usersRepository.GetById(obj.Id);
+            teamsRepository.RemoveUserFromTeam(user, TeamModel.Id);
+            TeamModel = null;
         }
 
         private void GoToHome(GoToHomeMessage obj)

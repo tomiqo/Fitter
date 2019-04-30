@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.App.Views;
@@ -180,7 +182,7 @@ namespace Fitter.App.ViewModels
             AddUserToTeamCommand = new RelayCommand(AddUserToTeam);
             TeamInfoCommand = new RelayCommand(ShowInfo);
             SelectedPostCommand = new RelayCommand<PostModel>(SelectedPost);
-            SearchCommand = new RelayCommand(Search, CanSearch);
+            SearchCommand = new RelayCommand(Search);
 
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
@@ -316,10 +318,40 @@ namespace Fitter.App.ViewModels
 
         private void CreatePost()
         {
+            var apiClient = new APIClient("https://fitterswaggerapi.azurewebsites.net");
+
             PostModel.Id = Guid.NewGuid();
             PostModel.Team = TeamDetailModel;
             PostModel.Author = UserDetailModel;
-            postsRepository.Create(PostModel);
+            //postsRepository.Create(PostModel);
+            //ASYNC, POST, MODELLOCATOR, With msg ? , all model to inner
+
+            var author = new UserDetailModelInner
+            {
+                Email = UserDetailModel.Email,
+                FirstName = UserDetailModel.FirstName,
+                Id = UserDetailModel.Id,
+                LastName = UserDetailModel.LastName,
+                Password = UserDetailModel.Password
+            };
+
+            var team = new TeamDetailModelInner
+            {
+                Admin = author,
+                Description = TeamDetailModel.Description,
+                Id = TeamDetailModel.Id,
+                Name = TeamDetailModel.Name
+            };
+
+            var post = new PostModelInner
+            {
+                Author = author,
+                Id = PostModel.Id,
+                Team = team,
+                Text = PostModel.Text,
+                Title = PostModel.Title
+            };
+            apiClient.CreatePost(post);
 
             mediator.Send(new NewPostMessage());
             mediator.Send(new LastActivityMessage{LastPost = PostModel.Title});

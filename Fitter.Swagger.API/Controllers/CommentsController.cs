@@ -54,5 +54,13 @@ namespace Fitter.Swagger.API.Controllers
         {
             return _commentsRepository.GetCommentsForPost(id).ToList();
         }
+
+        [HttpGet]
+        [Route("searchInComments")]
+        [SwaggerOperation(OperationId = "SearchInComments")]
+        public ActionResult<IList<Guid>> SearchInComments (string substring, Guid id)
+        {
+            return _commentsRepository.SearchInComments(substring, id).ToList();
+        }
     }
 }

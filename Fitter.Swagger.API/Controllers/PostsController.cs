@@ -19,15 +19,13 @@ namespace Fitter.Swagger.API.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IDbContextFactory _dbContextFactory;
-        private readonly IMapper _mapper;
         private readonly IPostsRepository _postsRepository;
 
         public PostsController()
         {
-            _dbContextFactory = new DbContextFactory();
-            _mapper = new Mapper();
-            _postsRepository = new PostsRepository(_dbContextFactory, _mapper);
+            IDbContextFactory dbContextFactory = new DbContextFactory();
+            IMapper mapper = new Mapper();
+            _postsRepository = new PostsRepository(dbContextFactory, mapper);
         }
 
         [HttpPost]
@@ -54,6 +52,22 @@ namespace Fitter.Swagger.API.Controllers
         public ActionResult<IList<PostModel>> GetPostsForTeam(Guid id)
         {
             return _postsRepository.GetPostsForTeam(id).ToList();
+        }
+
+        [HttpGet]
+        [Route("getById")]
+        [SwaggerOperation(OperationId = "GetPostById")]
+        public ActionResult<PostModel> GetPostById(Guid id)
+        {
+            return _postsRepository.GetById(id);
+        }
+
+        [HttpGet]
+        [Route("searchInPosts")]
+        [SwaggerOperation(OperationId = "SearchInPosts")]
+        public ActionResult<IList<Guid>> SearchInPosts(string substring, Guid id)
+        {
+            return _postsRepository.SearchInPosts(substring, id).ToList();
         }
     }
 }
