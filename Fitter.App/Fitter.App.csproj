@@ -208,7 +208,6 @@
     <Compile Include="API\Generated\APIClient.cs" />
     <Compile Include="API\Generated\APIClientExtensions.cs" />
     <Compile Include="API\Generated\IAPIClient.cs" />
-    <Compile Include="API\Generated\Models\AttachmentModelInner.cs" />
     <Compile Include="API\Generated\Models\CommentModelInner.cs" />
     <Compile Include="API\Generated\Models\PostModelInner.cs" />
     <Compile Include="API\Generated\Models\TeamDetailModelInner.cs" />
@@ -349,7 +348,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="API\GenerateApiClient.ps1" />
-    <None Include="API\swagger.json" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>
