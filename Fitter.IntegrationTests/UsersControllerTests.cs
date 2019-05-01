@@ -18,7 +18,7 @@ namespace Fitter.IntegrationTests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/users/getById?id=d628cab8-bd94-4346-32c3-08d6b8f33c69");
+                var response = await client.GetAsync("/api/users/getById?id=7d9b38d0-4fb9-4b49-b052-08d6ce33d4e9");
 
                 response.EnsureSuccessStatusCode();
 
@@ -31,7 +31,7 @@ namespace Fitter.IntegrationTests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/users/getByEmail?email=adrian@boros.sk");
+                var response = await client.GetAsync("/api/users/getByEmail?email=a");
 
                 response.EnsureSuccessStatusCode();
 
@@ -44,7 +44,7 @@ namespace Fitter.IntegrationTests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/users/getUsersInTeam?id=d628cab8-bd94-4346-32c3-08d6b8f33c69");
+                var response = await client.GetAsync("/api/users/getUsersInTeam?id=7d9b38d0-4fb9-4b49-b052-08d6ce33d4e9");
 
                 response.EnsureSuccessStatusCode();
 
@@ -57,27 +57,12 @@ namespace Fitter.IntegrationTests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/users/getUsersNotInTeam?id=d628cab8-bd94-4346-32c3-08d6b8f33c69");
+                var response = await client.GetAsync("/api/users/getUsersNotInTeam?id=7d9b38d0-4fb9-4b49-b052-08d6ce33d4e9");
 
                 response.EnsureSuccessStatusCode();
 
                 Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             }
         }
-
-        /*[Fact]
-        public async Task CreateUser()
-        {
-            using (var client = new TestClientProvider().Client)
-            {
-                var response = await client.PostAsync("/api/users/create", new StringContent(
-                   JsonConvert.SerializeObject(new UserDetailModel(){ Email = "adrianboros2@gmail.com", LastName = "Abraham",
-                    FirstName = "Adam", Password = "123", Id = Guid.NewGuid()}), Encoding.UTF8, "application/json"));
-
-                response.EnsureSuccessStatusCode();
-
-                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            }
-        }*/
     }
 }

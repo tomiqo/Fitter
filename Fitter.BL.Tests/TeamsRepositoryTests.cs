@@ -19,6 +19,7 @@ namespace Fitter.BL.Tests
         public void AddUserToTeam()
         {
             var sut = CreateSUT();
+            var users = CreateUser();
             var teamModel = new TeamDetailModel()
             {
                 Admin = new UserDetailModel()
@@ -44,11 +45,11 @@ namespace Fitter.BL.Tests
             };
 
             var createdTeam = sut.Create(teamModel);
-            sut.AddUserToTeam(userModel, createdTeam.Id); //
+            var createdUser = users.Create(userModel);
+            sut.AddUserToTeam(createdUser, createdTeam.Id); //
 
             var teams = sut.GetTeamsForUser(userModel.Id);
-            Assert.NotEmpty(teams);
-
+            Assert.Equal(1, teams.Count);
         }
 
         [Fact]
@@ -211,7 +212,6 @@ namespace Fitter.BL.Tests
 
             return new TeamsRepository(new InMemoryDbContext(), new Mapper.Mapper());
         }
-
 
         private UsersRepository CreateUser()
         {
