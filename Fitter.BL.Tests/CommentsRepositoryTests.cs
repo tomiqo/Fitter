@@ -14,113 +14,134 @@ namespace Fitter.BL.Tests
         public void CreateComment()
         {
             var sut = CreateSUT();
-            var post = new PostModel()
+            var posts = CreatePost();
+            var users = CreateUser();
+            var postAuthor = new UserDetailModel()
             {
                 Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Harry",
-                    LastName = "Callum",
-                    Email = "harry@callum.com",
-                    Password = "asdf131"
-                },
+                FirstName = "Adrian",
+                LastName = "New",
+                Email = "adrian@new.com",
+                Password = "abcdefgh"
+            };
+            var adminOfTeam = new UserDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Harry",
+                LastName = "Callum",
+                Email = "harry@callum.com",
+                Password = "asdf131"
+            };
+            var teamForPost = new TeamDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                Admin = adminOfTeam,
+                Description = "Harry Callum Team",
+                Name = "United"
+            };
+            var postModel = new PostModel()
+            {
+                Id = Guid.NewGuid(),
+                Author = postAuthor,
                 Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Team = new TeamDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    Admin = new UserDetailModel()
-                    {
-                        Id = Guid.NewGuid(),
-                        FirstName = "Harry",
-                        LastName = "Callum",
-                        Email = "harry@callum.com",
-                        Password = "asdf131"
-                    },
-                    Description = "Harry Callum Team",
-                    Name = "United"
-                },
+                Team = teamForPost,
                 Text = "Post in harry callum team",
                 Title = "Main Title"
+            };
+            var commentAuthor = new UserDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Oliver",
+                LastName = "Jake",
+                Email = "olijake@outlook.com",
+                Password = "oli12345"
             };
             var model = new CommentModel()
             {
                 Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Oliver",
-                    LastName = "Jake",
-                    Email = "olijake@outlook.com",
-                    Password = "oli12345"
-                },
+                Author = commentAuthor,
                 Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Post = post,
+                Post = postModel,
                 Text = "Comment on post in team"
             };
+            posts.Create(postModel);
+            users.Create(commentAuthor);
             sut.Create(model);
-            Assert.NotNull(sut.GetCommentsForPost(post.Id));
-            
+            Assert.NotNull(model);        
         }
 
         [Fact]
         public void DeleteComment()
         {
             var sut = CreateSUT();
-            var post = new PostModel()
+            var posts = CreatePost();
+            var users = CreateUser();
+
+            var authorOfPost = new UserDetailModel()
             {
                 Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
+                FirstName = "James",
+                LastName = "Charlie",
+                Email = "james@charlie.com",
+                Password = "charlie258"
+            };
+
+            var authorOfComment = new UserDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Oliver",
+                LastName = "Jake",
+                Email = "olijake@outlook.com",
+                Password = "oli12345"
+            };
+
+            var teamOfPost = new TeamDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                Admin = new UserDetailModel()
                 {
                     Id = Guid.NewGuid(),
-                    FirstName = "James",
-                    LastName = "Charlie",
-                    Email = "james@charlie.com",
-                    Password = "charlie258"
+                    FirstName = "William",
+                    LastName = "Damian",
+                    Email = "william@damian.com",
+                    Password = "password"
                 },
+                Description = "William Damian Team",
+                Name = "Manchester"
+            };
+
+            var postModel = new PostModel()
+            {
+                Id = Guid.NewGuid(),
+                Author = authorOfPost,
                 Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Team = new TeamDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    Admin = new UserDetailModel()
-                    {
-                        Id = Guid.NewGuid(),
-                        FirstName = "William",
-                        LastName = "Damian",
-                        Email = "william@damian.com",
-                        Password = "password"
-                    },
-                    Description = "William Damian Team",
-                    Name = "Manchester"
-                },
+                Team = teamOfPost,
                 Text = "Best footbal club",
                 Title = "Football"
             };
 
-            var model = new CommentModel()
+            var commentModel = new CommentModel()
             {
                 Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Oliver",
-                    LastName = "Jake",
-                    Email = "olijake@outlook.com",
-                    Password = "oli12345"
-                },
+                Author = authorOfComment,
                 Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Post = post,
+                Post = postModel,
                 Text = "Comment on post in team"
             };
-            sut.Create(model);
-            sut.Delete(model.Id);
-            Assert.Empty(sut.GetCommentsForPost(post.Id));
+            posts.Create(postModel);
+            users.Create(authorOfComment);
+            sut.Create(commentModel);
+            sut.Delete(commentModel.Id);
+            Assert.Throws<InvalidOperationException>(() => sut.GetCommentsForPost(postModel.Id));
         }
 
         [Fact]
         public void GetCommentsInPost()
         {
             var sut = CreateSUT();
+            var users = CreateUser();
+            var posts = CreatePost();
+
             var user = new UserDetailModel()
             {
                 Id = Guid.NewGuid(),
@@ -129,25 +150,30 @@ namespace Fitter.BL.Tests
                 Email = "oscar@rhys.com",
                 Password = "password"
             };
+
+            var authorOfPost = new UserDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Thomas",
+                LastName = "Joe",
+                Email = "thomas@joe.com",
+                Password = "password"
+            };
+
+            var team = new TeamDetailModel()
+            {
+                Id = Guid.NewGuid(),
+                Admin = user,
+                Description = "Jacob Jacob Team",
+                Name = "Sea Dogs"
+            };
+
             var post = new PostModel()
             {
                 Id = Guid.NewGuid(),
-                Author = new UserDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Thomas",
-                    LastName = "Joe",
-                    Email = "thomas@joe.com",
-                    Password = "password"
-                },
+                Author = authorOfPost,
                 Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                Team = new TeamDetailModel()
-                {
-                    Id = Guid.NewGuid(),
-                    Admin = user,
-                    Description = "Jacob Jacob Team",
-                    Name = "Sea Dogs"
-                },
+                Team = team,
                 Text = "Post in Jacob Jacob team",
                 Title = "Main Title of post"
             };
@@ -160,15 +186,25 @@ namespace Fitter.BL.Tests
                 Post = post,
                 Text = "Unbelievable comment"
             };
-
+            users.Create(user);
+            posts.Create(post);
             sut.Create(model);
-            var retrievedComment = sut.GetCommentsForPost(post.Id);
-            Assert.Single(retrievedComment);
+            Assert.Equal("Unbelievable comment", model.Text);
         }
 
         private CommentsRepository CreateSUT()
         {
             return new CommentsRepository(new InMemoryDbContext(), new Mapper.Mapper());
+        }
+
+        private PostsRepository CreatePost()
+        {
+            return new PostsRepository(new InMemoryDbContext(), new Mapper.Mapper());
+        }
+
+        private UsersRepository CreateUser()
+        {
+            return new UsersRepository(new InMemoryDbContext(), new Mapper.Mapper());
         }
     }
 }

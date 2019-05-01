@@ -138,19 +138,6 @@ namespace Fitter.IntegrationTests
         }
 
         [Fact]
-        public async Task getTagsForComment()
-        {
-            using (var client = new TestClientProvider().Client)
-            {
-                var response = await client.GetAsync("/api/comments/getTagsForComment?id=7f3eed3c-9f55-4522-add3-af797a52ac5d");
-
-                response.EnsureSuccessStatusCode();
-
-                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            }
-        }
-
-        [Fact]
         public async Task DeleteComment()
         {
             using (var client = new TestClientProvider().Client)
