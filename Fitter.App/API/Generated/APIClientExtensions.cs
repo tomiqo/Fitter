@@ -877,5 +877,44 @@ namespace Fitter.App.API
                 return operations.UsersNotInTeamWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            public static string UserGetLastActivity(this IAPIClient operations, System.Guid? id = default(System.Guid?))
+            {
+                return operations.UserGetLastActivityAsync(id).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> UserGetLastActivityAsync(this IAPIClient operations, System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UserGetLastActivityWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='customHeaders'>
+            /// Headers that will be added to request.
+            /// </param>
+            public static AzureOperationResponse<string> UserGetLastActivityWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
+            {
+                return operations.UserGetLastActivityWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+            }
+
     }
 }

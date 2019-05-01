@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Messages;
@@ -13,13 +15,12 @@ namespace Fitter.App.ViewModels
 {
     public class AddTScreenViewModel : ViewModelBase
     {
-        private readonly ITeamsRepository teamsRepository;
-        private readonly IUsersRepository usersRepository;
-        private readonly IMediator mediator;
-        private UserDetailModel _model;
-        private TeamDetailModel _teamModel;
+        private readonly APIClient _apiClient;
+        private readonly IMediator _mediator;
+        private UserDetailModelInner _model;
+        private TeamDetailModelInner _teamModel;
 
-        public TeamDetailModel TeamModel
+        public TeamDetailModelInner TeamModel
         {
             get => _teamModel;
             set
@@ -35,7 +36,7 @@ namespace Fitter.App.ViewModels
         }
         public ICommand AddTeamCommand { get; set; }
         public ICommand GoBackCommand { get; set; }
-        public UserDetailModel Model
+        public UserDetailModelInner Model
         {
             get => _model;
             set
@@ -47,11 +48,10 @@ namespace Fitter.App.ViewModels
                 OnPropertyChanged();
             }
         }
-        public AddTScreenViewModel(ITeamsRepository teamsRepository, IMediator mediator, IUsersRepository usersRepository)
+        public AddTScreenViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.mediator = mediator;
-            this.teamsRepository = teamsRepository;
-            this.usersRepository = usersRepository;
+            _mediator = mediator;
+            _apiClient = apiClient;
             GoBackCommand = new RelayCommand(GoBack);
             AddTeamCommand = new RelayCommand(AddTeam, CanAddTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
@@ -68,19 +68,19 @@ namespace Fitter.App.ViewModels
             Model = null;
         }
 
-        private void AddTeam()
+        private async void AddTeam()
         {
-            if (teamsRepository.Exists(TeamModel.Name))
+            if (await _apiClient.TeamExistsAsync(TeamModel.Name) == true)
             {
                 MessageBox.Show("Team with typed name already exists!");
             }
             else
             {
-                TeamModel = teamsRepository.Create(TeamModel);
+                TeamModel = await _apiClient.CreateTeamAsync(TeamModel);
                 TeamModel.Admin = Model;
-                teamsRepository.AddUserToTeam(TeamModel.Admin, TeamModel.Id);
-                teamsRepository.Update(TeamModel);
-                mediator.Send(new UpdatedTeamsMessage());
+                await _apiClient.AddUserToTeamAsync(TeamModel.Admin, TeamModel.Id);
+                await _apiClient.UpdateTeamAsync(TeamModel);
+                _mediator.Send(new UpdatedTeamsMessage());
                 TeamModel = null;
                 Model = null;
             }
@@ -93,10 +93,11 @@ namespace Fitter.App.ViewModels
                                  && !string.IsNullOrWhiteSpace(TeamModel.Description);
         }
 
-        private void NewTeam(AddTMessage obj)
+        private async void NewTeam(AddTMessage obj)
         {
-            Model = usersRepository.GetById(obj.Id);
-            TeamModel = new TeamDetailModel();
+            Guid id = Guid.Parse(obj.Id.ToString());
+            Model = await _apiClient.UserGetByIdAsync(id);
+            TeamModel = new TeamDetailModelInner();
         }
 
 

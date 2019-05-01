@@ -19,20 +19,18 @@ using Fitter.BL.Messages;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
+using Microsoft.Rest.Serialization;
 
 namespace Fitter.App.ViewModels
 {
     public class TeamScreenViewModel : ViewModelBase
     {
-        private readonly IMediator mediator;
-        private readonly IUsersRepository usersRepository;
-        private readonly ITeamsRepository teamsRepository;
-        private readonly IPostsRepository postsRepository;
-        private readonly ICommentsRepository commentsRepository;
-        private TeamDetailModel _teamDetailModel;
-        private PostModel _postModel;
-        private CommentModel _commentModel;
-        private UserDetailModel _userDetailModel;
+        private readonly APIClient _apiClient;
+        private readonly IMediator _mediator;
+        private TeamDetailModelInner _teamDetailModel;
+        private PostModelInner _postModel;
+        private CommentModelInner _commentModel;
+        private UserDetailModelInner _userDetailModel;
         private string _searchString;
         public ICommand AddUserToTeamCommand { get; set; }
         public ICommand DeletePostCommand { get; set; }
@@ -43,7 +41,7 @@ namespace Fitter.App.ViewModels
         public ICommand SelectedPostCommand { get; set; }
         public ICommand SearchCommand { get; set; }
 
-        public TeamDetailModel TeamDetailModel
+        public TeamDetailModelInner TeamDetailModel
         {
             get => _teamDetailModel;
             set
@@ -69,7 +67,7 @@ namespace Fitter.App.ViewModels
                 OnPropertyChanged();
             }
         }
-        public PostModel PostModel {
+        public PostModelInner PostModel {
             get => _postModel;
             set {
                 if (Equals(value, PostModel))
@@ -81,7 +79,7 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        public CommentModel CommentModel
+        public CommentModelInner CommentModel
         {
             get => _commentModel;
             set {
@@ -94,7 +92,7 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        public UserDetailModel UserDetailModel
+        public UserDetailModelInner UserDetailModel
         {
             get => _userDetailModel;
             set
@@ -105,9 +103,9 @@ namespace Fitter.App.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<PostModel> _posts;
+        private ObservableCollection<PostModelInner> _posts;
 
-        public ObservableCollection<PostModel> Posts
+        public ObservableCollection<PostModelInner> Posts
         {
             get => _posts;
             set
@@ -120,9 +118,9 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private ObservableCollection<CommentModel> _comments;
+        private ObservableCollection<CommentModelInner> _comments;
 
-        public ObservableCollection<CommentModel> Comments
+        public ObservableCollection<CommentModelInner> Comments
         {
             get => _comments;
             set
@@ -137,9 +135,9 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private List<PostModel> _searchResults;
+        private List<PostModelInner> _searchResults;
 
-        public List<PostModel> SearchResults {
+        public List<PostModelInner> SearchResults {
             get => _searchResults;
             set {
                 if (Equals(value, SearchResults))
@@ -152,28 +150,10 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private List<UserListModel> _usersInTeam;
-        public List<UserListModel> UsersInTeam {
-            get => _usersInTeam;
-            set {
-                if (Equals(value, UsersInTeam))
-                {
-                    return;
-                }
-
-                _usersInTeam = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public TeamScreenViewModel(ITeamsRepository teamsRepository, IUsersRepository usersRepository,
-            IMediator mediator, IPostsRepository postsRepository, ICommentsRepository commentsRepository)
+        public TeamScreenViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.mediator = mediator;
-            this.teamsRepository = teamsRepository;
-            this.usersRepository = usersRepository;
-            this.postsRepository = postsRepository;
-            this.commentsRepository = commentsRepository;
+            _mediator = mediator;
+            _apiClient = apiClient;
 
             CreatePostCommand = new RelayCommand(CreatePost, CanCreatePost);
             DeletePostCommand = new RelayCommand<Guid>(CanDeletePost);
@@ -187,9 +167,6 @@ namespace Fitter.App.ViewModels
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
             mediator.Register<UserLoginMessage>(CreateAdmin);
-            mediator.Register<NewPostMessage>(NewPost);
-            mediator.Register<NewCommentMessage>(NewComment);
-            mediator.Register<SearchMessage>(NewSearch);
         }
 
         private void CanDeleteComment(Guid id)
@@ -206,12 +183,12 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private void DeleteComment(Guid id)
+        private async void DeleteComment(Guid id)
         {
             var result = MessageBox.Show("Are you sure you want to delete the comment?", "Delete comment", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                commentsRepository.Delete(id);
+                await _apiClient.DeleteCommentAsync(id);
                 OnLoad();
             }
         }
@@ -230,77 +207,70 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        private void DeletePost(Guid id)
+        private async void DeletePost(Guid id)
         {
             var result = MessageBox.Show("Are you sure you want to delete the post?", "Delete post", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                postsRepository.Delete(id);
+                await _apiClient.DeletePostAsync(id);
                 OnLoad();
             }
         }
 
-        private void NewSearch(SearchMessage obj)
+        private async void Search()
         {
-            LoadSearchResults();
-        }
-
-        private void Search()
-        {
-            if (SearchString == null)
+            if (string.IsNullOrWhiteSpace(SearchString))
             {
                 OnLoad();
                 return;
             }
-            var searchIds = new List<Guid>(postsRepository.SearchInPosts(SearchString, TeamDetailModel.Id));
-            searchIds.AddRange(commentsRepository.SearchInComments(SearchString, TeamDetailModel.Id));
+
+            var searchIds = new List<Guid?>(await _apiClient.SearchInPostsAsync(SearchString, TeamDetailModel.Id));
+            searchIds.AddRange( await _apiClient.SearchInCommentsAsync(SearchString, TeamDetailModel.Id));
             searchIds = searchIds.Distinct().ToList();
-            SearchResults = new List<PostModel>();
+            GetSearchResults(searchIds);
+        }
+
+        private async void GetSearchResults(List<Guid?> searchIds)
+        {
+            SearchResults = new List<PostModelInner>();
             foreach (var id in searchIds)
             {
-                SearchResults.Add(postsRepository.GetById(id));
+                SearchResults.Add(await _apiClient.GetPostByIdAsync(id));
             }
+
             SearchResults = SearchResults.OrderByDescending(c => c.Created).ToList();
-            mediator.Send(new SearchMessage());
+            LoadSearchResults();
         }
-        private void LoadSearchResults()
+
+        private async void LoadSearchResults()
         {
-            Posts = new ObservableCollection<PostModel>(SearchResults);
+            Posts = new ObservableCollection<PostModelInner>(SearchResults);
 
             foreach (var post in Posts)
             {
-                post.Comments = new ObservableCollection<CommentModel>(commentsRepository.GetCommentsForPost(post.Id));
+                post.Comments = new ObservableCollection<CommentModelInner>(await _apiClient.GetCommentsForPostAsync(post.Id));
             }
-        }
-
-        private void NewComment(NewCommentMessage obj)
-        {
-            OnLoad();
-        }
-
-        private void NewPost(NewPostMessage obj)
-        {
-            OnLoad();
         }
 
         private void SelectedPost(PostModel post)
         {
-            mediator.Send(new PostSelectedMessage{Id = post.Id});
+            _mediator.Send(new PostSelectedMessage{Id = post.Id});
         }
 
         private void ShowInfo()
         {
-            mediator.Send(new TeamInfoMessage{Id = TeamDetailModel.Id});
+            _mediator.Send(new TeamInfoMessage{Id = TeamDetailModel.Id});
         }
 
         private void AddUserToTeam()
         {
-            mediator.Send(new AddUserToTeamMessage{Id = TeamDetailModel.Id});
+            _mediator.Send(new AddUserToTeamMessage{Id = TeamDetailModel.Id});
         }
 
-        private void CreateAdmin(UserLoginMessage obj)
+        private async void CreateAdmin(UserLoginMessage obj)
         {
-            UserDetailModel = usersRepository.GetById(obj.Id);
+            UserDetailModel = await _apiClient.UserGetByIdAsync(obj.Id);
         }
 
         private bool CanCreatePost()
@@ -316,59 +286,32 @@ namespace Fitter.App.ViewModels
             return comment != null && !string.IsNullOrWhiteSpace(comment.Text);
         }
 
-        private void CreatePost()
+        private async void CreatePost()
         {
-            var apiClient = new APIClient("https://fitterswaggerapi.azurewebsites.net");
-
             PostModel.Id = Guid.NewGuid();
             PostModel.Team = TeamDetailModel;
             PostModel.Author = UserDetailModel;
-            //postsRepository.Create(PostModel);
-            //ASYNC, POST, MODELLOCATOR, With msg ? , all model to inner
+            PostModel.Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            
+            await _apiClient.CreatePostAsync(PostModel);
 
-            var author = new UserDetailModelInner
-            {
-                Email = UserDetailModel.Email,
-                FirstName = UserDetailModel.FirstName,
-                Id = UserDetailModel.Id,
-                LastName = UserDetailModel.LastName,
-                Password = UserDetailModel.Password
-            };
-
-            var team = new TeamDetailModelInner
-            {
-                Admin = author,
-                Description = TeamDetailModel.Description,
-                Id = TeamDetailModel.Id,
-                Name = TeamDetailModel.Name
-            };
-
-            var post = new PostModelInner
-            {
-                Author = author,
-                Id = PostModel.Id,
-                Team = team,
-                Text = PostModel.Text,
-                Title = PostModel.Title
-            };
-            apiClient.CreatePost(post);
-
-            mediator.Send(new NewPostMessage());
-            mediator.Send(new LastActivityMessage{LastPost = PostModel.Title});
+            _mediator.Send(new LastActivityMessage{LastPost = PostModel.Title});
+            OnLoad();
         }
 
-        private void AddNewComment(Guid id)
+        private async void AddNewComment(Guid id)
         {
-            var comment = new CommentModel
+            var comment = new CommentModelInner
             {
                 Id = Guid.NewGuid(),
-                Author = _userDetailModel,
-                Post = postsRepository.GetById(id),
-                Text = Posts.First(k => k.Id == id).NewComment.Text
+                Author = UserDetailModel,
+                Post = await _apiClient.GetPostByIdAsync(id),
+                Text = Posts.First(k => k.Id == id).NewComment.Text,
+                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
             };
             
-            commentsRepository.Create(comment);
-            mediator.Send(new NewCommentMessage());
+            await _apiClient.CreateCommentAsync(comment);
+            OnLoad();
         }
 
         private void GoToHome(GoToHomeMessage obj)
@@ -376,22 +319,21 @@ namespace Fitter.App.ViewModels
             TeamDetailModel = null;
         }
 
-        private void SelectedTeam(TeamSelectedMessage obj)
+        private async void SelectedTeam(TeamSelectedMessage obj)
         {
-            TeamDetailModel = teamsRepository.GetById(obj.Id);
+            TeamDetailModel = await _apiClient.GetTeamByIdAsync(obj.Id);
             OnLoad();
         }
 
-        private void OnLoad()
+        private async void OnLoad()
         {
-            Posts = new ObservableCollection<PostModel>(postsRepository.GetPostsForTeam(TeamDetailModel.Id));
-            PostModel = new PostModel();
-            CommentModel = new CommentModel();
-            UsersInTeam = new List<UserListModel>(usersRepository.GetUsersInTeam(TeamDetailModel.Id));
+            Posts = new ObservableCollection<PostModelInner>(await _apiClient.GetPostsForTeamAsync(TeamDetailModel.Id));
+            PostModel = new PostModelInner();
+            CommentModel = new CommentModelInner();
 
             foreach (var post in Posts)
             {
-                post.Comments = new ObservableCollection<CommentModel>(commentsRepository.GetCommentsForPost(post.Id));
+                post.Comments = new ObservableCollection<CommentModelInner>(await _apiClient.GetCommentsForPostAsync(post.Id));
             }
         }
     }

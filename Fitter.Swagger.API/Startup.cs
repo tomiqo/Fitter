@@ -49,6 +49,7 @@ namespace Fitter.Swagger.API
                 app.UseHsts();
             }
 
+            app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

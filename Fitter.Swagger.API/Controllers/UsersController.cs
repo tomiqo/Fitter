@@ -70,5 +70,14 @@ namespace Fitter.Swagger.API.Controllers
         {
             return _usersRepository.GetUsersNotInTeam(id).ToList();
         }
+
+        [HttpGet]
+        [Route("getLastActivity")]
+        [SwaggerOperation(OperationId = "UserGetLastActivity")]
+        public ActionResult<string> GetLastActivity(Guid id)
+        {
+            var result = _usersRepository.GetLastActivity(id);
+            return $"\"{result}\"";
+        }
     }
 }

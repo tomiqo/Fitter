@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Extensions;
@@ -18,14 +20,13 @@ namespace Fitter.App.ViewModels
 {
     public class AppPanelViewModel : ViewModelBase
     {
-        private readonly ITeamsRepository teamsRepository;
-        private readonly IUsersRepository usersRepository;
-        private readonly IMediator mediator;
+        private readonly APIClient _apiClient;
+        private readonly IMediator _mediator;
 
-        private UserDetailModel _model;
-        private ObservableCollection<TeamListModel> _teams;
+        private UserDetailModelInner _model;
+        private ObservableCollection<TeamListModelInner> _teams;
 
-        public ObservableCollection<TeamListModel> Teams
+        public ObservableCollection<TeamListModelInner> Teams
         {
             get { return _teams; }
             set
@@ -40,7 +41,7 @@ namespace Fitter.App.ViewModels
         public ICommand TeamSelectedCommand { get; set; }
         public ICommand UserInfoCommand { get; set; }
         public ICommand GoToHomeCommand { get; set; }
-        public UserDetailModel Model
+        public UserDetailModelInner Model
         {
             get { return _model; }
             set
@@ -52,12 +53,11 @@ namespace Fitter.App.ViewModels
                 OnPropertyChanged();
             }
         }
-        public AppPanelViewModel(ITeamsRepository teamsRepository, IMediator mediator, IUsersRepository usersRepository)
+        public AppPanelViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.teamsRepository = teamsRepository;
-            this.usersRepository = usersRepository;
-            this.mediator = mediator;
-            TeamSelectedCommand = new RelayCommand<TeamListModel>(TeamSelected);
+            _apiClient = apiClient;
+            _mediator = mediator;
+            TeamSelectedCommand = new RelayCommand<TeamListModelInner>(TeamSelected);
             UserInfoCommand = new RelayCommand(UserInfo);
             GoToHomeCommand = new RelayCommand(GoToHome);
             mediator.Register<UserLoginMessage>(UserLog);
@@ -67,12 +67,12 @@ namespace Fitter.App.ViewModels
 
         private void UserInfo()
         {
-            mediator.Send(new UserInfoMessage{Id = Model.Id});
+            _mediator.Send(new UserInfoMessage{Id = Model.Id});
         }
 
         private void GoToHome()
         {
-            mediator.Send(new GoToHomeMessage());
+            _mediator.Send(new GoToHomeMessage());
         }
 
         private void UserLogOut(LogOutMessage obj)
@@ -80,14 +80,15 @@ namespace Fitter.App.ViewModels
             Model = null;
         }
 
-        private void TeamSelected(TeamListModel team)
+        private void TeamSelected(TeamListModelInner team)
         {
-            mediator.Send(new TeamSelectedMessage{Id = team.Id});
+            _mediator.Send(new TeamSelectedMessage{Id = team.Id});
         }
 
-        private void UserLog(UserLoginMessage obj)
+        private async void UserLog(UserLoginMessage obj)
         {
-            Model = usersRepository.GetById(obj.Id);
+            Guid id = Guid.Parse(obj.Id.ToString());
+            Model = await _apiClient.UserGetByIdAsync(id);
             OnLoad();
         }
 
@@ -96,9 +97,9 @@ namespace Fitter.App.ViewModels
             OnLoad();
         }
 
-        public void OnLoad()
+        public async void OnLoad()
         {
-            Teams = new ObservableCollection<TeamListModel>(teamsRepository.GetTeamsForUser(Model.Id));
+            Teams = new ObservableCollection<TeamListModelInner>(await _apiClient.GetTeamsForUserAsync(Model.Id));
         }
     }
 }

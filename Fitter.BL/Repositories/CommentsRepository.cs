@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IList<CommentModel> GetCommentsForPost(Guid id)
+        public List<CommentModel> GetCommentsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
@@ -63,14 +64,6 @@ namespace Fitter.BL.Repositories
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                /*return dbContext.Comments
-                    .Include(k => k.Author)
-                    .Include(k => k.Post)
-                    .ThenInclude(k => k.Team)
-                    .Where(e => e.Post.CurrentTeamId == id)
-                    .Where(e => e.Text.Contains(substring))
-                    .Select(e => _mapper.MapPostModelFromEntity(e.Post)).ToList();*/
-
                 var posts = dbContext.Comments
                     .Include(k => k.Post)
                     .Where(e => e.Text.Contains(substring))

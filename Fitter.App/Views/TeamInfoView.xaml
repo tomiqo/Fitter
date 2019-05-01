@@ -34,11 +34,90 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <Border Grid.Row="1" Padding="10" BorderThickness="1" MaxWidth="400" CornerRadius="50" BorderBrush="Black" >
-            <Border.Background>
-                <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
-            </Border.Background>
+        <Border Grid.Row="1" BorderThickness="1" MaxWidth="400" BorderBrush="Black" >
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Foreground="#FFE6D4D4" Text="Team Information" FontSize="20" FontWeight="Bold" Background="#2f3136" TextAlignment="Center" Margin="0" Padding="0,5"/>
+                <Grid Row="2" Background="#34373c" Margin="0,0,0,-1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Column="0" Margin="10,15,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Team name: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="1" Content="Admin: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="2" Content="Description: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    </Grid>
+                    <Grid Column="1" Margin="0,15,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="{Binding TeamDetailModel.Name}" Foreground="#FFE6D4D4" FontSize="16" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="1" Content="{Binding TeamDetailModel.Admin.FullName}" Foreground="#FFE6D4D4" FontSize="16" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Row="2" Text="{Binding TeamDetailModel.Description}" TextWrapping="Wrap" Foreground="#FFE6D4D4" FontSize="16" HorizontalAlignment="Left" Padding="0" Margin="0,5,0,0"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Row="3" Background="#34373c">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Column="0" Margin="10,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Users in team: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    </Grid>
+                    <Grid Column="1" Margin="0,10,0,0">
+                        <ListBox x:Name="UsersTextBox" ItemsSource="{Binding Users}" HorizontalAlignment="Left">
+                            <Interactions:Interaction.Triggers>
+                                <Interactions:EventTrigger EventName="SelectionChanged">
+                                    <Interactions:InvokeCommandAction Command="{Binding GoToUserCommand}"
+                                                                      CommandParameter="{Binding ElementName=UsersTextBox, Path=SelectedItem}"/>
+                                </Interactions:EventTrigger>
+                            </Interactions:Interaction.Triggers>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label x:Name="TestLabel" Content="{Binding Fullname}" Foreground="#FFE6D4D4" FontSize="16"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+                <Grid Row="1" Background="#34373c" Margin="0,0,0,-3">
+                    <Grid  Margin="0,10,0,-1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Height="48" Width="48" HorizontalAlignment="Center" BorderBrush="{x:Null}" Command="{Binding AddUserToTeamCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Images/add-user-2-48.png"></ImageBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Height="48" Width="48" HorizontalAlignment="Center" Grid.Column="1" BorderBrush="{x:Null}" Command="{Binding RemoveUserFromTeamCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Images/remove-user-48.png"></ImageBrush>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -95,7 +174,7 @@
                         </Button.Background>
                     </Button>
                 </Grid>
-            </Grid>
+            </Grid>-->
         </Border>
     </Grid>
 </local:UserControlBase>

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Model;
@@ -19,32 +21,32 @@ using Fitter.BL.Messages;
 namespace Fitter.App.ViewModels
 {
    public class LoginPanelViewModel : ViewModelBase
-    {
-        private readonly IUsersRepository usersRepository;
-        private readonly IMediator mediator;
-        public UserDetailModel Model { get; set; }
+   {
+        private readonly APIClient _apiClient;
+        private readonly IMediator _mediator;
+        public UserDetailModelInner Model { get; set; }
 
         public string Email { get; set; }
         
         public ICommand NewUserCommand { get; set; }
-        public LoginPanelViewModel(IUsersRepository usersRepository, IMediator mediator)
+        public LoginPanelViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.usersRepository = usersRepository;
-            this.mediator = mediator;
+            _apiClient = apiClient;
+            _mediator = mediator;
             
             NewUserCommand = new RelayCommand(LoginUser, CanLogin);
         }
 
-        private void LoginUser(object obj)
+        private async void LoginUser(object obj)
         {
             PasswordBox pwBox = obj as PasswordBox;
             try
             {
-                Model = usersRepository.GetByEmail(Email);
+                Model = await _apiClient.UserGetByEmailAsync(Email);
                 var data = new PasswordComparer();
                 if (data.ComparePassword(pwBox.Password, Model.Password))
                 {
-                    mediator.Send(new UserLoginMessage { Id = Model.Id });
+                    _mediator.Send(new UserLoginMessage { Id = Model.Id });
                 }
                 else
                 {

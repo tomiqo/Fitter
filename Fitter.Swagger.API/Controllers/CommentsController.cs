@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Fitter.BL.Factories;
@@ -50,7 +51,7 @@ namespace Fitter.Swagger.API.Controllers
         [HttpGet]
         [Route("getCommentsForPost")]
         [SwaggerOperation(OperationId = "GetCommentsForPost")]
-        public ActionResult<IList<CommentModel>> GetCommentsForPost(Guid id)
+        public ActionResult<List<CommentModel>> GetCommentsForPost(Guid id)
         {
             return _commentsRepository.GetCommentsForPost(id).ToList();
         }

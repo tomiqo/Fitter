@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Messages;
@@ -17,12 +19,12 @@ namespace Fitter.App.ViewModels
 {
     public class AddUScreenViewModel : ViewModelBase
     {
-        private readonly IUsersRepository usersRepository;
-        private readonly IMediator mediator;
-        private UserDetailModel _model;
+        private readonly APIClient _apiClient;
+        private readonly IMediator _mediator;
+        private UserDetailModelInner _model;
         public ICommand AddUserCommand { get; set; }
         public ICommand GoBackCommand { get; set; }
-        public UserDetailModel Model
+        public UserDetailModelInner Model
         {
             get { return _model; }
             set
@@ -34,10 +36,10 @@ namespace Fitter.App.ViewModels
                 OnPropertyChanged();
             }
         }
-        public AddUScreenViewModel(IUsersRepository usersRepository, IMediator mediator)
+        public AddUScreenViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.usersRepository = usersRepository;
-            this.mediator = mediator;
+            _apiClient = apiClient;
+            _mediator = mediator;
             AddUserCommand = new RelayCommand(AddUser, CanAddUser);
             GoBackCommand = new RelayCommand(GoBack);
             mediator.Register<AddUMessage>(NewUser);
@@ -63,26 +65,27 @@ namespace Fitter.App.ViewModels
                    && !string.IsNullOrWhiteSpace(Model.LastName);
         }
 
-        private void AddUser(object obj)
+        private async void AddUser(object obj)
         {
             PasswordBox pwBox = obj as PasswordBox;
             Model.Password = pwBox.Password;
             
             try
             {
-                usersRepository.GetByEmail(Model.Email);
+                await _apiClient.UserGetByEmailAsync(Model.Email);
                 MessageBox.Show("User with that email address already exists!");
             }
             catch 
             {
-                usersRepository.Create(Model);
+                await _apiClient.UserCreateAsync(Model);
                 Model = null;
+                pwBox.Password = "";
             }
         }
 
         private void NewUser(AddUMessage obj)
         {
-            Model = new UserDetailModel();
+            Model = new UserDetailModelInner();
         }
     }
 }
