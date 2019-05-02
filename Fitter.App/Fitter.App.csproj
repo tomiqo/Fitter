@@ -217,6 +217,11 @@
     <Compile Include="API\Generated\Models\UserListModelInner.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\NullToVisibilityConverter .cs" />
+    <Compile Include="Resources\Texts\TextResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddTScreenViewModel.cs" />
     <Compile Include="ViewModels\AddUScreenViewModel.cs" />
     <Compile Include="ViewModels\AddUserToTeamViewModel.cs" />
@@ -340,6 +345,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Texts\TextResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Texts\TextResources.sk.resx" />
     <None Include="API\GenerateApiClient.ps1" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
