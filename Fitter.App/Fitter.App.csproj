@@ -109,8 +109,8 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.20\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    <Reference Include="Microsoft.Rest.ClientRuntime">
+      <HintPath>..\..\..\..\.nuget\packages\microsoft.rest.clientruntime\2.3.20\lib\netstandard2.0\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.19\lib\net461\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
@@ -205,10 +205,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API\Custom\ApiClient.cs" />
+    <Compile Include="API\Custom\Models\PostModelInner.cs" />
     <Compile Include="API\Generated\APIClient.cs" />
     <Compile Include="API\Generated\APIClientExtensions.cs" />
     <Compile Include="API\Generated\IAPIClient.cs" />
-    <Compile Include="API\Generated\Models\AttachmentModelInner.cs" />
     <Compile Include="API\Generated\Models\CommentModelInner.cs" />
     <Compile Include="API\Generated\Models\PostModelInner.cs" />
     <Compile Include="API\Generated\Models\TeamDetailModelInner.cs" />
@@ -231,7 +231,6 @@
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\LoginPanelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\RemoveUserFromTeamViewModel.cs" />
     <Compile Include="ViewModels\TeamInfoViewModel.cs" />
     <Compile Include="ViewModels\TeamScreenViewModel.cs" />
@@ -242,9 +241,6 @@
     </Compile>
     <Compile Include="Views\AppWindowBase.xaml.cs">
       <DependentUpon>AppWindowBase.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PostView.xaml.cs">
-      <DependentUpon>PostView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RemoveUserFromTeamView.xaml.cs">
       <DependentUpon>RemoveUserFromTeamView.xaml</DependentUpon>
@@ -314,10 +310,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PostView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\RemoveUserFromTeamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -359,7 +351,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Texts\TextResources.sk.resx" />
     <None Include="API\GenerateApiClient.ps1" />
-    <None Include="API\swagger.json" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>

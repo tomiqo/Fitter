@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Messages;
@@ -16,19 +18,16 @@ namespace Fitter.App.ViewModels
 {
     public class UserInfoViewModel : ViewModelBase
     {
-        private readonly IMediator mediator;
-        private readonly IUsersRepository usersRepository;
-        private readonly ITeamsRepository teamsRepository;
-        private readonly IPostsRepository postsRepository;
-        private readonly ICommentsRepository commentsRepository;
-        private UserDetailModel _userModel;
+        private readonly IMediator _mediator;
+        private readonly APIClient _apiClient;
+        private UserDetailModelInner _userModel;
         private string _lastActivity;
         public ICommand GoBackCommand { get; set; }
         public ICommand TeamSelectedCommand { get; set; }
 
         public string LastActivity
         {
-            get { return _lastActivity; }
+            get => _lastActivity;
             set
             {
                 if (Equals(value,_lastActivity)) return;
@@ -38,11 +37,11 @@ namespace Fitter.App.ViewModels
                 }
             }
         }
-        private ObservableCollection<TeamListModel> _teams;
+        private ObservableCollection<TeamListModelInner> _teams;
 
-        public ObservableCollection<TeamListModel> Teams
+        public ObservableCollection<TeamListModelInner> Teams
         {
-            get { return _teams; }
+            get => _teams;
             set
             {
                 if (Equals(value, _teams)) return;
@@ -52,9 +51,9 @@ namespace Fitter.App.ViewModels
                 }
             }
         }
-        public UserDetailModel UserModel
+        public UserDetailModelInner UserModel
         {
-            get { return _userModel; }
+            get => _userModel;
             set
             {
                 if (Equals(value, UserModel))
@@ -65,36 +64,21 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        public UserInfoViewModel(IMediator mediator,
-            IUsersRepository usersRepository, ITeamsRepository teamsRepository, ICommentsRepository commentsRepository,
-            IPostsRepository postsRepository)
+        public UserInfoViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.mediator = mediator;
-            this.usersRepository = usersRepository;
-            this.teamsRepository = teamsRepository;
-            TeamSelectedCommand = new RelayCommand<TeamListModel>(TeamSelected);
+            _mediator = mediator;
+            _apiClient = apiClient;
+            
+            TeamSelectedCommand = new RelayCommand<TeamListModelInner>(TeamSelected);
             GoBackCommand = new RelayCommand(GoBack);
             mediator.Register<UserInfoMessage>(ShowInfo);
             mediator.Register<GoToHomeMessage>(GoHome);
-            mediator.Register<LastActivityMessage>(Activity);
         }
 
-        private void TeamSelected(TeamListModel team)
+        private void TeamSelected(TeamListModelInner team)
         {
-            mediator.Send(new TeamSelectedMessage { Id = team.Id });
+            _mediator.Send(new TeamSelectedMessage { Id = team.Id });
             UserModel = null;
-        }
-
-        private void Activity(LastActivityMessage obj)
-        {
-            if (obj.LastComment == null)
-            {
-                LastActivity = "Creating Post " + obj.LastPost;
-            }
-            else
-            {
-                LastActivity = "Commenting on Post " + obj.LastPost + " - " + obj.LastComment;
-            }
         }
 
         private void GoHome(GoToHomeMessage obj)
@@ -107,16 +91,22 @@ namespace Fitter.App.ViewModels
             UserModel = null;
         }
 
-        private void ShowInfo(UserInfoMessage obj)
+        private async void ShowInfo(UserInfoMessage obj)
         {
-            UserModel = usersRepository.GetById(obj.Id);
+            UserModel = await _apiClient.UserGetByIdAsync(obj.Id);
             OnLoad();
         }
 
-        public void OnLoad()
+        public async void OnLoad()
         {
-            Teams = new ObservableCollection<TeamListModel>(teamsRepository.GetTeamsForUser(UserModel.Id));
-            if (LastActivity == null)
+            Teams = new ObservableCollection<TeamListModelInner>(await _apiClient.GetTeamsForUserAsync(UserModel.Id));
+            
+            try
+            {
+                LastActivity = await _apiClient.UserGetLastActivityAsync(UserModel.Id);
+
+            }
+            catch
             {
                 LastActivity = "-";
             }

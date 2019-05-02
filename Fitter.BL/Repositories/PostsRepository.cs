@@ -32,17 +32,6 @@ namespace Fitter.BL.Repositories
                 dbContext.SaveChanges();
             }
         }
-        public void Update(PostModel post)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                var entity = _mapper.MapPostToEntity(post);
-                dbContext.Entry(entity).State = EntityState.Modified;
-                dbContext.Posts.Update(entity);
-                dbContext.SaveChanges();
-            }
-        }
-
 
         public void Delete(Guid id)
         {
@@ -50,36 +39,6 @@ namespace Fitter.BL.Repositories
             {
                 var entity = dbContext.Posts.First(t => t.Id == id);
                 dbContext.Remove(entity);
-                dbContext.SaveChanges();
-            }
-        }
-
-        public void AddAttachments(List<AttachmentModel> attachments, Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                foreach (var attachment in attachments)
-                {
-                    var entity = _mapper.MapAttachmentToEntity(attachment);
-                    dbContext.Posts.First(p => p.Id == id).Attachments.Add(entity);
-                }
-
-                dbContext.SaveChanges();
-            }
-        }
-
-        public void TagUsers(List<UserDetailModel> users, Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                foreach (var user in users)
-                {
-                    var entity = _mapper.MapUserToEntity(user);
-                    dbContext.Posts.First(p => p.Id == id).Tags.Add(entity);
-                    //dbContext.Entry(entity).State = EntityState.Modified;
-                    //dbContext.Entry(entity).State = EntityState.Unchanged;
-                }
-
                 dbContext.SaveChanges();
             }
         }
@@ -96,28 +55,6 @@ namespace Fitter.BL.Repositories
                         .Select(t => t.data))
                         .Union(dbContext.Posts.Where(post => post.CurrentTeamId == id && !post.Comments.Any()).OrderByDescending(p => p.Created))
                         .Select(e => _mapper.MapPostModelFromEntity(e)).ToList();
-            }
-        }
-
-        public IList<AttachmentModel> GetAttachmentsForPost(Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                return dbContext.Posts
-                    .First(p => p.Id == id)
-                    .Attachments
-                    .Select(e => _mapper.MapAttachmentModelFromEntity(e)).ToList();
-            }
-        }
-
-        public IList<UserListModel> GetTagsForPost(Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                return dbContext.Posts
-                    .First(p => p.Id == id)
-                    .Tags
-                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
 

@@ -8,6 +8,6 @@ namespace Fitter.BL.Messages
 {
     public class UserInfoMessage : IMessage
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
     }
 }

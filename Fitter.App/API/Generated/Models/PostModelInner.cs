@@ -7,6 +7,8 @@
 namespace Fitter.App.API.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     public partial class PostModelInner
@@ -22,13 +24,15 @@ namespace Fitter.App.API.Models
         /// <summary>
         /// Initializes a new instance of the PostModelInner class.
         /// </summary>
-        public PostModelInner(UserDetailModelInner author = default(UserDetailModelInner), System.DateTime? created = default(System.DateTime?), string title = default(string), string text = default(string), TeamDetailModelInner team = default(TeamDetailModelInner), System.Guid? id = default(System.Guid?))
+        public PostModelInner(UserDetailModelInner author = default(UserDetailModelInner), string created = default(string), string title = default(string), string text = default(string), TeamDetailModelInner team = default(TeamDetailModelInner), IList<CommentModelInner> comments = default(IList<CommentModelInner>), CommentModelInner newComment = default(CommentModelInner), System.Guid? id = default(System.Guid?))
         {
             Author = author;
             Created = created;
             Title = title;
             Text = text;
             Team = team;
+            Comments = comments;
+            NewComment = newComment;
             Id = id;
             CustomInit();
         }
@@ -46,7 +50,7 @@ namespace Fitter.App.API.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "created")]
-        public System.DateTime? Created { get; set; }
+        public string Created { get; set; }
 
         /// <summary>
         /// </summary>
@@ -62,6 +66,11 @@ namespace Fitter.App.API.Models
         /// </summary>
         [JsonProperty(PropertyName = "team")]
         public TeamDetailModelInner Team { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "newComment")]
+        public CommentModelInner NewComment { get; set; }
 
         /// <summary>
         /// </summary>

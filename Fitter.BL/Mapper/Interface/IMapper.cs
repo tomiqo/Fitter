@@ -19,8 +19,5 @@ namespace Fitter.BL.Mapper.Interface
 
         Comment MapCommentToEntity(CommentModel model);
         CommentModel MapCommentModelFromEntity(Comment comment);
-
-        Attachment MapAttachmentToEntity(AttachmentModel model);
-        AttachmentModel MapAttachmentModelFromEntity(Attachment attachment);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Fitter.BL.Mapper.Interface;
 using Fitter.BL.Model;
 using System.Linq;
@@ -42,21 +43,7 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public void TagUsers(List<UserDetailModel> users, Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                foreach (var user in users)
-                {
-                    var entity = _mapper.MapUserToEntity(user);
-                    dbContext.Comments.First(p => p.Id == id).Tags.Add(entity);
-                }
-
-                dbContext.SaveChanges();
-            }
-        }
-
-        public IList<CommentModel> GetCommentsForPost(Guid id)
+        public List<CommentModel> GetCommentsForPost(Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
@@ -64,7 +51,6 @@ namespace Fitter.BL.Repositories
                     .Include(t => t.Team)
                         .ThenInclude(a => a.Admin)
                     .Include(a => a.Author)
-                    .Include(a => a.Attachments)
                     .Include(c => c.Comments)
                         .ThenInclude(k => k.Author)
                     .First(p => p.Id == id)
@@ -74,30 +60,10 @@ namespace Fitter.BL.Repositories
             }
         }
 
-        public IList<UserListModel> GetTagsForComment(Guid id)
-        {
-            using (var dbContext = _fitterDbContext.CreateDbContext())
-            {
-                return dbContext.Comments
-                    .Include(t => t.Tags)
-                    .First(p => p.Id == id)
-                    .Tags
-                    .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
-            }
-        }
-
         public IList<Guid> SearchInComments(string substring, Guid id)
         {
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
-                /*return dbContext.Comments
-                    .Include(k => k.Author)
-                    .Include(k => k.Post)
-                    .ThenInclude(k => k.Team)
-                    .Where(e => e.Post.CurrentTeamId == id)
-                    .Where(e => e.Text.Contains(substring))
-                    .Select(e => _mapper.MapPostModelFromEntity(e.Post)).ToList();*/
-
                 var posts = dbContext.Comments
                     .Include(k => k.Post)
                     .Where(e => e.Text.Contains(substring))

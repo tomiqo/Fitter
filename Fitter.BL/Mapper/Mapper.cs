@@ -105,7 +105,7 @@ namespace Fitter.BL.Mapper
                 Title = model.Title,
                 Author = MapUserToEntity(model.Author),
                 Text = model.Text,
-                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                Created = model.Created,
                 Team = MapTeamToEntity(model.Team)
             };
         }
@@ -133,7 +133,7 @@ namespace Fitter.BL.Mapper
             {
                 Id = model.Id,
                 Author = MapUserToEntity(model.Author),
-                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                Created = model.Created,
                 Text = model.Text,
                 Post = MapPostToEntity(model.Post)
             };
@@ -148,34 +148,6 @@ namespace Fitter.BL.Mapper
                 Created = comment.Created,
                 Text = comment.Text,
                 Post = MapPostModelFromEntity(comment.Post)
-            };
-        }
-
-        #endregion
-
-        #region Attachment Mapping
-
-        public Attachment MapAttachmentToEntity(AttachmentModel model)
-        {
-            return new Attachment
-            {
-                Id = model.Id,
-                Name = model.Name,
-                FileType = model.FileType,
-                File = model.File,
-                Post = MapPostToEntity(model.Post)
-            };
-        }
-
-        public AttachmentModel MapAttachmentModelFromEntity(Attachment attachment)
-        {
-            return new AttachmentModel
-            {
-                Id = attachment.Id,
-                Name = attachment.Name,
-                File = attachment.File,
-                FileType = attachment.FileType,
-                Post = MapPostModelFromEntity(attachment.Post)
             };
         }
 

@@ -19,15 +19,13 @@ namespace Fitter.Swagger.API.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IDbContextFactory _dbContextFactory;
-        private readonly IMapper _mapper;
         private readonly IPostsRepository _postsRepository;
 
         public PostsController()
         {
-            _dbContextFactory = new DbContextFactory();
-            _mapper = new Mapper();
-            _postsRepository = new PostsRepository(_dbContextFactory, _mapper);
+            IDbContextFactory dbContextFactory = new DbContextFactory();
+            IMapper mapper = new Mapper();
+            _postsRepository = new PostsRepository(dbContextFactory, mapper);
         }
 
         [HttpPost]
@@ -48,25 +46,6 @@ namespace Fitter.Swagger.API.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("addAttachments")]
-        [SwaggerOperation(OperationId = "PostAddAttachments")]
-        public ActionResult AddAttachments(List<AttachmentModel> attachments, Guid id)
-        {
-            _postsRepository.AddAttachments(attachments, id);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("tagUsers")]
-        [SwaggerOperation(OperationId = "PostTagUsers")]
-        public ActionResult TagUsers(List<UserDetailModel> users, Guid id)
-        {
-            _postsRepository.TagUsers(users, id);
-            return Ok();
-        }
-
-
         [HttpGet]
         [Route("getPostsForTeam")]
         [SwaggerOperation(OperationId = "GetPostsForTeam")]
@@ -76,19 +55,19 @@ namespace Fitter.Swagger.API.Controllers
         }
 
         [HttpGet]
-        [Route("getAttachmentsForPost")]
-        [SwaggerOperation(OperationId = "GetAttachmentsForPost")]
-        public ActionResult<IList<AttachmentModel>> GetAttachmentsForPost(Guid id)
+        [Route("getById")]
+        [SwaggerOperation(OperationId = "GetPostById")]
+        public ActionResult<PostModel> GetPostById(Guid id)
         {
-            return _postsRepository.GetAttachmentsForPost(id).ToList();
+            return _postsRepository.GetById(id);
         }
 
         [HttpGet]
-        [Route("getTagsForPost")]
-        [SwaggerOperation(OperationId = "GetTagsForPost")]
-        public ActionResult<IList<UserListModel>> GetTagsForPost(Guid id)
+        [Route("searchInPosts")]
+        [SwaggerOperation(OperationId = "SearchInPosts")]
+        public ActionResult<IList<Guid>> SearchInPosts(string substring, Guid id)
         {
-            return _postsRepository.GetTagsForPost(id).ToList();
+            return _postsRepository.SearchInPosts(substring, id).ToList();
         }
     }
 }

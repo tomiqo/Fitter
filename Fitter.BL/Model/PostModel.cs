@@ -11,7 +11,6 @@ namespace Fitter.BL.Model
         public string Text { get; set; }
         public TeamDetailModel Team { get; set; }
         public ObservableCollection<CommentModel> Comments { get; set; }
-        public ObservableCollection<UserListModel> Tags { get; set; }
         public CommentModel NewComment { get; set; } = new CommentModel();
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fitter.DAL.Entity;
-using Fitter.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -258,115 +257,6 @@ namespace Fitter.DAL.Tests
                         .Include(t => t.Team)
                         .First(x => x.Id == postInMichaelaTeam.Id);
                     Assert.NotNull(retrievedComment);
-                }
-            }
-
-            [Fact]
-            public void AddTag()
-            {
-                var userAlfonz = new User()
-                {
-                    LastName = "Kruty",
-                    FirstName = "Alfonz",
-                    Email = "kruty@gmail.com",
-                    Password = "qwerty"
-                };
-
-                var userDaniel = new User()
-                {
-                    LastName = "Daniel",
-                    FirstName = "Maly",
-                    Email = "danko@gmail.com",
-                    Password = "13465798"
-                };
-
-                var postInTeam = new Post()
-                {
-                    Author = userDaniel,
-                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                    Text = "Text ako post",
-                    Title = "Skuska",
-                    Tags = new List<User>() { userDaniel }
-                };
-
-                var team = new Team()
-                {
-                    Description = "Team pre Daniela a Alfonza",
-                    Name = "A & D",
-                    Posts = new List<Post>() { postInTeam }
-                };
-
-                using (var dbContext = dbContextFitter.CreateDbContext())
-                {
-                    dbContext.Users.Add(userAlfonz);
-                    dbContext.Users.Add(userDaniel);
-                    dbContext.Teams.Add(team);
-                    dbContext.Posts.Add(postInTeam);
-                    dbContext.SaveChanges();
-                }
-
-                using (var dbContext = dbContextFitter.CreateDbContext())
-                {
-                    var retrievedPost = dbContext.Posts
-                        .Include(t => t.Tags)
-                        .Include(t => t.Team)
-                        .Include(a => a.Author)
-                        .First(x => x.Id == postInTeam.Id);
-                    Assert.Equal(1, retrievedPost.Tags.Count);
-                }
-            }
-
-            [Fact]
-            public void AddAttachment()
-            {
-                var userRichard = new User()
-                {
-                    LastName = "Richard",
-                    FirstName = "Smutny",
-                    Email = "richi@gmail.com",
-                    Password = "qwertz"
-                };
-
-                var attachment = new Attachment()
-                {
-                    FileType = FileType.Picture,
-                    File = new byte[2],
-                    Name = "Obrazok Brna"
-                };
-
-                var postInTeam = new Post()
-                {
-                    Author = userRichard,
-                    Created = DateTime.Now.ToString("MM/dd/yyyy HH:mm"),
-                    Text = "Post na subor PDF",
-                    Title = "PDF",
-                    Attachments = new List<Attachment>() { attachment}
-                };
-
-                var team = new Team()
-                {
-                    Description = "Team pre Daniela a Alfonza",
-                    Name = "A & D",
-                    Posts = new List<Post>() { postInTeam }
-                };
-
-                using (var dbContext = dbContextFitter.CreateDbContext())
-                {
-
-                    dbContext.Users.Add(userRichard);
-                    dbContext.Teams.Add(team);
-                    dbContext.Posts.Add(postInTeam);
-                    dbContext.SaveChanges();
-                }
-
-                using (var dbContext = dbContextFitter.CreateDbContext())
-                {
-                    var retrievedPost = dbContext.Posts
-                        .Include(a => a.Attachments)
-                        .Include(t => t.Team)
-                        .Include(a => a.Author)
-                        .First(x => x.Id == postInTeam.Id);
-                    Assert.Equal(1, retrievedPost.Attachments.Count);
                 }
             }
 

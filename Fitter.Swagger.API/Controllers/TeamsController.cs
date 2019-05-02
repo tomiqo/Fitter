@@ -87,5 +87,14 @@ namespace Fitter.Swagger.API.Controllers
             _teamsRepository.Delete(id);
             return Ok();
         }
+
+        [HttpDelete]
+        [Route("update")]
+        [SwaggerOperation(OperationId = "UpdateTeam")]
+        public ActionResult Update(TeamDetailModel team)
+        {
+            _teamsRepository.Update(team);
+            return Ok();
+        }
     }
 }

@@ -76,5 +76,42 @@ namespace Fitter.BL.Repositories
                     .Select(e => _mapper.MapUserListModelFromEntity(e)).ToList();
             }
         }
+
+        public string GetLastActivity(Guid id)
+        {
+            using (var dbContext = _fitterDbContext.CreateDbContext())
+            {
+                var comments = dbContext.Users
+                    .Include(c => c.Comments)
+                    .First(e => e.Id == id).Comments.Select(e => e).ToList();
+
+                var posts = dbContext.Users
+                    .Include(c => c.Posts)
+                    .First(e => e.Id == id).Posts.Select(e => e).ToList();
+
+                var lastComment = "01.01.1970 00:00:01";
+                var lastPost = "01.01.1970 00:00:01";
+                if (comments.Count > 0)
+                {
+                    lastComment = comments.OrderByDescending(e => e.Created).First().Created;
+                }
+
+                if (posts.Count > 0)
+                {
+                    lastPost = posts.OrderByDescending(e => e.Created).First().Created;
+                }
+               
+                var commentDt = DateTime.Parse(lastComment);
+                var postDt = DateTime.Parse(lastPost);
+                var result = DateTime.Compare(commentDt, postDt);
+
+                if (result == 0)
+                {
+                    return "-";
+                }
+
+                return result > 0 ? lastComment : lastPost;
+            }
+        }
     }
 }

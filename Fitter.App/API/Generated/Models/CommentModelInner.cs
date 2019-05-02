@@ -22,7 +22,7 @@ namespace Fitter.App.API.Models
         /// <summary>
         /// Initializes a new instance of the CommentModelInner class.
         /// </summary>
-        public CommentModelInner(UserDetailModelInner author = default(UserDetailModelInner), System.DateTime? created = default(System.DateTime?), string text = default(string), PostModelInner post = default(PostModelInner), System.Guid? id = default(System.Guid?))
+        public CommentModelInner(UserDetailModelInner author = default(UserDetailModelInner), string created = default(string), string text = default(string), PostModelInner post = default(PostModelInner), System.Guid? id = default(System.Guid?))
         {
             Author = author;
             Created = created;
@@ -45,7 +45,7 @@ namespace Fitter.App.API.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "created")]
-        public System.DateTime? Created { get; set; }
+        public string Created { get; set; }
 
         /// <summary>
         /// </summary>

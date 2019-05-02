@@ -12,5 +12,7 @@ namespace Fitter.BL.Repositories.Interfaces
 
         IList<UserListModel> GetUsersInTeam(Guid id);
         IList<UserListModel> GetUsersNotInTeam(Guid id);
+
+        string GetLastActivity(Guid id);
     }
 }

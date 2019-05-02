@@ -1,7 +1,6 @@
 ﻿using System;
 using Fitter.DAL;
 using Fitter.DAL.Entity;
-using Fitter.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
 using Fitter.BL.Services;
 
@@ -35,7 +34,6 @@ namespace Fitter.Seed
 
         private static void ClearDatabase(FitterDbContext dbContext)
         {
-            dbContext.RemoveRange(dbContext.Attachments);
             dbContext.RemoveRange(dbContext.Comments);
             dbContext.RemoveRange(dbContext.Posts);
             dbContext.RemoveRange(dbContext.Teams);
@@ -48,7 +46,10 @@ namespace Fitter.Seed
         {
             var optionsBuilder = new DbContextOptionsBuilder<FitterDbContext>();
             optionsBuilder.UseSqlServer(
-                @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog = FitterDB;MultipleActiveResultSets = True;Integrated Security = True; ");
+                @"Data Source=fitterdb.database.windows.net;
+                Initial Catalog=FitterDB;
+                User ID=xabrah04;Password=Fitterdb1;
+                Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             return new FitterDbContext(optionsBuilder.Options);
         }
     }

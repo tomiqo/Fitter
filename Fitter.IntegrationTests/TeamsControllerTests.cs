@@ -76,7 +76,7 @@ namespace Fitter.IntegrationTests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/teams/getById?id=41013b86-a8fa-4daa-85c8-f4ef39ff5f90");
+                var response = await client.GetAsync("/api/teams/getById?id=2ae63be4-4d0d-4382-b27d-08d6ce4f56be");
 
                 response.EnsureSuccessStatusCode();
 

@@ -34,44 +34,66 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <Border Grid.Row="1" Padding="10" BorderThickness="1" Margin="150, 0, 150, 10" CornerRadius="50" BorderBrush="Black" >
-            <Border.Background>
-                <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
-            </Border.Background>
+        <Border Grid.Row="1" BorderThickness="1" Margin="150, 0, 150, 10" BorderBrush="Black">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Foreground="#FFE6D4D4" FontSize="20" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Center">
-                    <Label.Content>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="User: {0} {1}">
-                                    <Binding Path="UserModel.FirstName" />
-                                    <Binding Path="UserModel.LastName" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
-                <Label Grid.Row="1" Content="User's teams:" Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Left"/>
-                <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" HorizontalAlignment="Center" Grid.Row="2">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"
-                                                   CommandParameter="{Binding ElementName=TeamsListBox, Path=SelectedItem}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Label x:Name="TestLabel" Content="{Binding Name}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ListBox>
-                <Label Grid.Row="3" ContentStringFormat="Last activity: {0}" Content="{Binding LastActivity}" Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Left"></Label>
+                <TextBlock Grid.Row="0" Foreground="#FFE6D4D4" Text="User Information" FontSize="20" FontWeight="Bold" Background="#2f3136" TextAlignment="Center" Margin="0" Padding="0,5"/>
+
+                <Grid Row="1" Background="#34373c" Margin="0,0,0,-1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Column="0" Margin="10,15,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Name: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="1" Content="Email: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="2" Content="Last activity: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    </Grid>
+                    <Grid Column="1" Margin="0,15,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="{Binding UserModel.FullName}" Foreground="#FFE6D4D4" FontSize="16" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="1" Content="{Binding UserModel.Email}" Foreground="#FFE6D4D4" FontSize="16" HorizontalAlignment="Left"/>
+                        <Label Grid.Row="2" Content="{Binding LastActivity}" Foreground="#FFE6D4D4" FontSize="16" HorizontalAlignment="Left"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Row="2" Background="#34373c">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Column="0" Margin="10,10,0,0">
+                        <Label Content="Teams: " Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    </Grid>
+                    <Grid Column="1" Margin="0,10,0,0">
+                        <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" Padding="0,0,0,20" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"
+                                                           CommandParameter="{Binding ElementName=TeamsListBox, Path=SelectedItem}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                        <TextBlock x:Name="TestLabel" Text="{Binding Name}" Foreground="#FFE6D4D4" FontSize="16" Padding="10,0" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
             </Grid>
         </Border>
     </Grid>

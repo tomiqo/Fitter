@@ -94,48 +94,6 @@ namespace Fitter.App.API
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='users'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            public static void CommentTagUsers(this IAPIClient operations, IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?))
-            {
-                operations.CommentTagUsersAsync(users, id).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='users'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task CommentTagUsersAsync(this IAPIClient operations, IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.CommentTagUsersWithHttpMessagesAsync(users, id, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='users'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='customHeaders'>
-            /// Headers that will be added to request.
-            /// </param>
-            public static AzureOperationResponse CommentTagUsersWithHttpMessages(this IAPIClient operations, IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
-            {
-                return operations.CommentTagUsersWithHttpMessagesAsync(users, id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
             /// <param name='id'>
             /// </param>
             public static IList<CommentModelInner> GetCommentsForPost(this IAPIClient operations, System.Guid? id = default(System.Guid?))
@@ -175,24 +133,28 @@ namespace Fitter.App.API
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='substring'>
+            /// </param>
             /// <param name='id'>
             /// </param>
-            public static IList<UserListModelInner> GetTagsForComment(this IAPIClient operations, System.Guid? id = default(System.Guid?))
+            public static IList<System.Guid?> SearchInComments(this IAPIClient operations, string substring = default(string), System.Guid? id = default(System.Guid?))
             {
-                return operations.GetTagsForCommentAsync(id).GetAwaiter().GetResult();
+                return operations.SearchInCommentsAsync(substring, id).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='substring'>
             /// </param>
             /// <param name='id'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<UserListModelInner>> GetTagsForCommentAsync(this IAPIClient operations, System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<System.Guid?>> SearchInCommentsAsync(this IAPIClient operations, string substring = default(string), System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetTagsForCommentWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.SearchInCommentsWithHttpMessagesAsync(substring, id, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -201,14 +163,16 @@ namespace Fitter.App.API
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='substring'>
+            /// </param>
             /// <param name='id'>
             /// </param>
             /// <param name='customHeaders'>
             /// Headers that will be added to request.
             /// </param>
-            public static AzureOperationResponse<IList<UserListModelInner>> GetTagsForCommentWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
+            public static AzureOperationResponse<IList<System.Guid?>> SearchInCommentsWithHttpMessages(this IAPIClient operations, string substring = default(string), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
             {
-                return operations.GetTagsForCommentWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+                return operations.SearchInCommentsWithHttpMessagesAsync(substring, id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -286,90 +250,6 @@ namespace Fitter.App.API
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='attachments'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            public static void PostAddAttachments(this IAPIClient operations, IList<AttachmentModelInner> attachments = default(IList<AttachmentModelInner>), System.Guid? id = default(System.Guid?))
-            {
-                operations.PostAddAttachmentsAsync(attachments, id).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='attachments'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task PostAddAttachmentsAsync(this IAPIClient operations, IList<AttachmentModelInner> attachments = default(IList<AttachmentModelInner>), System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.PostAddAttachmentsWithHttpMessagesAsync(attachments, id, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='attachments'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='customHeaders'>
-            /// Headers that will be added to request.
-            /// </param>
-            public static AzureOperationResponse PostAddAttachmentsWithHttpMessages(this IAPIClient operations, IList<AttachmentModelInner> attachments = default(IList<AttachmentModelInner>), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
-            {
-                return operations.PostAddAttachmentsWithHttpMessagesAsync(attachments, id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='users'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            public static void PostTagUsers(this IAPIClient operations, IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?))
-            {
-                operations.PostTagUsersAsync(users, id).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='users'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task PostTagUsersAsync(this IAPIClient operations, IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.PostTagUsersWithHttpMessagesAsync(users, id, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='users'>
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='customHeaders'>
-            /// Headers that will be added to request.
-            /// </param>
-            public static AzureOperationResponse PostTagUsersWithHttpMessages(this IAPIClient operations, IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
-            {
-                return operations.PostTagUsersWithHttpMessagesAsync(users, id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
             /// <param name='id'>
             /// </param>
             public static IList<PostModelInner> GetPostsForTeam(this IAPIClient operations, System.Guid? id = default(System.Guid?))
@@ -411,9 +291,9 @@ namespace Fitter.App.API
             /// </param>
             /// <param name='id'>
             /// </param>
-            public static IList<AttachmentModelInner> GetAttachmentsForPost(this IAPIClient operations, System.Guid? id = default(System.Guid?))
+            public static PostModelInner GetPostById(this IAPIClient operations, System.Guid? id = default(System.Guid?))
             {
-                return operations.GetAttachmentsForPostAsync(id).GetAwaiter().GetResult();
+                return operations.GetPostByIdAsync(id).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -424,9 +304,9 @@ namespace Fitter.App.API
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<AttachmentModelInner>> GetAttachmentsForPostAsync(this IAPIClient operations, System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<PostModelInner> GetPostByIdAsync(this IAPIClient operations, System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetAttachmentsForPostWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetPostByIdWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -440,32 +320,36 @@ namespace Fitter.App.API
             /// <param name='customHeaders'>
             /// Headers that will be added to request.
             /// </param>
-            public static AzureOperationResponse<IList<AttachmentModelInner>> GetAttachmentsForPostWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
+            public static AzureOperationResponse<PostModelInner> GetPostByIdWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
             {
-                return operations.GetAttachmentsForPostWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+                return operations.GetPostByIdWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='substring'>
             /// </param>
             /// <param name='id'>
             /// </param>
-            public static IList<UserListModelInner> GetTagsForPost(this IAPIClient operations, System.Guid? id = default(System.Guid?))
+            public static IList<System.Guid?> SearchInPosts(this IAPIClient operations, string substring = default(string), System.Guid? id = default(System.Guid?))
             {
-                return operations.GetTagsForPostAsync(id).GetAwaiter().GetResult();
+                return operations.SearchInPostsAsync(substring, id).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='substring'>
             /// </param>
             /// <param name='id'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<UserListModelInner>> GetTagsForPostAsync(this IAPIClient operations, System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<System.Guid?>> SearchInPostsAsync(this IAPIClient operations, string substring = default(string), System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetTagsForPostWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.SearchInPostsWithHttpMessagesAsync(substring, id, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -474,14 +358,16 @@ namespace Fitter.App.API
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='substring'>
+            /// </param>
             /// <param name='id'>
             /// </param>
             /// <param name='customHeaders'>
             /// Headers that will be added to request.
             /// </param>
-            public static AzureOperationResponse<IList<UserListModelInner>> GetTagsForPostWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
+            public static AzureOperationResponse<IList<System.Guid?>> SearchInPostsWithHttpMessages(this IAPIClient operations, string substring = default(string), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
             {
-                return operations.GetTagsForPostWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+                return operations.SearchInPostsWithHttpMessagesAsync(substring, id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -763,6 +649,42 @@ namespace Fitter.App.API
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='team'>
+            /// </param>
+            public static void UpdateTeam(this IAPIClient operations, TeamDetailModelInner team = default(TeamDetailModelInner))
+            {
+                operations.UpdateTeamAsync(team).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='team'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task UpdateTeamAsync(this IAPIClient operations, TeamDetailModelInner team = default(TeamDetailModelInner), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.UpdateTeamWithHttpMessagesAsync(team, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='team'>
+            /// </param>
+            /// <param name='customHeaders'>
+            /// Headers that will be added to request.
+            /// </param>
+            public static AzureOperationResponse UpdateTeamWithHttpMessages(this IAPIClient operations, TeamDetailModelInner team = default(TeamDetailModelInner), Dictionary<string, List<string>> customHeaders = null)
+            {
+                return operations.UpdateTeamWithHttpMessagesAsync(team, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
             /// <param name='user'>
             /// </param>
             public static UserDetailModelInner UserCreate(this IAPIClient operations, UserDetailModelInner user = default(UserDetailModelInner))
@@ -953,6 +875,45 @@ namespace Fitter.App.API
             public static AzureOperationResponse<IList<UserListModelInner>> UsersNotInTeamWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
             {
                 return operations.UsersNotInTeamWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            public static string UserGetLastActivity(this IAPIClient operations, System.Guid? id = default(System.Guid?))
+            {
+                return operations.UserGetLastActivityAsync(id).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> UserGetLastActivityAsync(this IAPIClient operations, System.Guid? id = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UserGetLastActivityWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='customHeaders'>
+            /// Headers that will be added to request.
+            /// </param>
+            public static AzureOperationResponse<string> UserGetLastActivityWithHttpMessages(this IAPIClient operations, System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null)
+            {
+                return operations.UserGetLastActivityWithHttpMessagesAsync(id, customHeaders, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
     }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Messages;
@@ -16,13 +18,12 @@ namespace Fitter.App.ViewModels
 {
     public class TeamInfoViewModel : ViewModelBase
     {
-        private readonly IMediator mediator;
-        private readonly ITeamsRepository teamsRepository;
-        private readonly IUsersRepository usersRepository;
-        private TeamDetailModel _teamDetailModel;
-        private ObservableCollection<UserListModel> _users;
+        private readonly IMediator _mediator;
+        private readonly APIClient _apiClient;
+        private TeamDetailModelInner _teamDetailModel;
+        private ObservableCollection<UserListModelInner> _users;
 
-        public ObservableCollection<UserListModel> Users
+        public ObservableCollection<UserListModelInner> Users
         {
             get => _users;
             set
@@ -38,7 +39,7 @@ namespace Fitter.App.ViewModels
         public ICommand GoToUserCommand { get; set; }
         public ICommand AddUserToTeamCommand { get; set; }
         public ICommand RemoveUserFromTeamCommand { get; set; }
-        public TeamDetailModel TeamDetailModel
+        public TeamDetailModelInner TeamDetailModel
         {
             get => _teamDetailModel;
             set
@@ -51,13 +52,13 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        public TeamInfoViewModel(IMediator mediator, ITeamsRepository teamsRepository, IUsersRepository usersRepository)
+        public TeamInfoViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.mediator = mediator;
-            this.teamsRepository = teamsRepository;
-            this.usersRepository = usersRepository;
+            this._mediator = mediator;
+            _apiClient = apiClient;
+
             GoBackCommand = new RelayCommand(GoBack);
-            GoToUserCommand = new RelayCommand<UserListModel>(GoToUser);
+            GoToUserCommand = new RelayCommand<UserListModelInner>(GoToUser);
             AddUserToTeamCommand = new RelayCommand(AddUser);
             RemoveUserFromTeamCommand = new RelayCommand(RemoveUser);
             mediator.Register<TeamInfoMessage>(ShowTeamInfo);
@@ -66,19 +67,19 @@ namespace Fitter.App.ViewModels
 
         private void RemoveUser()
         {
-            mediator.Send(new RemoveUserFromTeamMessage{Id = TeamDetailModel.Id});
+            _mediator.Send(new RemoveUserFromTeamMessage{Id = TeamDetailModel.Id});
             TeamDetailModel = null;
         }
 
         private void AddUser()
         {
-            mediator.Send(new AddUserToTeamMessage { Id = TeamDetailModel.Id });
+            _mediator.Send(new AddUserToTeamMessage { Id = TeamDetailModel.Id });
             TeamDetailModel = null;
         }
 
-        private void GoToUser(UserListModel user)
+        private void GoToUser(UserListModelInner user)
         {
-            mediator.Send(new UserInfoMessage{Id = user.Id});
+            _mediator.Send(new UserInfoMessage{Id = user.Id});
         }
 
         private void GoBack()
@@ -91,10 +92,10 @@ namespace Fitter.App.ViewModels
             TeamDetailModel = null;
         }
 
-        private void ShowTeamInfo(TeamInfoMessage obj)
+        private async void ShowTeamInfo(TeamInfoMessage obj)
         {
-            TeamDetailModel = teamsRepository.GetById(obj.Id);
-            Users = new ObservableCollection<UserListModel>(usersRepository.GetUsersInTeam(TeamDetailModel.Id));
+            TeamDetailModel = await _apiClient.GetTeamByIdAsync(obj.Id);
+            Users = new ObservableCollection<UserListModelInner>(await _apiClient.UsersInTeamAsync(TeamDetailModel.Id));
         }
     }
 }

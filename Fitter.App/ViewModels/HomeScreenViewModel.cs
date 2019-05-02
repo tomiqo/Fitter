@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using Fitter.App.API;
+using Fitter.App.API.Models;
 using Fitter.App.Commands;
 using Fitter.App.ViewModels.Base;
 using Fitter.BL.Messages;
@@ -12,15 +14,15 @@ namespace Fitter.App.ViewModels
 {
     public class HomeScreenViewModel : ViewModelBase
     {
-        private readonly IMediator mediator;
-        private readonly IUsersRepository usersRepository;
-        private UserDetailModel _model;
+        private readonly IMediator _mediator;
+        private readonly APIClient _apiClient;
+        private UserDetailModelInner _model;
 
         public ICommand GoToCreateT { get; set; }
         public ICommand GoToCreateU { get; set; }
         public ICommand LogOut { get; set; }
 
-        public UserDetailModel Model
+        public UserDetailModelInner Model
         {
             get { return _model; }
             set
@@ -33,10 +35,10 @@ namespace Fitter.App.ViewModels
             }
         }
 
-        public HomeScreenViewModel(IUsersRepository usersRepository, IMediator mediator)
+        public HomeScreenViewModel(IMediator mediator, APIClient apiClient)
         {
-            this.mediator = mediator;
-            this.usersRepository = usersRepository;
+            _mediator = mediator;
+            _apiClient = apiClient;
             GoToCreateT = new RelayCommand(NewTeam);
             GoToCreateU = new RelayCommand(NewUser);
             LogOut = new RelayCommand(LogOutUser);
@@ -46,22 +48,23 @@ namespace Fitter.App.ViewModels
         private void LogOutUser()
         {
             Model = null;
-            mediator.Send(new LogOutMessage());
+            _mediator.Send(new LogOutMessage());
         }
 
         private void NewUser()
         {
-            mediator.Send(new AddUMessage());
+            _mediator.Send(new AddUMessage());
         }
 
         private void NewTeam()
         {
-            mediator.Send(new AddTMessage{Id = Model.Id});
+            _mediator.Send(new AddTMessage{Id = Model.Id});
         }
 
-        private void UserLogin(UserLoginMessage obj)
+        private async void UserLogin(UserLoginMessage obj)
         {
-            Model = usersRepository.GetById(obj.Id);
+            Guid id = Guid.Parse(obj.Id.ToString());
+            Model = await _apiClient.UserGetByIdAsync(id);
         }
     }
 }

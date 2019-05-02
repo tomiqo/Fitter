@@ -32,7 +32,6 @@ namespace Fitter.Swagger.API
             {
                 options.SwaggerDoc("v1", new Info { Title = "Fitter API", Version = "v1" });
 
-                options.DescribeAllEnumsAsStrings();
                 options.EnableAnnotations();
             });
         }
@@ -50,6 +49,7 @@ namespace Fitter.Swagger.API
                 app.UseHsts();
             }
 
+            app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

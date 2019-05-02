@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Fitter.BL.Model;
-using Fitter.DAL.Enums;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -92,32 +91,6 @@ namespace Fitter.IntegrationTests
             using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/api/posts/getPostsForTeam?id=ee65198c-a044-4dca-8b14-fc36e5047af8");
-
-                response.EnsureSuccessStatusCode();
-
-                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            }
-        }
-
-        [Fact]
-        public async Task getAttachmentsForPost()
-        {
-            using (var client = new TestClientProvider().Client)
-            {
-                var response = await client.GetAsync("/api/posts/getAttachmentsForPost?id=ee65198c-a044-4dca-8b14-fc36e5047af8");
-
-                response.EnsureSuccessStatusCode();
-
-                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            }
-        }
-
-        [Fact]
-        public async Task getTagsForPost()
-        {
-            using (var client = new TestClientProvider().Client)
-            {
-                var response = await client.GetAsync("/api/posts/getTagsForPost?id=ee65198c-a044-4dca-8b14-fc36e5047af8");
 
                 response.EnsureSuccessStatusCode();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Fitter.BL.Model;
 
 namespace Fitter.BL.Repositories.Interfaces
@@ -8,10 +9,8 @@ namespace Fitter.BL.Repositories.Interfaces
     {
         void Create(CommentModel comment);
         void Delete(Guid id);
-        void TagUsers(List<UserDetailModel> users, Guid id);
 
-        IList<CommentModel> GetCommentsForPost(Guid id);
-        IList<UserListModel> GetTagsForComment(Guid id);
+        List<CommentModel> GetCommentsForPost(Guid id);
         IList<Guid> SearchInComments(string substring, Guid id);
     }
 }

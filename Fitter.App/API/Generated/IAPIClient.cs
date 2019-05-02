@@ -78,18 +78,6 @@ namespace Fitter.App.API
         /// </param>
         Task<AzureOperationResponse> DeleteCommentWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <param name='users'>
-        /// </param>
-        /// <param name='id'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<AzureOperationResponse> CommentTagUsersWithHttpMessagesAsync(IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
         /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
@@ -100,6 +88,8 @@ namespace Fitter.App.API
         /// </param>
         Task<AzureOperationResponse<IList<CommentModelInner>>> GetCommentsForPostWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='substring'>
+        /// </param>
         /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
@@ -108,7 +98,7 @@ namespace Fitter.App.API
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<AzureOperationResponse<IList<UserListModelInner>>> GetTagsForCommentWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IList<System.Guid?>>> SearchInCommentsWithHttpMessagesAsync(string substring = default(string), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='post'>
         /// </param>
@@ -130,30 +120,6 @@ namespace Fitter.App.API
         /// </param>
         Task<AzureOperationResponse> DeletePostWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
-        /// <param name='attachments'>
-        /// </param>
-        /// <param name='id'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<AzureOperationResponse> PostAddAttachmentsWithHttpMessagesAsync(IList<AttachmentModelInner> attachments = default(IList<AttachmentModelInner>), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <param name='users'>
-        /// </param>
-        /// <param name='id'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<AzureOperationResponse> PostTagUsersWithHttpMessagesAsync(IList<UserDetailModelInner> users = default(IList<UserDetailModelInner>), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
         /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
@@ -172,8 +138,10 @@ namespace Fitter.App.API
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<AzureOperationResponse<IList<AttachmentModelInner>>> GetAttachmentsForPostWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<PostModelInner>> GetPostByIdWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='substring'>
+        /// </param>
         /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
@@ -182,7 +150,7 @@ namespace Fitter.App.API
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<AzureOperationResponse<IList<UserListModelInner>>> GetTagsForPostWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IList<System.Guid?>>> SearchInPostsWithHttpMessagesAsync(string substring = default(string), System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='team'>
         /// </param>
@@ -258,6 +226,16 @@ namespace Fitter.App.API
         /// </param>
         Task<AzureOperationResponse> DeleteTeamWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='team'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse> UpdateTeamWithHttpMessagesAsync(TeamDetailModelInner team = default(TeamDetailModelInner), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <param name='user'>
         /// </param>
         /// <param name='customHeaders'>
@@ -307,6 +285,16 @@ namespace Fitter.App.API
         /// The cancellation token.
         /// </param>
         Task<AzureOperationResponse<IList<UserListModelInner>>> UsersNotInTeamWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<string>> UserGetLastActivityWithHttpMessagesAsync(System.Guid? id = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }
