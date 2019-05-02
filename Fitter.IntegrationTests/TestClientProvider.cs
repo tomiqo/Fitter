@@ -12,7 +12,7 @@ namespace Fitter.IntegrationTests
         public HttpClient Client { get; private set; }
         public TestClientProvider()
         {
-            TestServer = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            TestServer = new TestServer(new WebHostBuilder().UseUrls("https://fitterswaggerapi.azurewebsites.net/index.html").UseStartup<Startup>());
 
             Client = TestServer.CreateClient();
         }

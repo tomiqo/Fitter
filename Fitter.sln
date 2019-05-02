@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitter.Swagger.API", "Fitte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitter.IntegrationTests", "Fitter.IntegrationTests\Fitter.IntegrationTests.csproj", "{281A9AB7-13D5-45E1-9932-6DD06859A0EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fitter.App.Tests", "Fitter.App.Tests\Fitter.App.Tests.csproj", "{363A4BED-2621-48E1-8F59-A1F0B430A6FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fitter.App.Test", "Fitter.App.Test\Fitter.App.Test.csproj", "{156DF7D9-88CF-4509-B531-424EBFDB6250}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +66,10 @@ Global
 		{281A9AB7-13D5-45E1-9932-6DD06859A0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{281A9AB7-13D5-45E1-9932-6DD06859A0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{281A9AB7-13D5-45E1-9932-6DD06859A0EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{363A4BED-2621-48E1-8F59-A1F0B430A6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{363A4BED-2621-48E1-8F59-A1F0B430A6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{363A4BED-2621-48E1-8F59-A1F0B430A6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{363A4BED-2621-48E1-8F59-A1F0B430A6FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{156DF7D9-88CF-4509-B531-424EBFDB6250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{156DF7D9-88CF-4509-B531-424EBFDB6250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{156DF7D9-88CF-4509-B531-424EBFDB6250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{156DF7D9-88CF-4509-B531-424EBFDB6250}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
