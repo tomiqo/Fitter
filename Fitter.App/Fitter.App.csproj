@@ -375,6 +375,7 @@
     <Folder Include="Fitter\App\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Views\Images\leaveTeam.png" />
     <Resource Include="Views\Images\login1.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -482,6 +483,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Images\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\deleteTeam.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

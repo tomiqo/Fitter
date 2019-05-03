@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Fitter.App.API;
 using Fitter.App.API.Models;
@@ -21,6 +22,7 @@ namespace Fitter.App.ViewModels
         private readonly IMediator _mediator;
         private readonly APIClient _apiClient;
         private TeamDetailModelInner _teamDetailModel;
+        private UserDetailModelInner _userDetailModel;
         private ObservableCollection<UserListModelInner> _users;
 
         public ObservableCollection<UserListModelInner> Users
@@ -39,6 +41,8 @@ namespace Fitter.App.ViewModels
         public ICommand GoToUserCommand { get; set; }
         public ICommand AddUserToTeamCommand { get; set; }
         public ICommand RemoveUserFromTeamCommand { get; set; }
+        public ICommand LeaveTeamCommand { get; set; }
+        public ICommand DeleteTeamCommand { get; set; }
         public TeamDetailModelInner TeamDetailModel
         {
             get => _teamDetailModel;
@@ -52,6 +56,17 @@ namespace Fitter.App.ViewModels
             }
         }
 
+        public UserDetailModelInner UserDetailModel {
+            get => _userDetailModel;
+            set {
+                if (Equals(value, UserDetailModel))
+                    return;
+
+                _userDetailModel = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TeamInfoViewModel(IMediator mediator, APIClient apiClient)
         {
             this._mediator = mediator;
@@ -61,20 +76,66 @@ namespace Fitter.App.ViewModels
             GoToUserCommand = new RelayCommand<UserListModelInner>(GoToUser);
             AddUserToTeamCommand = new RelayCommand(AddUser);
             RemoveUserFromTeamCommand = new RelayCommand(RemoveUser);
+            DeleteTeamCommand = new RelayCommand(DeleteTeam);
+            LeaveTeamCommand = new RelayCommand(LeaveTeam);
+
             mediator.Register<TeamInfoMessage>(ShowTeamInfo);
             mediator.Register<GoToHomeMessage>(GoHome);
+            mediator.Register<ResetTeamMessage>(ResetTeam);
+        }
+
+        private void ResetTeam(ResetTeamMessage obj)
+        {
+            TeamDetailModel = null;
+        }
+
+        private async void LeaveTeam()
+        {
+            if (UserDetailModel.Id != TeamDetailModel.Admin.Id)
+            {
+                var result = MessageBox.Show("Are you sure you want to leave the team?", "Leave team", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    await _apiClient.RemoveUserFromTeamAsync(UserDetailModel, TeamDetailModel.Id);
+                    _mediator.Send(new UpdatedTeamsMessage());
+                    _mediator.Send(new GoToHomeMessage());
+                }
+            }
+            else
+            {
+                MessageBox.Show("You are the Admin, you can not leave!", "ERROR",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void DeleteTeam()
+        {
+            if (UserDetailModel.Id == TeamDetailModel.Admin.Id)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete the team?", "Delete team", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    await _apiClient.DeleteTeamAsync(TeamDetailModel.Id);
+                    _mediator.Send(new UpdatedTeamsMessage());
+                    _mediator.Send(new GoToHomeMessage());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Only the Admin can delete the team!", "ERROR",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void RemoveUser()
         {
             _mediator.Send(new RemoveUserFromTeamMessage{Id = TeamDetailModel.Id});
-            TeamDetailModel = null;
+
         }
 
         private void AddUser()
         {
             _mediator.Send(new AddUserToTeamMessage { Id = TeamDetailModel.Id });
-            TeamDetailModel = null;
         }
 
         private void GoToUser(UserListModelInner user)
@@ -94,7 +155,13 @@ namespace Fitter.App.ViewModels
 
         private async void ShowTeamInfo(TeamInfoMessage obj)
         {
-            TeamDetailModel = await _apiClient.GetTeamByIdAsync(obj.Id);
+            if (obj.UserId == null)
+            {
+                obj.UserId = UserDetailModel.Id;
+            }
+
+            TeamDetailModel = await _apiClient.GetTeamByIdAsync(obj.TeamId);
+            UserDetailModel = await _apiClient.UserGetByIdAsync(obj.UserId);
             Users = new ObservableCollection<UserListModelInner>(await _apiClient.UsersInTeamAsync(TeamDetailModel.Id));
         }
     }

@@ -72,6 +72,7 @@ namespace Fitter.App.ViewModels
             {
                 var user = await _apiClient.UserGetByIdAsync(obj.Id);
                 await _apiClient.AddUserToTeamAsync(user, TeamModel.Id);
+                _mediator.Send(new TeamInfoMessage{ TeamId = TeamModel.Id });
                 TeamModel = null;
             }
             catch (Exception)

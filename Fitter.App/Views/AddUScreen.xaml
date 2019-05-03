@@ -46,17 +46,17 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Stretch">
-                    <Label Foreground="#FFE6D4D4" FontStyle="Oblique" Content="Add User" FontSize="21"/>
+                    <Label Foreground="#FFE6D4D4" FontWeight="Bold" Content="Add User" FontSize="21"/>
                 </StackPanel>
                 
-                <Label Grid.Row="1" Grid.Column="0" Content="First name:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="Last name:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <Label Grid.Row="3" Grid.Column="0" Content="E-mail:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <Label Grid.Row="4" Grid.Column="0" Content="Password:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="First name:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Last name:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="E-mail:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="Password:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 
                          Text="{Binding Model.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 

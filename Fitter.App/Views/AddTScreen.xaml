@@ -46,15 +46,15 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Stretch">
-                    <Label Foreground="#FFE6D4D4" FontStyle="Oblique" Content="Add Team" FontSize="21"/>
+                    <Label Foreground="#FFE6D4D4" Content="Add Team" FontSize="21" FontWeight="Bold"/>
                 </StackPanel>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Team name:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="Description:" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Team name:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Description:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
                 <TextBox Text="{Binding TeamModel.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16"/>
                 <TextBox Text="{Binding TeamModel.Description, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" Height="100" TextWrapping="Wrap" VerticalContentAlignment="Top"/>
                 <StackPanel Grid.ColumnSpan="2" Grid.Column="0" Margin="4" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center">

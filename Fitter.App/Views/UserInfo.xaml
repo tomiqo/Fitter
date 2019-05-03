@@ -81,7 +81,7 @@
                     <Grid Column="1" Margin="0,10,0,0">
                         <ListBox x:Name="TeamsListBox" ItemsSource="{Binding Teams}" Padding="0,0,0,20" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" >
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <i:InvokeCommandAction Command="{Binding TeamSelectedCommand}"
                                                            CommandParameter="{Binding ElementName=TeamsListBox, Path=SelectedItem}"/>
                                 </i:EventTrigger>
