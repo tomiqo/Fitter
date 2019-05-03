@@ -134,64 +134,6 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <!--<Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="48"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Foreground="#FFE6D4D4" FontSize="20" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Center" 
-                       ContentStringFormat="Team {0} details:" Content="{Binding TeamDetailModel.Name}"/>
-                <TextBlock Grid.Row="1" Text="{Binding TeamDetailModel.Description}" 
-                       Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Center"
-                       TextWrapping="Wrap"/>
-                <Label Grid.Row="2" ContentStringFormat="Admin: {0}"
-                       Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Left">
-                    <Label.Content>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="Admin: {0} {1}">
-                                    <Binding Path="TeamDetailModel.Admin.FirstName" />
-                                    <Binding Path="TeamDetailModel.Admin.LastName" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
-                        <Label Grid.Row="3" Content="Users in team:" Foreground="#FFE6D4D4" FontSize="16" FontWeight="Bold" FontStyle="Oblique" HorizontalAlignment="Left"/>
-                <ListBox x:Name="UsersTextBox" ItemsSource="{Binding Users}" HorizontalAlignment="Center" Grid.Row="4">
-                    <Interactions:Interaction.Triggers>
-                        <Interactions:EventTrigger EventName="SelectionChanged">
-                            <Interactions:InvokeCommandAction Command="{Binding GoToUserCommand}"
-                                                   CommandParameter="{Binding ElementName=UsersTextBox, Path=SelectedItem}"/>
-                        </Interactions:EventTrigger>
-                    </Interactions:Interaction.Triggers>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label x:Name="TestLabel" Content="{Binding Fullname}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Grid Row ="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Button Height="48" Width="48" HorizontalAlignment="Center" BorderBrush="{x:Null}" Command="{Binding AddUserToTeamCommand}">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Images/add-user-2-48.png"></ImageBrush>
-                        </Button.Background>
-                    </Button>
-                    <Button Height="48" Width="48" HorizontalAlignment="Center" Grid.Column="1" BorderBrush="{x:Null}" Command="{Binding RemoveUserFromTeamCommand}">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Images/remove-user-48.png"></ImageBrush>
-                        </Button.Background>
-                    </Button>
-                </Grid>
-            </Grid>-->
         </Border>
     </Grid>
 </local:UserControlBase>
