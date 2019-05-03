@@ -42,7 +42,7 @@
                     <ImageBrush ImageSource="Images/profile2.png"></ImageBrush>
                 </Button.Background>
             </Button>
-            <Label Content="Teams" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0" FontStyle="Oblique" />
+            <Label Content="Teams" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0"/>
             <Separator  Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
         </Grid>
         <Grid Row="3">
@@ -55,7 +55,7 @@
                 </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Label x:Name="TestLabel" Content="{Binding Name}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique"/>
+                        <Label Content="{Binding Name}" Foreground="#FFE6D4D4" FontSize="16"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

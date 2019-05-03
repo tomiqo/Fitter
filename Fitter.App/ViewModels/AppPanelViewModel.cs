@@ -82,6 +82,7 @@ namespace Fitter.App.ViewModels
 
         private void TeamSelected(TeamListModelInner team)
         {
+            _mediator.Send(new ResetTeamMessage());
             _mediator.Send(new TeamSelectedMessage{Id = team.Id});
         }
 

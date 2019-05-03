@@ -52,10 +52,10 @@
                 <views:AddTScreen/>
                 <views:AddUScreen/>
                 <views:TeamScreen/>
-                <views:AddUserToTeamView/>
                 <views:TeamInfoView/>
                 <views:UserInfo/>
                 <views:RemoveUserFromTeamView/>
+                <views:AddUserToTeamView/>
             </Grid>
         </Grid>
     </Grid>

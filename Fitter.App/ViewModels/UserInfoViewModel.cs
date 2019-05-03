@@ -73,6 +73,12 @@ namespace Fitter.App.ViewModels
             GoBackCommand = new RelayCommand(GoBack);
             mediator.Register<UserInfoMessage>(ShowInfo);
             mediator.Register<GoToHomeMessage>(GoHome);
+            mediator.Register<ResetTeamMessage>(ResetTeam);
+        }
+
+        private void ResetTeam(ResetTeamMessage obj)
+        {
+            UserModel = null;
         }
 
         private void TeamSelected(TeamListModelInner team)

@@ -6,6 +6,7 @@ namespace Fitter.BL.Messages
 {
     public class TeamInfoMessage : IMessage
     {
-        public Guid? Id { get; set; }
+        public Guid? TeamId { get; set; }
+        public Guid? UserId { get; set; }
     }
 }

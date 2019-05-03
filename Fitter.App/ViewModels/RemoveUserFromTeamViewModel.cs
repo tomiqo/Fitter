@@ -68,9 +68,19 @@ namespace Fitter.App.ViewModels
 
         private async void RemoveUser(UserListModelInner obj)
         {
-            var user = await _apiClient.UserGetByIdAsync(obj.Id);
-            await _apiClient.RemoveUserFromTeamAsync(user, TeamModel.Id);
-            TeamModel = null;
+            if (obj.Id != TeamModel.Admin.Id)
+            {
+                var user = await _apiClient.UserGetByIdAsync(obj.Id);
+                await _apiClient.RemoveUserFromTeamAsync(user, TeamModel.Id);
+                _mediator.Send(new TeamInfoMessage { TeamId = TeamModel.Id });
+                TeamModel = null;
+            }
+            else
+            {
+                MessageBox.Show("You can not kick the Admin!", "ERROR",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void GoToHome(GoToHomeMessage obj)

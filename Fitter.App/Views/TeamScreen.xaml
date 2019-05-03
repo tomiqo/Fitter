@@ -161,7 +161,16 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <Label Grid.Row="0" x:Name="AuthorLabel" Content="{Binding Author.FullName}" HorizontalContentAlignment="Right" Padding="0,0,10,0" Foreground="#FFE6D4D4" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                                            <Button Grid.Row="0" x:Name="AuthorLabel" Content="{Binding Author.FullName}" HorizontalContentAlignment="Center" Padding="0" Foreground="#FFE6D4D4" HorizontalAlignment="Left" Margin="0,0,18,0" Height="Auto" FontSize="12">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction
+                                                            Command="{Binding DataContext.ShowUserCommand, ElementName=Root}"
+                                                            CommandParameter="{Binding Author.Id}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Button>
+                                            <!--<Label Grid.Row="0" x:Name="AuthorLabel" Content="{Binding Author.FullName}" HorizontalContentAlignment="Right" Padding="0,0,10,0" Foreground="#FFE6D4D4" HorizontalAlignment="Right" Margin="0,0,10,0"/>-->
                                             <Button Grid.Row="0" Height="15" Width="15" HorizontalAlignment="Right">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
@@ -206,7 +215,15 @@
                                                                     <RowDefinition Height="Auto"/>
                                                                     <RowDefinition Height="Auto"/>
                                                                 </Grid.RowDefinitions>
-                                                                <Label Grid.Row="0" Content="{Binding Author.FullName}" Foreground="#FFE6D4D4" Padding="0" HorizontalContentAlignment="Left"/>
+                                                                <Button Grid.Row="0" Content="{Binding Author.FullName}" HorizontalContentAlignment="Center" Padding="0" Foreground="#FFE6D4D4" HorizontalAlignment="Left" Height="Auto" FontSize="12">
+                                                                    <i:Interaction.Triggers>
+                                                                        <i:EventTrigger EventName="Click">
+                                                                            <i:InvokeCommandAction
+                                                                                Command="{Binding DataContext.ShowUserCommand, ElementName=Root}"
+                                                                                CommandParameter="{Binding Author.Id}" />
+                                                                        </i:EventTrigger>
+                                                                    </i:Interaction.Triggers>
+                                                                </Button>
                                                                 <Label Grid.Row="1" Content="{Binding Created}" HorizontalAlignment="Left" Foreground="#7f8186" Padding="0" FontSize="8"/>
                                                             </Grid>
                                                             <toolkit:RichTextBox Grid.Column="1" Text="{Binding Text}" IsReadOnly="True" Foreground="#7f8186" Margin="0,0,10,0" FontSize="12" Background="#34373c" BorderThickness="0" Padding="0,-2,0,5"/>

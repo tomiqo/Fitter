@@ -34,19 +34,20 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <Border Grid.Row="1" Padding="10" BorderThickness="1" MaxWidth="300" CornerRadius="50" BorderBrush="Black" >
+        <Border Grid.Row="1" Padding="10" BorderThickness="1" MaxWidth="350" CornerRadius="50" BorderBrush="Black" >
             <Border.Background>
                 <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
             </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*" MinHeight="200"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Stretch">
-                    <Label Foreground="#FFE6D4D4" FontStyle="Oblique" Content="Add User" FontSize="21"/>
+                    <Label Foreground="#FFE6D4D4" FontWeight="Bold" Content="Add User" FontSize="21"/>
                 </StackPanel>
-                <ListBox x:Name="UsersTextBox" ItemsSource="{Binding Users}" HorizontalAlignment="Center" Grid.Row="1">
+                <Separator Grid.Row="0" BorderThickness="2" BorderBrush="DimGray" VerticalAlignment="Bottom"/>
+                <ListBox x:Name="UsersTextBox" ItemsSource="{Binding Users}" Grid.Row="1" HorizontalContentAlignment="Center" Margin="0,0,0,10" Padding="0">
                     <Interactions:Interaction.Triggers>
                         <Interactions:EventTrigger EventName="SelectionChanged">
                             <Interactions:InvokeCommandAction Command="{Binding AddUserCommand}"
@@ -55,7 +56,7 @@
                     </Interactions:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Label x:Name="TestLabel" Content="{Binding Fullname}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16" FontStyle="Oblique"/>
+                            <Label x:Name="TestLabel" Content="{Binding Fullname}" Foreground="#FFE6D4D4" FontSize="16" Padding="5,2"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

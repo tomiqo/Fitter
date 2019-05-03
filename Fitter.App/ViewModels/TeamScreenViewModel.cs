@@ -40,6 +40,7 @@ namespace Fitter.App.ViewModels
         public ICommand TeamInfoCommand { get; set; }
         public ICommand SelectedPostCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand ShowUserCommand { get; set; }
 
         public TeamDetailModelInner TeamDetailModel
         {
@@ -163,10 +164,16 @@ namespace Fitter.App.ViewModels
             TeamInfoCommand = new RelayCommand(ShowInfo);
             SelectedPostCommand = new RelayCommand<PostModel>(SelectedPost);
             SearchCommand = new RelayCommand(Search);
+            ShowUserCommand = new RelayCommand<Guid>(ShowUser);
 
             mediator.Register<TeamSelectedMessage>(SelectedTeam);
             mediator.Register<GoToHomeMessage>(GoToHome);
             mediator.Register<UserLoginMessage>(CreateAdmin);
+        }
+
+        private void ShowUser(Guid id)
+        {
+            _mediator.Send(new UserInfoMessage { Id = id });
         }
 
         private void CanDeleteComment(Guid id)
@@ -260,7 +267,11 @@ namespace Fitter.App.ViewModels
 
         private void ShowInfo()
         {
-            _mediator.Send(new TeamInfoMessage{Id = TeamDetailModel.Id});
+            _mediator.Send(new TeamInfoMessage
+            {
+                TeamId = TeamDetailModel.Id,
+                UserId = UserDetailModel.Id
+            });
         }
 
         private void AddUserToTeam()
@@ -295,7 +306,6 @@ namespace Fitter.App.ViewModels
             
             await _apiClient.CreatePostAsync(PostModel);
 
-            _mediator.Send(new LastActivityMessage{LastPost = PostModel.Title});
             OnLoad();
         }
 
