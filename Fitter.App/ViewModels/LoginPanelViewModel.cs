@@ -39,12 +39,15 @@ namespace Fitter.App.ViewModels
 
         private async void LoginUser(object obj)
         {
-            PasswordBox pwBox = obj as PasswordBox;
             try
             {
+                PasswordBox pwBox = obj as PasswordBox;
+                var password = pwBox.Password;
+                pwBox.Clear();
+
                 Model = await _apiClient.UserGetByEmailAsync(Email);
                 var data = new PasswordComparer();
-                if (data.ComparePassword(pwBox.Password, Model.Password))
+                if (data.ComparePassword(password, Model.Password))
                 {
                     _mediator.Send(new UserLoginMessage { Id = Model.Id });
                 }
@@ -52,7 +55,6 @@ namespace Fitter.App.ViewModels
                 {
                     MessageBox.Show("Wrong Password!");
                 }
-                pwBox.Clear();
             }
             catch (Exception)
             {

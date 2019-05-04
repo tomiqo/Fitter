@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace Fitter.App.Views
 {
@@ -10,6 +11,12 @@ namespace Fitter.App.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void DragGrid_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

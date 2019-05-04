@@ -22,11 +22,16 @@
         </Grid>
         <Grid Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="24"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Row="0">
-                <UniformGrid Rows="1" HorizontalAlignment="Right">
+            <Grid Row="0" Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Column="0" x:Name="DragGrid" IsHitTestVisible="True" PreviewMouseDown="DragGrid_OnPreviewMouseDown" Background="Transparent"/>
+                <UniformGrid Grid.Column="1" Rows="1" HorizontalAlignment="Right" Height="20">
                     <Button Height="Auto" Padding="16,0" Command="{Binding MaximizeApplication}">
                         <Button.Background>
                             <ImageBrush ImageSource="Images/app_max.png" Stretch="Uniform"/>
