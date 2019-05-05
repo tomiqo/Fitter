@@ -21,6 +21,7 @@
                         <views:AddUScreen/>
                     </DataTemplate>
                 </ResourceDictionary>
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         </Application.Resources>

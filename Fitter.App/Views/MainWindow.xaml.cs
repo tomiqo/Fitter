@@ -16,7 +16,7 @@ namespace Fitter.App.Views
         private void DragGrid_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+                DragMove();
         }
     }
 }
