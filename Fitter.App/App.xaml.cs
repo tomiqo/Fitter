@@ -28,8 +28,18 @@ namespace Fitter.App
             {
                 language = "en";
             }
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            }
+            catch
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            }
+            
         }
     }
 }

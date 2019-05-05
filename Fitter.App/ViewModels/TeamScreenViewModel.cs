@@ -19,7 +19,6 @@ using Fitter.BL.Messages;
 using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
-using Microsoft.Rest.Serialization;
 
 namespace Fitter.App.ViewModels
 {
@@ -276,7 +275,11 @@ namespace Fitter.App.ViewModels
 
         private void AddUserToTeam()
         {
-            _mediator.Send(new AddUserToTeamMessage{Id = TeamDetailModel.Id});
+            _mediator.Send(new AddUserToTeamMessage
+            {
+                Id = TeamDetailModel.Id,
+                UserId = UserDetailModel.Id
+            });
         }
 
         private async void CreateAdmin(UserLoginMessage obj)
@@ -284,10 +287,17 @@ namespace Fitter.App.ViewModels
             UserDetailModel = await _apiClient.UserGetByIdAsync(obj.Id);
         }
 
+        private bool NotEmpty(string text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+            return !text.Contains("\\ltrch }") && text.Contains("\\ltrch");
+        }
         private bool CanCreatePost()
         {
-            return PostModel != null && !string.IsNullOrWhiteSpace(PostModel.Text)
-                && !string.IsNullOrWhiteSpace(PostModel.Title);
+            return PostModel != null && NotEmpty(PostModel.Text) && NotEmpty(PostModel.Title);
 
         }
 
@@ -311,17 +321,26 @@ namespace Fitter.App.ViewModels
 
         private async void AddNewComment(Guid id)
         {
-            var comment = new CommentModelInner
+            string text = Posts.First(k => k.Id == id).NewComment.Text;
+            if (NotEmpty(text))
             {
-                Id = Guid.NewGuid(),
-                Author = UserDetailModel,
-                Post = await _apiClient.GetPostByIdAsync(id),
-                Text = Posts.First(k => k.Id == id).NewComment.Text,
-                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
-            };
-            
-            await _apiClient.CreateCommentAsync(comment);
-            OnLoad();
+                var comment = new CommentModelInner
+                {
+                    Id = Guid.NewGuid(),
+                    Author = UserDetailModel,
+                    Post = await _apiClient.GetPostByIdAsync(id),
+                    Text = text,
+                    Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+                };
+
+                await _apiClient.CreateCommentAsync(comment);
+                OnLoad();
+            }
+            else
+            {
+                MessageBox.Show("Missing text!", "ERROR",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void GoToHome(GoToHomeMessage obj)
