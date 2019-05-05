@@ -77,7 +77,7 @@ namespace Fitter.App.ViewModels
             }
             else
             {
-                MessageBox.Show("You can not kick the Admin!", "ERROR",
+                MessageBox.Show(Resources.Texts.TextResources.KickAdmin_Message, "ERROR",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
             

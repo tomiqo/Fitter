@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:local="clr-namespace:Fitter.App.Views"
+             xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              d:DataContext="{d:DesignInstance viewModels:HomeScreenViewModel}"
              d:DesignHeight="450" d:DesignWidth="700"
              mc:Ignorable="d"
@@ -42,24 +43,20 @@
                 <Border.Background>
                     <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
                 </Border.Background>
-                <TextBlock FontStyle="Oblique" Foreground="#FFE6D4D4" Margin="10"  FontSize="16" TextWrapping="Wrap" TextAlignment="Center">
-                    Create your own Team with administrator benefits!
-                </TextBlock>
+                <TextBlock FontStyle="Oblique" Foreground="#FFE6D4D4" Margin="10"  FontSize="16" TextWrapping="Wrap" TextAlignment="Center" Text="{x:Static texts:TextResources.AddTeam_Text}"/>
             </Border>
             <Button Grid.Row="1" Grid.Column="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="120"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
-                    Content="Create Team" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
+                    Content="{x:Static texts:TextResources.CreateTeam_Button}" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
                     Command="{Binding GoToCreateT}">
             </Button>
             <Border Grid.Row="1" Grid.Column="1" Padding="25" BorderThickness="1" Margin="20,100" CornerRadius="50" BorderBrush="Black" >
                 <Border.Background>
                     <ImageBrush ImageSource="Images/circleBack.png"></ImageBrush>
                 </Border.Background>
-                <TextBlock FontStyle="Oblique" Foreground="#FFE6D4D4" Margin="10"  FontSize="16" TextWrapping="Wrap" TextAlignment="Center">
-                    Add another user and let him enjoy Fitter too!
-                </TextBlock>
+                <TextBlock FontStyle="Oblique" Foreground="#FFE6D4D4" Margin="10"  FontSize="16" TextWrapping="Wrap" TextAlignment="Center" Text="{x:Static texts:TextResources.AddUser_Text}"/>
             </Border>
             <Button Grid.Row="1" Grid.Column="1" BorderBrush="{x:Null}" VerticalAlignment="Bottom" Margin="120"  HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
-                    Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
+                    Content="{x:Static texts:TextResources.CreateUser_Button}" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50"
                     Command="{Binding GoToCreateU}">
             </Button>
         </Grid>

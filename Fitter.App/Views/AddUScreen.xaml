@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              d:DataContext="{d:DesignInstance viewModels:AddUScreenViewModel}"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=AddUScreenViewModel}">
     <Grid Visibility="{Binding Model, Converter={StaticResource NullToVisibilityConverter}}">
@@ -50,13 +51,13 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Stretch">
-                    <Label Foreground="#FFE6D4D4" FontWeight="Bold" Content="Add User" FontSize="21"/>
+                    <Label Foreground="#FFE6D4D4" FontWeight="Bold" Content="{x:Static texts:TextResources.AddUser_Title}" FontSize="21"/>
                 </StackPanel>
-                
-                <Label Grid.Row="1" Grid.Column="0" Content="First name:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="Last name:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="{x:Static texts:TextResources.FirstName_Text}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="{x:Static texts:TextResources.LastName_Text}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
                 <Label Grid.Row="3" Grid.Column="0" Content="E-mail:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
-                <Label Grid.Row="4" Grid.Column="0" Content="Password:" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="{x:Static texts:TextResources.PasswordLogin}" Foreground="#FFE6D4D4" FontWeight="Bold" FontSize="16"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 
                          Text="{Binding Model.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" 
@@ -66,7 +67,7 @@
                 <PasswordBox Name="PasswordBox" Grid.Row="4" Grid.Column="1" Margin="3" Background="#FF383C42" Foreground="#FFE6D4D4" FontStyle="Oblique" FontSize="16" PasswordChar="*"/>
                 <StackPanel Grid.ColumnSpan="2" Grid.Column="0" Margin="4" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center">
                     <Button BorderBrush="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#97C1EF" Foreground="#FF1F2124" 
-                            Content="Create User" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50" 
+                            Content="{x:Static texts:TextResources.CreateUser_Button}" FontWeight="Bold" FontSize="16" MinHeight="30" Height="50" 
                             Command="{Binding AddUserCommand}" CommandParameter="{Binding ElementName=PasswordBox}">
                     </Button>
                 </StackPanel>

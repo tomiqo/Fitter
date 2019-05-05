@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:AppPanelViewModel}"
@@ -42,7 +43,7 @@
                     <ImageBrush ImageSource="Images/profile2.png"></ImageBrush>
                 </Button.Background>
             </Button>
-            <Label Content="Teams" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0"/>
+            <Label Content="{x:Static texts:TextResources.TeamsHeader_AppPanel}" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" Padding="5,0"/>
             <Separator  Height="4" Margin="30,30,30,0" Width="auto" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Background="DimGray"/>
         </Grid>
         <Grid Row="3">

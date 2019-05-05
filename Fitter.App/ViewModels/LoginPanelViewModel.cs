@@ -17,6 +17,7 @@ using Fitter.BL.Model;
 using Fitter.BL.Repositories.Interfaces;
 using Fitter.BL.Services;
 using Fitter.BL.Messages;
+using System.IO;
 
 namespace Fitter.App.ViewModels
 {
@@ -27,14 +28,25 @@ namespace Fitter.App.ViewModels
         public UserDetailModelInner Model { get; set; }
 
         public string Email { get; set; }
-        
+        public string Language { get; set; }
+        public ICommand SelectedLanguage { get; set; }
         public ICommand NewUserCommand { get; set; }
         public LoginPanelViewModel(IMediator mediator, APIClient apiClient)
         {
             _apiClient = apiClient;
             _mediator = mediator;
-            
+            SelectedLanguage = new RelayCommand(ChangeLanguage);
             NewUserCommand = new RelayCommand(LoginUser, CanLogin);
+        }
+
+        private void ChangeLanguage()
+        {
+            Language = Language.Substring(Language.Length - 2);
+            using (StreamWriter writer = new StreamWriter("language.txt", false))
+            {
+                writer.Write(Language);
+            }
+            MessageBox.Show(Fitter.App.Resources.Texts.TextResources.Restart_Message);
         }
 
         private async void LoginUser(object obj)
@@ -53,12 +65,12 @@ namespace Fitter.App.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Wrong Password!");
+                    MessageBox.Show(Resources.Texts.TextResources.WrongPassword_Message);
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("User does not exists!");
+                MessageBox.Show(Resources.Texts.TextResources.NoUser_Message);
             }
             Model = null;
         }

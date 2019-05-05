@@ -72,7 +72,7 @@ namespace Fitter.App.ViewModels
         {
             if (await _apiClient.TeamExistsAsync(TeamModel.Name) == true)
             {
-                MessageBox.Show("Team with typed name already exists!");
+                MessageBox.Show(Resources.Texts.TextResources.SameTeam_Message);
             }
             else
             {

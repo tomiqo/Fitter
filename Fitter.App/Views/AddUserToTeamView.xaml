@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:AddUserToTeamViewModel}"
@@ -44,7 +45,7 @@
                     <RowDefinition Height="*" MinHeight="200"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Stretch">
-                    <Label Foreground="#FFE6D4D4" FontWeight="Bold" Content="Add User" FontSize="21"/>
+                    <Label Foreground="#FFE6D4D4" FontWeight="Bold" Content="{x:Static texts:TextResources.AddUser_Title}" FontSize="21"/>
                 </StackPanel>
                 <Separator Grid.Row="0" BorderThickness="2" BorderBrush="DimGray" VerticalAlignment="Bottom"/>
                 <ListBox x:Name="UsersTextBox" ItemsSource="{Binding Users}" Grid.Row="1" HorizontalContentAlignment="Center" Margin="0,0,0,10" Padding="0">
