@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,8 +16,20 @@ namespace Fitter.App
     {
         public App()
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("cs");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("cs");
+            string language;
+            try
+            {
+                using (StreamReader sr = new StreamReader("language.txt"))
+                {
+                    language = sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                language = "en";
+            }
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
         }
     }
 }

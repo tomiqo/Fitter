@@ -73,7 +73,7 @@ namespace Fitter.App.ViewModels
             try
             {
                 await _apiClient.UserGetByEmailAsync(Model.Email);
-                MessageBox.Show("User with that email address already exists!");
+                MessageBox.Show(Resources.Texts.TextResources.SameUser_Message);
             }
             catch 
             {

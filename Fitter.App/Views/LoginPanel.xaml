@@ -5,61 +5,57 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Fitter.App.Views"
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
+             xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:LoginPanelViewModel}"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=LoginPanelViewModel}">
     <Grid x:Name="Root">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Grid Row="0" Margin="0" Width="180" Height="65">
+        <Grid Row="0" Margin="0,80" Width="250" Height="100">
             <Grid.Background>
                 <ImageBrush ImageSource="Images/logo.png"/>
             </Grid.Background>
         </Grid>
         <Grid Row="1">
+            <ComboBox Margin="25,0" x:Name = "LanguageBox" SelectedValue="{Binding Language, UpdateSourceTrigger=PropertyChanged}" Background="#FF383C42">
+                <ComboBoxItem Content="SK" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <ComboBoxItem Content="EN" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Interactions:Interaction.Triggers>
+                    <Interactions:EventTrigger EventName="SelectionChanged">
+                        <Interactions:InvokeCommandAction Command="{Binding SelectedLanguage}"/>
+                    </Interactions:EventTrigger>
+                </Interactions:Interaction.Triggers>
+            </ComboBox>
+            <TextBlock TextAlignment="Center" VerticalAlignment="Center" Text="{x:Static texts:TextResources.ChangeLang_Text}" IsHitTestVisible="False" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=LanguageBox,Path=SelectedItem}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+        <Grid Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Row="0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Log in with" FontSize="18" 
-                           HorizontalAlignment="Center" FontWeight="Bold" 
-                           Foreground="#FFE6D4D4" Padding="5,0"/>
-                    <UniformGrid Grid.Row="1" Rows="1">
-                        <Button Margin="33,0,0,0" Width="50" Height="50" BorderBrush="{x:Null}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Images/fbIcon.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Margin="0" Width="50" Height="50" BorderBrush="{x:Null}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Images/gmailIcon.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Margin="0,0,33,0" Width="50" Height="50" BorderBrush="{x:Null}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Images/mcIcon.png"/>
-                            </Button.Background>
-                        </Button>
-                    </UniformGrid>
-                </Grid>
-            </Grid>
-            <Grid Row="1">
+           <Grid Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0"  Content="or" FontSize="18" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFE6D4D4" VerticalAlignment="Bottom"></Label>
                 <Grid Row="2">
                     <Grid Margin="20,0">
                         <Grid.RowDefinitions>
@@ -79,7 +75,7 @@
                         </Grid>
                         <Grid Row="2">
                             <UniformGrid Columns="1">
-                                <Label Content="Password" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Bottom" />
+                                <Label Content="{x:Static texts:TextResources.PasswordLogin}" Foreground="#FFE6D4D4" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Bottom" />
                                 <PasswordBox PasswordChar="*" Background="#FF383C42" MaxHeight="35" 
                                         Name="PasswordBox" Foreground="#FFE6D4D4"  FontSize="16" Padding="3,0"/>
                             </UniformGrid>
@@ -89,7 +85,7 @@
             </Grid>
             <Grid Row="2" >
                 <Button BorderBrush="{x:Null}" Background="#FF2E9110" Foreground="#FFE6D4D4" 
-                        Content="Log In" FontWeight="Bold" FontSize="16" MinHeight="50" Height="50" VerticalAlignment="Bottom"
+                        Content="{x:Static texts:TextResources.LoginButton}" FontWeight="Bold" FontSize="16" MinHeight="50" Height="50" VerticalAlignment="Bottom"
                         Command="{Binding NewUserCommand}" 
                         CommandParameter="{Binding ElementName=PasswordBox}"/>
             </Grid>

@@ -93,7 +93,7 @@ namespace Fitter.App.ViewModels
         {
             if (UserDetailModel.Id != TeamDetailModel.Admin.Id)
             {
-                var result = MessageBox.Show("Are you sure you want to leave the team?", "Leave team", MessageBoxButton.YesNo);
+                var result = MessageBox.Show(Resources.Texts.TextResources.LeaveTeam_Message, Resources.Texts.TextResources.LeaveTeam_MTitle, MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     await _apiClient.RemoveUserFromTeamAsync(UserDetailModel, TeamDetailModel.Id);
@@ -103,7 +103,7 @@ namespace Fitter.App.ViewModels
             }
             else
             {
-                MessageBox.Show("You are the Admin, you can not leave!", "ERROR",
+                MessageBox.Show(Resources.Texts.TextResources.LeaveAdmin_Message, "ERROR",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -112,7 +112,7 @@ namespace Fitter.App.ViewModels
         {
             if (UserDetailModel.Id == TeamDetailModel.Admin.Id)
             {
-                var result = MessageBox.Show("Are you sure you want to delete the team?", "Delete team", MessageBoxButton.YesNo);
+                var result = MessageBox.Show(Resources.Texts.TextResources.DeleteTeam_Message, Resources.Texts.TextResources.DeleteTeam_MTitle, MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     await _apiClient.DeleteTeamAsync(TeamDetailModel.Id);
@@ -122,7 +122,7 @@ namespace Fitter.App.ViewModels
             }
             else
             {
-                MessageBox.Show("Only the Admin can delete the team!", "ERROR",
+                MessageBox.Show(Resources.Texts.TextResources.CanNotDeleteTeam_Message, "ERROR",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

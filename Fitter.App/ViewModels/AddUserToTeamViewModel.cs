@@ -77,7 +77,7 @@ namespace Fitter.App.ViewModels
             }
             catch (Exception)
             {
-                MessageBox.Show("User does not exists!");
+                MessageBox.Show(Resources.Texts.TextResources.NoUser_Message);
             }
         }
 

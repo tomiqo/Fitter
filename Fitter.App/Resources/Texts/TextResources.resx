@@ -125,7 +125,7 @@
     <value>Comment</value>
   </data>
   <data name="UserInfo_Title" xml:space="preserve">
-    <value>User:</value>
+    <value>User information:</value>
   </data>
   <data name="UsersTeams_Text" xml:space="preserve">
     <value>User's teams:</value>
@@ -133,17 +133,14 @@
   <data name="LastActivity_Text" xml:space="preserve">
     <value>Last Activity:</value>
   </data>
-  <data name="TeamDetails_TeamTitle" xml:space="preserve">
-    <value>Team</value>
-  </data>
-  <data name="TeamDetails_DetailsTitle" xml:space="preserve">
-    <value>details:</value>
+  <data name="TeamInfo_Title" xml:space="preserve">
+    <value>Team informations:</value>
   </data>
   <data name="Admin_Text" xml:space="preserve">
     <value>Admin:</value>
   </data>
-  <data name="UsersInTeams_Text" xml:space="preserve">
-    <value>Users in teams:</value>
+  <data name="UsersInTeam_Text" xml:space="preserve">
+    <value>Users in team:</value>
   </data>
   <data name="RemoveUser_Title" xml:space="preserve">
     <value>Remove User</value>
@@ -174,5 +171,74 @@
   </data>
   <data name="LoginError_Message" xml:space="preserve">
     <value>Incorrect email or password.</value>
+  </data>
+  <data name="SameTeam_Message" xml:space="preserve">
+    <value>Team with typed name already exists!</value>
+  </data>
+  <data name="SameUser_Message" xml:space="preserve">
+    <value>User with that email address already exists!</value>
+  </data>
+  <data name="NoUser_Message" xml:space="preserve">
+    <value>User does not exists!</value>
+  </data>
+  <data name="WrongPassword_Message" xml:space="preserve">
+    <value>Wrong Password!</value>
+  </data>
+  <data name="KickAdmin_Message" xml:space="preserve">
+    <value>You can not kick the Admin!</value>
+  </data>
+  <data name="LeaveTeam_Message" xml:space="preserve">
+    <value>Are you sure you want to leave the team?</value>
+  </data>
+  <data name="LeaveAdmin_Message" xml:space="preserve">
+    <value>You are the Admin, you can not leave!</value>
+  </data>
+  <data name="DeleteTeam_Message" xml:space="preserve">
+    <value>Are you sure you want to delete the team?</value>
+  </data>
+  <data name="CanNotDeleteTeam_Message" xml:space="preserve">
+    <value>Only the Admin can delete the team!</value>
+  </data>
+  <data name="CanNotDeleteComment_Message" xml:space="preserve">
+    <value>Only the author can delete the comment!</value>
+  </data>
+  <data name="DeleteComment_Message" xml:space="preserve">
+    <value>Are you sure you want to delete the comment?</value>
+  </data>
+  <data name="CanNotDeletePost_Message" xml:space="preserve">
+    <value>Only the author can delete the post!</value>
+  </data>
+  <data name="DeletePost_Message" xml:space="preserve">
+    <value>Are you sure you want to delete the post?</value>
+  </data>
+  <data name="Post_Message" xml:space="preserve">
+    <value>Write what's on your mind...</value>
+  </data>
+  <data name="FullName_Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="TeamsHeader_Text" xml:space="preserve">
+    <value>Teams:</value>
+  </data>
+  <data name="PostTitle_Message" xml:space="preserve">
+    <value>Add title here...</value>
+  </data>
+  <data name="LeaveTeam_MTitle" xml:space="preserve">
+    <value>Leave Team</value>
+  </data>
+  <data name="DeleteTeam_MTitle" xml:space="preserve">
+    <value>Delete Team</value>
+  </data>
+  <data name="DeleteComment_MTitle" xml:space="preserve">
+    <value>Delete Comment</value>
+  </data>
+  <data name="DeletePost_MTitle" xml:space="preserve">
+    <value>Delete Post</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>Restart the application to apply changes.</value>
+  </data>
+  <data name="ChangeLang_Text" xml:space="preserve">
+    <value>Change language</value>
   </data>
 </root>

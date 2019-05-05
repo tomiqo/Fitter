@@ -185,14 +185,14 @@ namespace Fitter.App.ViewModels
             }
             else
             {
-                MessageBox.Show("Only the author can delete the comment!", "ERROR",
+                MessageBox.Show(Resources.Texts.TextResources.CanNotDeleteComment_Message, "ERROR",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private async void DeleteComment(Guid id)
         {
-            var result = MessageBox.Show("Are you sure you want to delete the comment?", "Delete comment", MessageBoxButton.YesNo);
+            var result = MessageBox.Show(Resources.Texts.TextResources.DeleteComment_Message, Resources.Texts.TextResources.DeleteComment_MTitle, MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
                 await _apiClient.DeleteCommentAsync(id);
@@ -209,14 +209,14 @@ namespace Fitter.App.ViewModels
             }
             else
             {
-                MessageBox.Show("Only the author can delete the post!", "ERROR",
+                MessageBox.Show(Resources.Texts.TextResources.CanNotDeletePost_Message, "ERROR",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private async void DeletePost(Guid id)
         {
-            var result = MessageBox.Show("Are you sure you want to delete the post?", "Delete post", MessageBoxButton.YesNo);
+            var result = MessageBox.Show(Resources.Texts.TextResources.DeletePost_Message, Resources.Texts.TextResources.DeletePost_MTitle, MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
                 await _apiClient.DeletePostAsync(id);

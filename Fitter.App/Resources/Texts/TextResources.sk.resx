@@ -125,7 +125,7 @@
     <value>Komentovať</value>
   </data>
   <data name="UserInfo_Title" xml:space="preserve">
-    <value>Používateľ:</value>
+    <value>Informácie o používateľovi:</value>
   </data>
   <data name="UsersTeams_Text" xml:space="preserve">
     <value>Tímy používateľa:</value>
@@ -133,16 +133,13 @@
   <data name="LastActivity_Text" xml:space="preserve">
     <value>Posledná aktivita:</value>
   </data>
-  <data name="TeamDetails_TeamTitle" xml:space="preserve">
-    <value>Tím</value>
-  </data>
-  <data name="TeamDetails_DetailsTitle" xml:space="preserve">
-    <value>- detaily:</value>
+  <data name="TeamInfo_Title" xml:space="preserve">
+    <value>Informácie o tíme:</value>
   </data>
   <data name="Admin_Text" xml:space="preserve">
     <value>Administrátor:</value>
   </data>
-  <data name="UsersInTeams_Text" xml:space="preserve">
+  <data name="UsersInTeam_Text" xml:space="preserve">
     <value>Používatelia v tíme:</value>
   </data>
   <data name="RemoveUser_Title" xml:space="preserve">
@@ -174,5 +171,74 @@
   </data>
   <data name="LoginError_Message" xml:space="preserve">
     <value>Nesprávny email alebo heslo.</value>
+  </data>
+  <data name="SameTeam_Message" xml:space="preserve">
+    <value>Tím s týmto názvom už existuje!</value>
+  </data>
+  <data name="SameUser_Message" xml:space="preserve">
+    <value>Užívateľ s touto emailovou adresou už existuje!</value>
+  </data>
+  <data name="NoUser_Message" xml:space="preserve">
+    <value>Používateľ neexistuje!</value>
+  </data>
+  <data name="WrongPassword_Message" xml:space="preserve">
+    <value>Nesprávne heslo!</value>
+  </data>
+  <data name="KickAdmin_Message" xml:space="preserve">
+    <value>Admin nesmie byť odstránený z tímu!</value>
+  </data>
+  <data name="LeaveTeam_Message" xml:space="preserve">
+    <value>Ste si istý, že chcete opustiť tím?</value>
+  </data>
+  <data name="LeaveAdmin_Message" xml:space="preserve">
+    <value>Nemôžete opustiť tím ako administrátor!</value>
+  </data>
+  <data name="DeleteTeam_Message" xml:space="preserve">
+    <value>Ste si istý, že chcete vymazať tím?</value>
+  </data>
+  <data name="CanNotDeleteTeam_Message" xml:space="preserve">
+    <value>Iba administrátor smie vymazať tím!</value>
+  </data>
+  <data name="CanNotDeleteComment_Message" xml:space="preserve">
+    <value>Iba autor môže odstrániť komentár!</value>
+  </data>
+  <data name="DeleteComment_Message" xml:space="preserve">
+    <value>Ste si istý, že chcete odstrániť komentár?</value>
+  </data>
+  <data name="CanNotDeletePost_Message" xml:space="preserve">
+    <value>Iba autor smie odstrániť príspevok!</value>
+  </data>
+  <data name="DeletePost_Message" xml:space="preserve">
+    <value>Ste si istý, že chcete odstrániť príspevok?</value>
+  </data>
+  <data name="Post_Message" xml:space="preserve">
+    <value>Napíšte čo si myslíte...</value>
+  </data>
+  <data name="FullName_Text" xml:space="preserve">
+    <value>Meno:</value>
+  </data>
+  <data name="TeamsHeader_Text" xml:space="preserve">
+    <value>Tímy:</value>
+  </data>
+  <data name="PostTitle_Message" xml:space="preserve">
+    <value>Pridajte titulok...</value>
+  </data>
+  <data name="LeaveTeam_MTitle" xml:space="preserve">
+    <value>Opustiť tím</value>
+  </data>
+  <data name="DeleteTeam_MTitle" xml:space="preserve">
+    <value>Odstrániť tím</value>
+  </data>
+  <data name="DeleteComment_MTitle" xml:space="preserve">
+    <value>Odstrániť komentár</value>
+  </data>
+  <data name="DeletePost_MTitle" xml:space="preserve">
+    <value>Odstrániť príspevok</value>
+  </data>
+  <data name="Restart_Message" xml:space="preserve">
+    <value>Reštartujte aplikáciu pre zmenu jazyka.</value>
+  </data>
+  <data name="ChangeLang_Text" xml:space="preserve">
+    <value>Zmena jazyka</value>
   </data>
 </root>

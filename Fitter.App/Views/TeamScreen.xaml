@@ -8,6 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700"
              d:DataContext="{d:DesignInstance viewModels:TeamScreenViewModel}"
@@ -102,7 +103,7 @@
                             <toolkit:RichTextBoxFormatBar/>
                         </toolkit:RichTextBoxFormatBarManager.FormatBar>
                     </toolkit:RichTextBox>
-                    <TextBlock Grid.Column="0" IsHitTestVisible="False" Foreground="#FFE6D4D4" Text="Add title here..." FontSize="18" FontStyle="Oblique" Padding="3,3,3,3" Margin="3,0,0,0">
+                    <TextBlock Grid.Column="0" IsHitTestVisible="False" Foreground="#FFE6D4D4" Text="{x:Static texts:TextResources.PostTitle_Message}" FontSize="18" FontStyle="Oblique" Padding="3,3,3,3" Margin="3,0,0,0">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -114,7 +115,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Button Grid.Column="1" Background="#FFE6D4D4" Content="CREATE POST" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Command="{Binding CreatePostCommand}"/>
+                    <Button Grid.Column="1" Background="#FFE6D4D4" Content="{x:Static texts:TextResources.CreatePost_Button}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Command="{Binding CreatePostCommand}"/>
                 </Grid>
                 <toolkit:RichTextBox Grid.Row="1" Text="{Binding PostModel.Text, UpdateSourceTrigger=PropertyChanged}" x:Name="PostTextBox" 
                                      Foreground="#7f8186" Background="#34373c" FontSize="16" VerticalContentAlignment="Top" Padding="3,3,3,33" Margin="0" BorderThickness="0">
@@ -122,7 +123,7 @@
                         <toolkit:RichTextBoxFormatBar/>
                     </toolkit:RichTextBoxFormatBarManager.FormatBar>
                 </toolkit:RichTextBox>
-                <TextBlock Grid.Row="1" IsHitTestVisible="False" Text="Write what's on your mind..." TextWrapping="Wrap" FontStyle="Oblique" VerticalAlignment="Top" Padding="3,3,3,0" FontSize="16" Foreground="#7f8186">
+                <TextBlock Grid.Row="1" IsHitTestVisible="False" Text="{x:Static texts:TextResources.Post_Message}" TextWrapping="Wrap" FontStyle="Oblique" VerticalAlignment="Top" Padding="3,3,3,0" FontSize="16" Foreground="#7f8186">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -274,7 +275,7 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-                                            <Button Grid.Column="1" x:Name="CommentButton" Background="#FFE6D4D4" Content="COMMENT" HorizontalContentAlignment="Right" HorizontalAlignment="Right" FontSize="10" Padding="16,4" Margin="0" Height="32" VerticalContentAlignment="Center" VerticalAlignment="Bottom">
+                                            <Button Grid.Column="1" x:Name="CommentButton" Background="#FFE6D4D4" Content="{x:Static texts:TextResources.Comment_Button}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" FontSize="10" Padding="16,4" Margin="0" Height="32" VerticalContentAlignment="Center" VerticalAlignment="Bottom">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
                                                         <i:InvokeCommandAction

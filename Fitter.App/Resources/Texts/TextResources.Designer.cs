@@ -124,6 +124,42 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only the author can delete the comment!.
+        /// </summary>
+        public static string CanNotDeleteComment_Message {
+            get {
+                return ResourceManager.GetString("CanNotDeleteComment_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the author can delete the post!.
+        /// </summary>
+        public static string CanNotDeletePost_Message {
+            get {
+                return ResourceManager.GetString("CanNotDeletePost_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the Admin can delete the team!.
+        /// </summary>
+        public static string CanNotDeleteTeam_Message {
+            get {
+                return ResourceManager.GetString("CanNotDeleteTeam_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change language.
+        /// </summary>
+        public static string ChangeLang_Text {
+            get {
+                return ResourceManager.GetString("ChangeLang_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment_Button {
@@ -160,11 +196,83 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the comment?.
+        /// </summary>
+        public static string DeleteComment_Message {
+            get {
+                return ResourceManager.GetString("DeleteComment_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Comment.
+        /// </summary>
+        public static string DeleteComment_MTitle {
+            get {
+                return ResourceManager.GetString("DeleteComment_MTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the post?.
+        /// </summary>
+        public static string DeletePost_Message {
+            get {
+                return ResourceManager.GetString("DeletePost_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Post.
+        /// </summary>
+        public static string DeletePost_MTitle {
+            get {
+                return ResourceManager.GetString("DeletePost_MTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the team?.
+        /// </summary>
+        public static string DeleteTeam_Message {
+            get {
+                return ResourceManager.GetString("DeleteTeam_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Team.
+        /// </summary>
+        public static string DeleteTeam_MTitle {
+            get {
+                return ResourceManager.GetString("DeleteTeam_MTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First name:.
         /// </summary>
         public static string FirstName_Text {
             get {
                 return ResourceManager.GetString("FirstName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        public static string FullName_Text {
+            get {
+                return ResourceManager.GetString("FullName_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can not kick the Admin!.
+        /// </summary>
+        public static string KickAdmin_Message {
+            get {
+                return ResourceManager.GetString("KickAdmin_Message", resourceCulture);
             }
         }
         
@@ -187,6 +295,33 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are the Admin, you can not leave!.
+        /// </summary>
+        public static string LeaveAdmin_Message {
+            get {
+                return ResourceManager.GetString("LeaveAdmin_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to leave the team?.
+        /// </summary>
+        public static string LeaveTeam_Message {
+            get {
+                return ResourceManager.GetString("LeaveTeam_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave Team.
+        /// </summary>
+        public static string LeaveTeam_MTitle {
+            get {
+                return ResourceManager.GetString("LeaveTeam_MTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log In.
         /// </summary>
         public static string LoginButton {
@@ -205,11 +340,38 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User does not exists!.
+        /// </summary>
+        public static string NoUser_Message {
+            get {
+                return ResourceManager.GetString("NoUser_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordLogin {
             get {
                 return ResourceManager.GetString("PasswordLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write what&apos;s on your mind....
+        /// </summary>
+        public static string Post_Message {
+            get {
+                return ResourceManager.GetString("Post_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add title here....
+        /// </summary>
+        public static string PostTitle_Message {
+            get {
+                return ResourceManager.GetString("PostTitle_Message", resourceCulture);
             }
         }
         
@@ -223,6 +385,33 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart the application to apply changes..
+        /// </summary>
+        public static string Restart_Message {
+            get {
+                return ResourceManager.GetString("Restart_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team with typed name already exists!.
+        /// </summary>
+        public static string SameTeam_Message {
+            get {
+                return ResourceManager.GetString("SameTeam_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with that email address already exists!.
+        /// </summary>
+        public static string SameUser_Message {
+            get {
+                return ResourceManager.GetString("SameUser_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description:.
         /// </summary>
         public static string TeamDesc_Text {
@@ -232,20 +421,11 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to details:.
+        ///   Looks up a localized string similar to Team informations:.
         /// </summary>
-        public static string TeamDetails_DetailsTitle {
+        public static string TeamInfo_Title {
             get {
-                return ResourceManager.GetString("TeamDetails_DetailsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Team.
-        /// </summary>
-        public static string TeamDetails_TeamTitle {
-            get {
-                return ResourceManager.GetString("TeamDetails_TeamTitle", resourceCulture);
+                return ResourceManager.GetString("TeamInfo_Title", resourceCulture);
             }
         }
         
@@ -268,7 +448,16 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User:.
+        ///   Looks up a localized string similar to Teams:.
+        /// </summary>
+        public static string TeamsHeader_Text {
+            get {
+                return ResourceManager.GetString("TeamsHeader_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User information:.
         /// </summary>
         public static string UserInfo_Title {
             get {
@@ -277,11 +466,11 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users in teams:.
+        ///   Looks up a localized string similar to Users in team:.
         /// </summary>
-        public static string UsersInTeams_Text {
+        public static string UsersInTeam_Text {
             get {
-                return ResourceManager.GetString("UsersInTeams_Text", resourceCulture);
+                return ResourceManager.GetString("UsersInTeam_Text", resourceCulture);
             }
         }
         
@@ -291,6 +480,15 @@ namespace Fitter.App.Resources.Texts {
         public static string UsersTeams_Text {
             get {
                 return ResourceManager.GetString("UsersTeams_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong Password!.
+        /// </summary>
+        public static string WrongPassword_Message {
+            get {
+                return ResourceManager.GetString("WrongPassword_Message", resourceCulture);
             }
         }
     }
