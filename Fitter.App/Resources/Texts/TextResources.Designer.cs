@@ -340,6 +340,15 @@ namespace Fitter.App.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing Text.
+        /// </summary>
+        public static string MissingText_Message {
+            get {
+                return ResourceManager.GetString("MissingText_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User does not exists!.
         /// </summary>
         public static string NoUser_Message {

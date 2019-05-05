@@ -241,4 +241,7 @@
   <data name="ChangeLang_Text" xml:space="preserve">
     <value>Change language</value>
   </data>
+  <data name="MissingText_Message" xml:space="preserve">
+    <value>Missing Text</value>
+  </data>
 </root>

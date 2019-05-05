@@ -338,7 +338,7 @@ namespace Fitter.App.ViewModels
             }
             else
             {
-                MessageBox.Show("Missing text!", "ERROR",
+                MessageBox.Show(Resources.Texts.TextResources.MissingText_Message, "ERROR",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
