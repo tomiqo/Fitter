@@ -10,7 +10,6 @@ using Fitter.BL.Repositories;
 using Fitter.BL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Fitter.Swagger.API.Controllers

@@ -155,7 +155,7 @@ namespace Fitter.App.ViewModels
 
         private async void ShowTeamInfo(TeamInfoMessage obj)
         {
-            if (obj.UserId == null)
+            if (obj.UserId == null && UserDetailModel != null)
             {
                 obj.UserId = UserDetailModel.Id;
             }

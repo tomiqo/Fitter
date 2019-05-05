@@ -22,6 +22,7 @@ namespace Fitter.App.ViewModels
         private readonly IMediator _mediator;
         private readonly APIClient _apiClient;
         private TeamDetailModelInner _teamModel;
+        private Guid? _userId;
 
         private ObservableCollection<UserListModelInner> _users;
 
@@ -72,7 +73,11 @@ namespace Fitter.App.ViewModels
             {
                 var user = await _apiClient.UserGetByIdAsync(obj.Id);
                 await _apiClient.AddUserToTeamAsync(user, TeamModel.Id);
-                _mediator.Send(new TeamInfoMessage{ TeamId = TeamModel.Id });
+                _mediator.Send(new TeamInfoMessage
+                {
+                    TeamId = TeamModel.Id, 
+                    UserId = _userId
+                });
                 TeamModel = null;
             }
             catch (Exception)
@@ -93,6 +98,10 @@ namespace Fitter.App.ViewModels
 
         private async void AddUser(AddUserToTeamMessage obj)
         {
+            if (obj.UserId != null)
+            {
+                _userId = obj.UserId;
+            }
             TeamModel = await _apiClient.GetTeamByIdAsync(obj.Id);
             Users = new ObservableCollection<UserListModelInner>(await _apiClient.UsersNotInTeamAsync(TeamModel.Id));
         }

@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fitter.BL\Fitter.BL.csproj" />
     <ProjectReference Include="..\Fitter.Swagger.API\Fitter.Swagger.API.csproj" />
   </ItemGroup>
 

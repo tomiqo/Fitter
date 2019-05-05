@@ -7,7 +7,6 @@
              xmlns:viewModels="clr-namespace:Fitter.App.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:texts="clr-namespace:Fitter.App.Resources.Texts"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700"

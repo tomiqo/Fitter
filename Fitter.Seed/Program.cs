@@ -21,10 +21,10 @@ namespace Fitter.Seed
         {
             var user = new User
             {
-                FirstName = "Jon",
-                LastName = "Snow",
-                Email = "a",
-                Password = "a",
+                FirstName = "Adrian",
+                LastName = "Boros",
+                Email = "ab@fit.cz",
+                Password = "aaa",
             };
             var passwordHasher = new PasswordHasher(user.Password);
             user.Password = passwordHasher.GetHashedPassword();
