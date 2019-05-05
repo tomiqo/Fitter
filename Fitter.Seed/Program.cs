@@ -30,6 +30,18 @@ namespace Fitter.Seed
             user.Password = passwordHasher.GetHashedPassword();
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
+
+            var user2 = new User
+            {
+                FirstName = "Matej",
+                LastName = "Zahorsky",
+                Email = "mz@fit.cz",
+                Password = "mmm",
+            };
+            var passwordHasher2 = new PasswordHasher(user2.Password);
+            user2.Password = passwordHasher2.GetHashedPassword();
+            dbContext.Users.Add(user2);
+            dbContext.SaveChanges();
         }
 
         private static void ClearDatabase(FitterDbContext dbContext)

@@ -7,7 +7,6 @@
 namespace Fitter.App.API
 {
     using Microsoft.Rest;
-    using Microsoft.Rest.ClientRuntime;
     using Microsoft.Rest.Azure;
     using Microsoft.Rest.Serialization;
     using Models;

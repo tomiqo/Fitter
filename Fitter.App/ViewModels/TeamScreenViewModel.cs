@@ -332,7 +332,6 @@ namespace Fitter.App.ViewModels
                     Text = text,
                     Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
                 };
-
                 await _apiClient.CreateCommentAsync(comment);
                 OnLoad();
             }

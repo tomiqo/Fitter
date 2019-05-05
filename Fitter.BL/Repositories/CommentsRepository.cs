@@ -25,10 +25,11 @@ namespace Fitter.BL.Repositories
             using (var dbContext = _fitterDbContext.CreateDbContext())
             {
                 var entity = _mapper.MapCommentToEntity(comment);
+                dbContext.Entry(entity).State = EntityState.Unchanged;
                 dbContext.Comments.Add(entity);
-                dbContext.Entry(entity.Author).State = EntityState.Unchanged;
+                /*dbContext.Entry(entity.Author).State = EntityState.Unchanged;
                 dbContext.Entry(entity.Post).State = EntityState.Unchanged;
-                dbContext.Entry(entity.Post.Team).State = EntityState.Unchanged;
+                dbContext.Entry(entity.Post.Team).State = EntityState.Unchanged;*/
                 dbContext.SaveChanges();
             }
         }
