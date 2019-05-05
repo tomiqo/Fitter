@@ -7,6 +7,7 @@
 namespace Fitter.App.API
 {
     using Microsoft.Rest;
+    using Microsoft.Rest.Serialization;
     using Microsoft.Rest.Azure;
     using Models;
     using Newtonsoft.Json;
